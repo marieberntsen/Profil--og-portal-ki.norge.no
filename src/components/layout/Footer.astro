@@ -1,4 +1,6 @@
 ---
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+
 const partners = [
   { name: 'Nkom', url: 'https://www.nkom.no' },
   { name: 'Datatilsynet', url: 'https://www.datatilsynet.no' },
@@ -9,46 +11,57 @@ const partners = [
 <footer class="footer">
   <div class="footer-container">
     <div class="footer-section">
-      <h2 class="footer-heading">KI Norge</h2>
-      <p class="footer-text">
+      <Heading level={2} size="xsmall" className="footer-heading">
+        KI Norge
+      </Heading>
+      <Paragraph size="small" className="footer-text">
         Norges nasjonale strategi for kunstig intelligens.
         Et samarbeid mellom Nkom, Datatilsynet og Digdir.
-      </p>
+      </Paragraph>
     </div>
 
     <div class="footer-section">
-      <h2 class="footer-heading">Samarbeidspartnere</h2>
+      <Heading level={2} size="xsmall" className="footer-heading">
+        Samarbeidspartnere
+      </Heading>
       <ul class="partner-list">
         {partners.map((partner) => (
           <li>
-            <a href={partner.url} class="partner-link" target="_blank" rel="noopener noreferrer">
+            <Link
+              href={partner.url}
+              className="partner-link"
+            >
               {partner.name}
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
     </div>
 
     <div class="footer-section">
-      <h2 class="footer-heading">Kontakt</h2>
-      <p class="footer-text">
-        <a href="/kontakt" class="footer-link">Kontakt oss</a><br />
-        <a href="/faq" class="footer-link">Vanlige sporsmal (FAQ)</a>
-      </p>
+      <Heading level={2} size="xsmall" className="footer-heading">
+        Kontakt
+      </Heading>
+      <Paragraph size="small" className="footer-text">
+        <Link href="/kontakt" className="footer-link">Kontakt oss</Link><br />
+        <Link href="/faq" className="footer-link">Vanlige sporsmal (FAQ)</Link>
+      </Paragraph>
     </div>
 
     <div class="footer-section">
-      <h2 class="footer-heading">Lenker</h2>
+      <Heading level={2} size="xsmall" className="footer-heading">
+        Lenker
+      </Heading>
       <ul class="link-list">
-        <li><a href="/om-oss" class="footer-link">Om oss</a></li>
-        <li><a href="/personvern" class="footer-link">Personvern</a></li>
-        <li><a href="/tilgjengelighet" class="footer-link">Tilgjengelighet</a></li>
+        <li><Link href="/om-oss" className="footer-link">Om oss</Link></li>
+        <li><Link href="/personvern" className="footer-link">Personvern</Link></li>
+        <li><Link href="/tilgjengelighet" className="footer-link">Tilgjengelighet</Link></li>
       </ul>
     </div>
   </div>
 
   <div class="footer-bottom">
-    <p>&copy; {new Date().getFullYear()} KI Norge. Alle rettigheter reservert.</p>
+    <Paragraph size="small">&copy; {new Date().getFullYear()} KI Norge. Alle rettigheter reservert.</Paragraph>
   </div>
 </footer>
 
@@ -74,15 +87,12 @@ const partners = [
     gap: var(--ds-size-2);
   }
 
-  .footer-heading {
-    font-size: var(--ds-font-size-2);
-    font-weight: var(--ds-font-weight-semibold);
+  :global(.footer-heading) {
     margin: 0;
     color: var(--ds-color-neutral-text-default);
   }
 
-  .footer-text {
-    font-size: var(--ds-font-size-0);
+  :global(.footer-text) {
     color: var(--ds-color-neutral-text-subtle);
     margin: 0;
     line-height: 1.6;
@@ -98,15 +108,15 @@ const partners = [
     gap: var(--ds-size-1);
   }
 
-  .partner-link,
-  .footer-link {
+  :global(.partner-link),
+  :global(.footer-link) {
     color: var(--ds-color-accent-text-default);
     text-decoration: none;
     font-size: var(--ds-font-size-0);
   }
 
-  .partner-link:hover,
-  .footer-link:hover {
+  :global(.partner-link:hover),
+  :global(.footer-link:hover) {
     text-decoration: underline;
   }
 
@@ -116,9 +126,8 @@ const partners = [
     text-align: center;
   }
 
-  .footer-bottom p {
+  :global(.footer-bottom p) {
     margin: 0;
-    font-size: var(--ds-font-size-0);
     color: var(--ds-color-neutral-text-subtle);
   }
 </style>
