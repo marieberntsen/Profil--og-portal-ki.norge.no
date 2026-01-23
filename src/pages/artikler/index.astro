@@ -1,6 +1,7 @@
 ---
 import Layout from '../../components/layout/Layout.astro';
 import ArticleCard from '../../components/shared/ArticleCard.astro';
+import { Heading, Paragraph, Button } from '@digdir/designsystemet-react';
 
 // Placeholder data - will be replaced with Strapi data
 const articles = [
@@ -47,18 +48,18 @@ const categories = ['Alle', 'Nyhet', 'Veiledning', 'Eksempel', 'Analyse'];
 <Layout title="Artikler" description="Nyheter, analyser og veiledning om kunstig intelligens i offentlig sektor.">
   <div class="page-container">
     <header class="page-header">
-      <h1>Artikler</h1>
-      <p class="lead">
+      <Heading level={1} size="2xlarge">Artikler</Heading>
+      <Paragraph size="large" class="lead">
         Hold deg oppdatert pa nyheter, analyser og veiledning om kunstig intelligens
         i norsk offentlig sektor.
-      </p>
+      </Paragraph>
     </header>
 
     <div class="filters">
       {categories.map((category, index) => (
-        <button class:list={['filter-button', { active: index === 0 }]}>
+        <Button variant={index === 0 ? 'primary' : 'secondary'} size="small">
           {category}
-        </button>
+        </Button>
       ))}
     </div>
 
@@ -75,9 +76,9 @@ const categories = ['Alle', 'Nyhet', 'Veiledning', 'Eksempel', 'Analyse'];
     </div>
 
     <nav class="pagination">
-      <button class="pagination-button" disabled>Forrige</button>
-      <span class="pagination-info">Side 1 av 1</span>
-      <button class="pagination-button" disabled>Neste</button>
+      <Button variant="secondary" size="small" disabled>Forrige</Button>
+      <Paragraph size="small" class="pagination-info">Side 1 av 1</Paragraph>
+      <Button variant="secondary" size="small" disabled>Neste</Button>
     </nav>
   </div>
 </Layout>
@@ -93,16 +94,11 @@ const categories = ['Alle', 'Nyhet', 'Veiledning', 'Eksempel', 'Analyse'];
     margin-bottom: var(--ds-size-6);
   }
 
-  .page-header h1 {
-    font-size: var(--ds-font-size-8);
-    font-weight: var(--ds-font-weight-bold);
+  .page-header :global(h1) {
     margin: 0 0 var(--ds-size-4);
   }
 
   .lead {
-    font-size: var(--ds-font-size-3);
-    color: var(--ds-color-neutral-text-subtle);
-    line-height: 1.6;
     margin: 0;
   }
 
@@ -111,26 +107,6 @@ const categories = ['Alle', 'Nyhet', 'Veiledning', 'Eksempel', 'Analyse'];
     gap: var(--ds-size-2);
     margin-bottom: var(--ds-size-6);
     flex-wrap: wrap;
-  }
-
-  .filter-button {
-    padding: var(--ds-size-2) var(--ds-size-4);
-    background-color: var(--ds-color-neutral-surface-default);
-    border: 1px solid var(--ds-color-neutral-border-subtle);
-    border-radius: var(--ds-border-radius-md);
-    font-size: var(--ds-font-size-1);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .filter-button:hover {
-    background-color: var(--ds-color-neutral-surface-hover);
-  }
-
-  .filter-button.active {
-    background-color: var(--ds-color-accent-surface-default);
-    border-color: var(--ds-color-accent-border-default);
-    color: var(--ds-color-accent-text-default);
   }
 
   .articles-grid {
@@ -147,27 +123,7 @@ const categories = ['Alle', 'Nyhet', 'Veiledning', 'Eksempel', 'Analyse'];
     gap: var(--ds-size-4);
   }
 
-  .pagination-button {
-    padding: var(--ds-size-2) var(--ds-size-4);
-    background-color: var(--ds-color-neutral-surface-default);
-    border: 1px solid var(--ds-color-neutral-border-subtle);
-    border-radius: var(--ds-border-radius-md);
-    font-size: var(--ds-font-size-1);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .pagination-button:hover:not(:disabled) {
-    background-color: var(--ds-color-neutral-surface-hover);
-  }
-
-  .pagination-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
   .pagination-info {
-    font-size: var(--ds-font-size-1);
-    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
   }
 </style>
