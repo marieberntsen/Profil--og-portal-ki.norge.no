@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../components/layout/Layout.astro';
+import { Heading, Paragraph, Button, Link } from '@digdir/designsystemet-react';
 
 // Placeholder projects - will be replaced with Strapi data
 const projects = [
@@ -42,38 +43,40 @@ const statusColors = {
 <Layout title="Sandkasse-prosjekter" description="Se pagaende og fullforte prosjekter i den regulatoriske sandkassen.">
   <div class="page-container">
     <header class="page-header">
-      <h1>Sandkasse-prosjekter</h1>
-      <p class="lead">
+      <Heading level={1} size="2xlarge">Sandkasse-prosjekter</Heading>
+      <Paragraph size="large" class="lead">
         Utforsk pagaende og fullforte prosjekter i var regulatoriske sandkasse.
-      </p>
+      </Paragraph>
     </header>
 
     <div class="filters">
-      <button class="filter-button active">Alle</button>
-      <button class="filter-button">Pagaende</button>
-      <button class="filter-button">Fullforte</button>
-      <button class="filter-button">Planlegging</button>
+      <Button variant="primary" size="small">Alle</Button>
+      <Button variant="secondary" size="small">Pagaende</Button>
+      <Button variant="secondary" size="small">Fullforte</Button>
+      <Button variant="secondary" size="small">Planlegging</Button>
     </div>
 
     <div class="projects-grid">
       {projects.map((project) => (
-        <a href={`/sandkasse/prosjekter/${project.slug}`} class="project-card">
+        <Link href={`/sandkasse/prosjekter/${project.slug}`} className="project-card">
           <div class="project-header">
             <span class={`status-badge ${statusColors[project.status]}`}>
               {statusLabels[project.status]}
             </span>
           </div>
-          <h2 class="project-title">{project.title}</h2>
-          <p class="project-org">{project.organization}</p>
-          <p class="project-description">{project.description}</p>
-        </a>
+          <Heading level={2} size="medium" class="project-title">{project.title}</Heading>
+          <Paragraph size="xsmall" class="project-org">{project.organization}</Paragraph>
+          <Paragraph size="small" class="project-description">{project.description}</Paragraph>
+        </Link>
       ))}
     </div>
 
     <section class="apply-section">
-      <h2>Har du et KI-prosjekt?</h2>
-      <p>Vi er alltid interessert i a hore om nye prosjekter som kan passe i sandkassen.</p>
-      <a href="/kontakt" class="apply-button">Ta kontakt</a>
+      <Heading level={2} size="large">Har du et KI-prosjekt?</Heading>
+      <Paragraph>Vi er alltid interessert i a hore om nye prosjekter som kan passe i sandkassen.</Paragraph>
+      <Button asChild size="medium">
+        <a href="/kontakt">Ta kontakt</a>
+      </Button>
     </section>
   </div>
 </Layout>
@@ -89,16 +92,11 @@ const statusColors = {
     margin-bottom: var(--ds-size-6);
   }
 
-  .page-header h1 {
-    font-size: var(--ds-font-size-8);
-    font-weight: var(--ds-font-weight-bold);
+  .page-header :global(h1) {
     margin: 0 0 var(--ds-size-4);
   }
 
   .lead {
-    font-size: var(--ds-font-size-3);
-    color: var(--ds-color-neutral-text-subtle);
-    line-height: 1.6;
     margin: 0;
   }
 
@@ -109,26 +107,6 @@ const statusColors = {
     flex-wrap: wrap;
   }
 
-  .filter-button {
-    padding: var(--ds-size-2) var(--ds-size-4);
-    background-color: var(--ds-color-neutral-surface-default);
-    border: 1px solid var(--ds-color-neutral-border-subtle);
-    border-radius: var(--ds-border-radius-md);
-    font-size: var(--ds-font-size-1);
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .filter-button:hover {
-    background-color: var(--ds-color-neutral-surface-hover);
-  }
-
-  .filter-button.active {
-    background-color: var(--ds-color-accent-surface-default);
-    border-color: var(--ds-color-accent-border-default);
-    color: var(--ds-color-accent-text-default);
-  }
-
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -136,7 +114,7 @@ const statusColors = {
     margin-bottom: var(--ds-size-10);
   }
 
-  .project-card {
+  :global(.project-card) {
     display: flex;
     flex-direction: column;
     padding: var(--ds-size-5);
@@ -148,7 +126,7 @@ const statusColors = {
     transition: all 0.2s ease;
   }
 
-  .project-card:hover {
+  :global(.project-card:hover) {
     border-color: var(--ds-color-accent-border-default);
     box-shadow: var(--ds-shadow-md);
     transform: translateY(-2px);
@@ -182,22 +160,16 @@ const statusColors = {
   }
 
   .project-title {
-    font-size: var(--ds-font-size-3);
-    font-weight: var(--ds-font-weight-semibold);
     margin: 0 0 var(--ds-size-1);
   }
 
   .project-org {
-    font-size: var(--ds-font-size-0);
     color: var(--ds-color-accent-text-default);
     margin: 0 0 var(--ds-size-3);
   }
 
   .project-description {
-    font-size: var(--ds-font-size-1);
-    color: var(--ds-color-neutral-text-subtle);
     margin: 0;
-    line-height: 1.5;
   }
 
   .apply-section {
@@ -207,30 +179,15 @@ const statusColors = {
     text-align: center;
   }
 
-  .apply-section h2 {
-    font-size: var(--ds-font-size-5);
-    font-weight: var(--ds-font-weight-semibold);
+  .apply-section :global(h2) {
     margin: 0 0 var(--ds-size-2);
   }
 
-  .apply-section p {
-    font-size: var(--ds-font-size-1);
-    color: var(--ds-color-neutral-text-subtle);
+  .apply-section :global(p) {
     margin: 0 0 var(--ds-size-4);
   }
 
-  .apply-button {
+  .apply-section :global(button) {
     display: inline-block;
-    padding: var(--ds-size-3) var(--ds-size-6);
-    background-color: var(--ds-color-accent-base-default);
-    color: var(--ds-color-accent-contrast-default);
-    text-decoration: none;
-    border-radius: var(--ds-border-radius-md);
-    font-weight: var(--ds-font-weight-medium);
-    transition: background-color 0.2s ease;
-  }
-
-  .apply-button:hover {
-    background-color: var(--ds-color-accent-base-hover);
   }
 </style>

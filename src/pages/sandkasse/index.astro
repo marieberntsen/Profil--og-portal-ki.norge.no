@@ -1,5 +1,6 @@
 ---
 import Layout from '../../components/layout/Layout.astro';
+import { Heading, Paragraph, Button } from '@digdir/designsystemet-react';
 
 const benefits = [
   {
@@ -32,44 +33,44 @@ const process = [
 <Layout title="Regulatorisk sandkasse" description="Test og utvikle KI-losninger i et trygt miljo med veiledning fra eksperter.">
   <div class="page-container">
     <header class="page-header">
-      <h1>Regulatorisk sandkasse</h1>
-      <p class="lead">
+      <Heading level={1} size="2xlarge">Regulatorisk sandkasse</Heading>
+      <Paragraph size="large" class="lead">
         Et trygt miljo for a teste og utvikle KI-losninger med veiledning
         fra eksperter pa regelverk, personvern og teknologi.
-      </p>
+      </Paragraph>
     </header>
 
     <section class="section">
-      <h2>Hva er sandkassen?</h2>
-      <p>
+      <Heading level={2} size="large">Hva er sandkassen?</Heading>
+      <Paragraph>
         Den regulatoriske sandkassen for KI er et kontrollert miljo der offentlige
         virksomheter kan utforske og utvikle innovative KI-losninger sammen med
         regulatoriske myndigheter. Sandkassen gir deltakerne mulighet til a teste
         nye ideer mens de far veiledning om hvordan de kan overholde regelverket.
-      </p>
+      </Paragraph>
     </section>
 
     <section class="section">
-      <h2>Fordeler ved deltakelse</h2>
+      <Heading level={2} size="large">Fordeler ved deltakelse</Heading>
       <div class="benefits-grid">
         {benefits.map((benefit) => (
           <div class="benefit-card">
-            <h3 class="benefit-title">{benefit.title}</h3>
-            <p class="benefit-description">{benefit.description}</p>
+            <Heading level={3} size="small" class="benefit-title">{benefit.title}</Heading>
+            <Paragraph size="small" class="benefit-description">{benefit.description}</Paragraph>
           </div>
         ))}
       </div>
     </section>
 
     <section class="section">
-      <h2>Prosess</h2>
+      <Heading level={2} size="large">Prosess</Heading>
       <div class="process-steps">
         {process.map((item) => (
           <div class="process-step">
             <div class="step-number">{item.step}</div>
             <div class="step-content">
-              <h3 class="step-title">{item.title}</h3>
-              <p class="step-description">{item.description}</p>
+              <Heading level={3} size="small" class="step-title">{item.title}</Heading>
+              <Paragraph size="small" class="step-description">{item.description}</Paragraph>
             </div>
           </div>
         ))}
@@ -77,7 +78,7 @@ const process = [
     </section>
 
     <section class="section">
-      <h2>Hvem kan soke?</h2>
+      <Heading level={2} size="large">Hvem kan soke?</Heading>
       <ul class="eligibility-list">
         <li>Kommuner og fylkeskommuner</li>
         <li>Statlige etater og direktorater</li>
@@ -87,11 +88,15 @@ const process = [
     </section>
 
     <div class="cta-section">
-      <h2>Interessert?</h2>
-      <p>Se pagaende prosjekter eller ta kontakt for a diskutere ditt prosjekt.</p>
+      <Heading level={2} size="large">Interessert?</Heading>
+      <Paragraph>Se pagaende prosjekter eller ta kontakt for a diskutere ditt prosjekt.</Paragraph>
       <div class="cta-buttons">
-        <a href="/sandkasse/prosjekter" class="cta-button primary">Se prosjekter</a>
-        <a href="/kontakt" class="cta-button secondary">Kontakt oss</a>
+        <Button asChild size="medium" variant="primary">
+          <a href="/sandkasse/prosjekter">Se prosjekter</a>
+        </Button>
+        <Button asChild size="medium" variant="secondary">
+          <a href="/kontakt">Kontakt oss</a>
+        </Button>
       </div>
     </div>
   </div>
@@ -108,16 +113,11 @@ const process = [
     margin-bottom: var(--ds-size-8);
   }
 
-  .page-header h1 {
-    font-size: var(--ds-font-size-8);
-    font-weight: var(--ds-font-weight-bold);
+  .page-header :global(h1) {
     margin: 0 0 var(--ds-size-4);
   }
 
   .lead {
-    font-size: var(--ds-font-size-3);
-    color: var(--ds-color-neutral-text-subtle);
-    line-height: 1.6;
     margin: 0;
   }
 
@@ -125,15 +125,11 @@ const process = [
     margin-bottom: var(--ds-size-10);
   }
 
-  .section h2 {
-    font-size: var(--ds-font-size-5);
-    font-weight: var(--ds-font-weight-semibold);
+  .section :global(h2) {
     margin: 0 0 var(--ds-size-4);
   }
 
-  .section p {
-    font-size: var(--ds-font-size-1);
-    line-height: 1.7;
+  .section :global(p) {
     margin: 0;
   }
 
@@ -151,16 +147,11 @@ const process = [
   }
 
   .benefit-title {
-    font-size: var(--ds-font-size-2);
-    font-weight: var(--ds-font-weight-semibold);
     margin: 0 0 var(--ds-size-2);
   }
 
   .benefit-description {
-    font-size: var(--ds-font-size-0);
-    color: var(--ds-color-neutral-text-subtle);
     margin: 0;
-    line-height: 1.5;
   }
 
   .process-steps {
@@ -194,14 +185,10 @@ const process = [
   }
 
   .step-title {
-    font-size: var(--ds-font-size-2);
-    font-weight: var(--ds-font-weight-semibold);
     margin: 0 0 var(--ds-size-1);
   }
 
   .step-description {
-    font-size: var(--ds-font-size-1);
-    color: var(--ds-color-neutral-text-subtle);
     margin: 0;
   }
 
@@ -239,15 +226,11 @@ const process = [
     text-align: center;
   }
 
-  .cta-section h2 {
-    font-size: var(--ds-font-size-5);
-    font-weight: var(--ds-font-weight-semibold);
+  .cta-section :global(h2) {
     margin: 0 0 var(--ds-size-2);
   }
 
-  .cta-section p {
-    font-size: var(--ds-font-size-1);
-    color: var(--ds-color-neutral-text-subtle);
+  .cta-section :global(p) {
     margin: 0 0 var(--ds-size-4);
   }
 
@@ -258,30 +241,7 @@ const process = [
     flex-wrap: wrap;
   }
 
-  .cta-button {
-    padding: var(--ds-size-3) var(--ds-size-6);
-    text-decoration: none;
-    border-radius: var(--ds-border-radius-md);
-    font-weight: var(--ds-font-weight-medium);
-    transition: all 0.2s ease;
-  }
-
-  .cta-button.primary {
-    background-color: var(--ds-color-accent-base-default);
-    color: var(--ds-color-accent-contrast-default);
-  }
-
-  .cta-button.primary:hover {
-    background-color: var(--ds-color-accent-base-hover);
-  }
-
-  .cta-button.secondary {
-    background-color: var(--ds-color-neutral-surface-default);
-    color: var(--ds-color-neutral-text-default);
-    border: 1px solid var(--ds-color-neutral-border-default);
-  }
-
-  .cta-button.secondary:hover {
-    background-color: var(--ds-color-neutral-surface-hover);
+  .cta-buttons :global(button) {
+    display: inline-block;
   }
 </style>
