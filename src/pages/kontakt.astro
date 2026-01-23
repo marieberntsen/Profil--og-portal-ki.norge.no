@@ -1,5 +1,6 @@
 ---
 import Layout from '../components/layout/Layout.astro';
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
 
 const contacts = [
   {
@@ -26,38 +27,38 @@ const contacts = [
 <Layout title="Kontakt" description="Ta kontakt med KI Norge for sporsmal om kunstig intelligens i offentlig sektor.">
   <div class="page-container">
     <header class="page-header">
-      <h1>Kontakt oss</h1>
-      <p class="lead">
+      <Heading level={1} size="2xlarge">Kontakt oss</Heading>
+      <Paragraph class="lead" size="large">
         Har du sporsmal om KI Norge, vare tjenester eller kunstig intelligens
         i offentlig sektor? Ta gjerne kontakt.
-      </p>
+      </Paragraph>
     </header>
 
     <section class="section">
-      <h2>Generelle henvendelser</h2>
-      <p>
+      <Heading level={2} size="large">Generelle henvendelser</Heading>
+      <Paragraph>
         For generelle sporsmal om KI Norge og vart arbeid, kan du kontakte
         en av vare samarbeidspartnere nedenfor.
-      </p>
+      </Paragraph>
     </section>
 
     <section class="section">
-      <h2>Samarbeidspartnere</h2>
+      <Heading level={2} size="large">Samarbeidspartnere</Heading>
       <div class="contacts-grid">
         {contacts.map((contact) => (
           <div class="contact-card">
-            <h3 class="contact-org">{contact.org}</h3>
+            <Heading level={3} size="medium" class="contact-org">{contact.org}</Heading>
             <dl class="contact-details">
               <div class="contact-item">
                 <dt>E-post</dt>
                 <dd>
-                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                  <Link href={`mailto:${contact.email}`}>{contact.email}</Link>
                 </dd>
               </div>
               <div class="contact-item">
                 <dt>Telefon</dt>
                 <dd>
-                  <a href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a>
+                  <Link href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</Link>
                 </dd>
               </div>
               <div class="contact-item">
@@ -71,21 +72,21 @@ const contacts = [
     </section>
 
     <section class="section">
-      <h2>Regulatorisk sandkasse</h2>
-      <p>
+      <Heading level={2} size="large">Regulatorisk sandkasse</Heading>
+      <Paragraph>
         Onsker din virksomhet a delta i den regulatoriske sandkassen?
-        Besok <a href="/sandkasse">sandkassesiden</a> for mer informasjon
+        Besok <Link href="/sandkasse">sandkassesiden</Link> for mer informasjon
         om hvordan du kan soke.
-      </p>
+      </Paragraph>
     </section>
 
     <section class="section">
-      <h2>Send inn eksempel</h2>
-      <p>
+      <Heading level={2} size="large">Send inn eksempel</Heading>
+      <Paragraph>
         Har din virksomhet implementert KI pa en vellykket mate?
-        Vi onsker a hore fra deg! <a href="/eksempler/send-inn">Send inn ditt eksempel</a>
+        Vi onsker a hore fra deg! <Link href="/eksempler/send-inn">Send inn ditt eksempel</Link>
         sa kan det bli en del av var samling av gode praksiser.
-      </p>
+      </Paragraph>
     </section>
   </div>
 </Layout>
@@ -101,16 +102,12 @@ const contacts = [
     margin-bottom: var(--ds-size-8);
   }
 
-  .page-header h1 {
-    font-size: var(--ds-font-size-8);
-    font-weight: var(--ds-font-weight-bold);
+  .page-header :global(h1) {
     margin: 0 0 var(--ds-size-4);
   }
 
   .lead {
-    font-size: var(--ds-font-size-3);
     color: var(--ds-color-neutral-text-subtle);
-    line-height: 1.6;
     margin: 0;
   }
 
@@ -118,20 +115,12 @@ const contacts = [
     margin-bottom: var(--ds-size-8);
   }
 
-  .section h2 {
-    font-size: var(--ds-font-size-5);
-    font-weight: var(--ds-font-weight-semibold);
+  .section :global(h2) {
     margin: 0 0 var(--ds-size-4);
   }
 
-  .section p {
-    font-size: var(--ds-font-size-1);
-    line-height: 1.7;
+  .section :global(p) {
     margin: 0 0 var(--ds-size-4);
-  }
-
-  .section a {
-    color: var(--ds-color-accent-text-default);
   }
 
   .contacts-grid {
@@ -148,8 +137,6 @@ const contacts = [
   }
 
   .contact-org {
-    font-size: var(--ds-font-size-3);
-    font-weight: var(--ds-font-weight-semibold);
     margin: 0 0 var(--ds-size-4);
   }
 
@@ -175,14 +162,5 @@ const contacts = [
   .contact-item dd {
     font-size: var(--ds-font-size-1);
     margin: 0;
-  }
-
-  .contact-item a {
-    color: var(--ds-color-accent-text-default);
-    text-decoration: none;
-  }
-
-  .contact-item a:hover {
-    text-decoration: underline;
   }
 </style>
