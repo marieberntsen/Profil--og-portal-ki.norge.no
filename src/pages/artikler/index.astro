@@ -1,0 +1,173 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import ArticleCard from '../../components/shared/ArticleCard.astro';
+
+// Placeholder data - will be replaced with Strapi data
+const articles = [
+  {
+    title: 'Lansering av regulatorisk sandkasse for KI',
+    slug: 'lansering-sandkasse',
+    excerpt: 'Nkom, Datatilsynet og Digdir lanserer den forste regulatoriske sandkassen for kunstig intelligens i Norge.',
+    publishedAt: '2024-01-15',
+    category: 'Nyhet',
+  },
+  {
+    title: 'Nye retningslinjer for KI i offentlig sektor',
+    slug: 'nye-retningslinjer',
+    excerpt: 'Oppdaterte retningslinjer for ansvarlig bruk av kunstig intelligens i offentlige virksomheter.',
+    publishedAt: '2024-01-10',
+    category: 'Veiledning',
+  },
+  {
+    title: 'Suksesshistorie: KI i helsetjenesten',
+    slug: 'ki-helsetjenesten',
+    excerpt: 'Les om hvordan en norsk kommune har implementert KI for a forbedre helsetjenestene.',
+    publishedAt: '2024-01-05',
+    category: 'Eksempel',
+  },
+  {
+    title: 'EU AI Act: Hva betyr det for Norge?',
+    slug: 'eu-ai-act-norge',
+    excerpt: 'En gjennomgang av EUs nye KI-forordning og hvordan den vil pavirke norsk offentlig sektor.',
+    publishedAt: '2024-01-02',
+    category: 'Analyse',
+  },
+  {
+    title: 'Anskaffelse av KI-losninger: En praktisk guide',
+    slug: 'anskaffelse-guide',
+    excerpt: 'Steg-for-steg veiledning for offentlige virksomheter som onsker a anskaffe KI-losninger.',
+    publishedAt: '2023-12-20',
+    category: 'Veiledning',
+  },
+];
+
+const categories = ['Alle', 'Nyhet', 'Veiledning', 'Eksempel', 'Analyse'];
+---
+
+<Layout title="Artikler" description="Nyheter, analyser og veiledning om kunstig intelligens i offentlig sektor.">
+  <div class="page-container">
+    <header class="page-header">
+      <h1>Artikler</h1>
+      <p class="lead">
+        Hold deg oppdatert pa nyheter, analyser og veiledning om kunstig intelligens
+        i norsk offentlig sektor.
+      </p>
+    </header>
+
+    <div class="filters">
+      {categories.map((category, index) => (
+        <button class:list={['filter-button', { active: index === 0 }]}>
+          {category}
+        </button>
+      ))}
+    </div>
+
+    <div class="articles-grid">
+      {articles.map((article) => (
+        <ArticleCard
+          title={article.title}
+          excerpt={article.excerpt}
+          slug={article.slug}
+          publishedAt={article.publishedAt}
+          category={article.category}
+        />
+      ))}
+    </div>
+
+    <nav class="pagination">
+      <button class="pagination-button" disabled>Forrige</button>
+      <span class="pagination-info">Side 1 av 1</span>
+      <button class="pagination-button" disabled>Neste</button>
+    </nav>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .page-header {
+    margin-bottom: var(--ds-size-6);
+  }
+
+  .page-header h1 {
+    font-size: var(--ds-font-size-8);
+    font-weight: var(--ds-font-weight-bold);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    font-size: var(--ds-font-size-3);
+    color: var(--ds-color-neutral-text-subtle);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .filters {
+    display: flex;
+    gap: var(--ds-size-2);
+    margin-bottom: var(--ds-size-6);
+    flex-wrap: wrap;
+  }
+
+  .filter-button {
+    padding: var(--ds-size-2) var(--ds-size-4);
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-md);
+    font-size: var(--ds-font-size-1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-button:hover {
+    background-color: var(--ds-color-neutral-surface-hover);
+  }
+
+  .filter-button.active {
+    background-color: var(--ds-color-accent-surface-default);
+    border-color: var(--ds-color-accent-border-default);
+    color: var(--ds-color-accent-text-default);
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--ds-size-5);
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--ds-size-4);
+  }
+
+  .pagination-button {
+    padding: var(--ds-size-2) var(--ds-size-4);
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-md);
+    font-size: var(--ds-font-size-1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .pagination-button:hover:not(:disabled) {
+    background-color: var(--ds-color-neutral-surface-hover);
+  }
+
+  .pagination-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .pagination-info {
+    font-size: var(--ds-font-size-1);
+    color: var(--ds-color-neutral-text-subtle);
+  }
+</style>

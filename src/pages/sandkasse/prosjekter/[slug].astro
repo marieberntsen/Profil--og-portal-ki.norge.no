@@ -1,0 +1,169 @@
+---
+import Layout from '../../../components/layout/Layout.astro';
+import RichText from '../../../components/shared/RichText.astro';
+import { sandboxProjects } from '../../../lib/data';
+
+export function getStaticPaths() {
+  return sandboxProjects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+
+const statusLabels = {
+  planning: 'Planlegging',
+  active: 'Pagaende',
+  completed: 'Fullfort',
+};
+---
+
+<Layout title={project.title} description={project.description}>
+  <article class="page-container">
+    <nav class="breadcrumb">
+      <a href="/sandkasse">Sandkasse</a>
+      <span>/</span>
+      <a href="/sandkasse/prosjekter">Prosjekter</a>
+      <span>/</span>
+      <span>{project.title}</span>
+    </nav>
+
+    <header class="article-header">
+      <span class={`status-badge ${project.status}`}>{statusLabels[project.status]}</span>
+      <h1>{project.title}</h1>
+      <p class="lead">{project.description}</p>
+    </header>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <dt>Organisasjon</dt>
+        <dd>{project.organization}</dd>
+      </div>
+      <div class="meta-item">
+        <dt>Partnere</dt>
+        <dd>{project.partners}</dd>
+      </div>
+      <div class="meta-item">
+        <dt>Status</dt>
+        <dd>{project.progress}</dd>
+      </div>
+    </div>
+
+    <RichText content={project.content} class="article-content" />
+
+    <nav class="article-nav">
+      <a href="/sandkasse/prosjekter" class="back-link">
+        Tilbake til prosjekter
+      </a>
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .breadcrumb {
+    display: flex;
+    gap: var(--ds-size-2);
+    margin-bottom: var(--ds-size-6);
+    font-size: var(--ds-font-size-0);
+    color: var(--ds-color-neutral-text-subtle);
+  }
+
+  .breadcrumb a {
+    color: var(--ds-color-accent-text-default);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .article-header {
+    margin-bottom: var(--ds-size-6);
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: var(--ds-size-1) var(--ds-size-3);
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-medium);
+    border-radius: var(--ds-border-radius-sm);
+    margin-bottom: var(--ds-size-3);
+  }
+
+  .status-badge.active {
+    background-color: var(--ds-color-success-surface-default);
+    color: var(--ds-color-success-text-default);
+  }
+
+  .status-badge.planning {
+    background-color: var(--ds-color-warning-surface-default);
+    color: var(--ds-color-warning-text-default);
+  }
+
+  .status-badge.completed {
+    background-color: var(--ds-color-neutral-surface-default);
+    color: var(--ds-color-neutral-text-subtle);
+  }
+
+  .article-header h1 {
+    font-size: var(--ds-font-size-8);
+    font-weight: var(--ds-font-weight-bold);
+    margin: 0 0 var(--ds-size-4);
+    line-height: 1.2;
+  }
+
+  .lead {
+    font-size: var(--ds-font-size-3);
+    color: var(--ds-color-neutral-text-subtle);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--ds-size-4);
+    padding: var(--ds-size-5);
+    background-color: var(--ds-color-neutral-surface-default);
+    border-radius: var(--ds-border-radius-md);
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .meta-item dt {
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--ds-color-neutral-text-subtle);
+    margin-bottom: var(--ds-size-1);
+  }
+
+  .meta-item dd {
+    font-size: var(--ds-font-size-1);
+    margin: 0;
+  }
+
+  .article-content {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .article-nav {
+    padding-top: var(--ds-size-6);
+    border-top: 1px solid var(--ds-color-neutral-border-subtle);
+  }
+
+  .back-link {
+    color: var(--ds-color-accent-text-default);
+    text-decoration: none;
+    font-size: var(--ds-font-size-1);
+  }
+
+  .back-link:hover {
+    text-decoration: underline;
+  }
+</style>

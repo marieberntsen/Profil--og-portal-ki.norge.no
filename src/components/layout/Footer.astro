@@ -1,0 +1,124 @@
+---
+const partners = [
+  { name: 'Nkom', url: 'https://www.nkom.no' },
+  { name: 'Datatilsynet', url: 'https://www.datatilsynet.no' },
+  { name: 'Digdir', url: 'https://www.digdir.no' },
+];
+---
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-section">
+      <h2 class="footer-heading">KI Norge</h2>
+      <p class="footer-text">
+        Norges nasjonale strategi for kunstig intelligens.
+        Et samarbeid mellom Nkom, Datatilsynet og Digdir.
+      </p>
+    </div>
+
+    <div class="footer-section">
+      <h2 class="footer-heading">Samarbeidspartnere</h2>
+      <ul class="partner-list">
+        {partners.map((partner) => (
+          <li>
+            <a href={partner.url} class="partner-link" target="_blank" rel="noopener noreferrer">
+              {partner.name}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <h2 class="footer-heading">Kontakt</h2>
+      <p class="footer-text">
+        <a href="/kontakt" class="footer-link">Kontakt oss</a><br />
+        <a href="/faq" class="footer-link">Vanlige sporsmal (FAQ)</a>
+      </p>
+    </div>
+
+    <div class="footer-section">
+      <h2 class="footer-heading">Lenker</h2>
+      <ul class="link-list">
+        <li><a href="/om-oss" class="footer-link">Om oss</a></li>
+        <li><a href="/personvern" class="footer-link">Personvern</a></li>
+        <li><a href="/tilgjengelighet" class="footer-link">Tilgjengelighet</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; {new Date().getFullYear()} KI Norge. Alle rettigheter reservert.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--ds-color-neutral-surface-default);
+    border-top: 1px solid var(--ds-color-neutral-border-subtle);
+    margin-top: auto;
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--ds-size-6);
+  }
+
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-2);
+  }
+
+  .footer-heading {
+    font-size: var(--ds-font-size-2);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0;
+    color: var(--ds-color-neutral-text-default);
+  }
+
+  .footer-text {
+    font-size: var(--ds-font-size-0);
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .partner-list,
+  .link-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-1);
+  }
+
+  .partner-link,
+  .footer-link {
+    color: var(--ds-color-accent-text-default);
+    text-decoration: none;
+    font-size: var(--ds-font-size-0);
+  }
+
+  .partner-link:hover,
+  .footer-link:hover {
+    text-decoration: underline;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--ds-color-neutral-border-subtle);
+    padding: var(--ds-size-4);
+    text-align: center;
+  }
+
+  .footer-bottom p {
+    margin: 0;
+    font-size: var(--ds-font-size-0);
+    color: var(--ds-color-neutral-text-subtle);
+  }
+</style>

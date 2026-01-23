@@ -1,0 +1,205 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+---
+
+<Layout title="Send inn eksempel" description="Del din organisasjons erfaring med kunstig intelligens.">
+  <div class="page-container">
+    <header class="page-header">
+      <h1>Send inn eksempel</h1>
+      <p class="lead">
+        Del din organisasjons erfaring med kunstig intelligens.
+        Bidra til a inspirere og hjelpe andre offentlige virksomheter.
+      </p>
+    </header>
+
+    <div class="info-box">
+      <h2>Hva leter vi etter?</h2>
+      <ul>
+        <li>Konkrete eksempler pa KI-bruk i offentlig sektor</li>
+        <li>Bade suksesser og lardommer fra utfordringer</li>
+        <li>Praktiske erfaringer andre kan lare av</li>
+        <li>Etiske overveielser og losninger</li>
+      </ul>
+    </div>
+
+    <form class="submission-form">
+      <div class="form-group">
+        <label for="organization">Organisasjon *</label>
+        <input type="text" id="organization" name="organization" required />
+      </div>
+
+      <div class="form-group">
+        <label for="contact-name">Kontaktperson *</label>
+        <input type="text" id="contact-name" name="contactName" required />
+      </div>
+
+      <div class="form-group">
+        <label for="contact-email">E-post *</label>
+        <input type="email" id="contact-email" name="contactEmail" required />
+      </div>
+
+      <div class="form-group">
+        <label for="title">Tittel pa eksempelet *</label>
+        <input type="text" id="title" name="title" required />
+      </div>
+
+      <div class="form-group">
+        <label for="description">Kort beskrivelse *</label>
+        <textarea id="description" name="description" rows="3" required></textarea>
+        <span class="help-text">Maks 200 tegn</span>
+      </div>
+
+      <div class="form-group">
+        <label for="tools">Verktoy og teknologi</label>
+        <input type="text" id="tools" name="tools" placeholder="F.eks. Azure OpenAI, Python, TensorFlow" />
+      </div>
+
+      <div class="form-group">
+        <label for="outcomes">Resultater og lardommer</label>
+        <textarea id="outcomes" name="outcomes" rows="3"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="full-story">Full historie</label>
+        <textarea id="full-story" name="fullStory" rows="8" placeholder="Fortell hele historien: bakgrunn, utfordringer, losning, resultater og lardommer"></textarea>
+      </div>
+
+      <div class="form-group checkbox-group">
+        <label>
+          <input type="checkbox" name="consent" required />
+          <span>Jeg godtar at informasjonen kan publiseres pa ki.norge.no *</span>
+        </label>
+      </div>
+
+      <button type="submit" class="submit-button">Send inn</button>
+    </form>
+
+    <p class="note">
+      * Obligatoriske felt. Vi tar kontakt for eventuell oppfolging for publiseres.
+    </p>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .page-header {
+    margin-bottom: var(--ds-size-6);
+  }
+
+  .page-header h1 {
+    font-size: var(--ds-font-size-8);
+    font-weight: var(--ds-font-weight-bold);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    font-size: var(--ds-font-size-3);
+    color: var(--ds-color-neutral-text-subtle);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .info-box {
+    padding: var(--ds-size-5);
+    background-color: var(--ds-color-info-surface-default);
+    border-radius: var(--ds-border-radius-md);
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .info-box h2 {
+    font-size: var(--ds-font-size-2);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-3);
+  }
+
+  .info-box ul {
+    margin: 0;
+    padding-left: var(--ds-size-5);
+  }
+
+  .info-box li {
+    font-size: var(--ds-font-size-1);
+    margin-bottom: var(--ds-size-2);
+  }
+
+  .submission-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-5);
+    margin-bottom: var(--ds-size-6);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-2);
+  }
+
+  .form-group label {
+    font-size: var(--ds-font-size-1);
+    font-weight: var(--ds-font-weight-medium);
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group textarea {
+    padding: var(--ds-size-3);
+    border: 1px solid var(--ds-color-neutral-border-default);
+    border-radius: var(--ds-border-radius-md);
+    font-size: var(--ds-font-size-1);
+    font-family: inherit;
+    transition: border-color 0.2s ease;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--ds-color-accent-border-default);
+    box-shadow: 0 0 0 3px var(--ds-color-accent-surface-default);
+  }
+
+  .help-text {
+    font-size: var(--ds-font-size-0);
+    color: var(--ds-color-neutral-text-subtle);
+  }
+
+  .checkbox-group label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--ds-size-2);
+    font-weight: normal;
+    cursor: pointer;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    margin-top: var(--ds-size-1);
+  }
+
+  .submit-button {
+    padding: var(--ds-size-3) var(--ds-size-6);
+    background-color: var(--ds-color-accent-base-default);
+    color: var(--ds-color-accent-contrast-default);
+    border: none;
+    border-radius: var(--ds-border-radius-md);
+    font-size: var(--ds-font-size-2);
+    font-weight: var(--ds-font-weight-medium);
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    align-self: flex-start;
+  }
+
+  .submit-button:hover {
+    background-color: var(--ds-color-accent-base-hover);
+  }
+
+  .note {
+    font-size: var(--ds-font-size-0);
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
+  }
+</style>

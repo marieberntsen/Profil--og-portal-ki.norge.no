@@ -1,0 +1,110 @@
+---
+const audiences = [
+  {
+    title: 'Offentlige virksomheter',
+    description: 'Kommuner, fylkeskommuner og statlige etater som onsker a ta i bruk KI pa en ansvarlig mate.',
+    features: ['Veiledning for anskaffelse', 'Regulatorisk stotte', 'Beste praksis'],
+  },
+  {
+    title: 'Utviklere og teknologer',
+    description: 'Tekniske fagpersoner som bygger KI-losninger for offentlig sektor.',
+    features: ['Tekniske retningslinjer', 'Sandkassemiljo', 'API-dokumentasjon'],
+  },
+  {
+    title: 'Ledere og beslutningstakere',
+    description: 'Ledere som trenger innsikt i KI-strategi og governance.',
+    features: ['Strategisk veiledning', 'Risikostyring', 'Suksesshistorier'],
+  },
+];
+---
+
+<section class="audiences">
+  <div class="audiences-container">
+    <h2 class="audiences-heading">Hvem er vi for?</h2>
+    <div class="audiences-grid">
+      {audiences.map((audience) => (
+        <div class="audience-card">
+          <h3 class="audience-title">{audience.title}</h3>
+          <p class="audience-description">{audience.description}</p>
+          <ul class="audience-features">
+            {audience.features.map((feature) => (
+              <li class="audience-feature">
+                <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .audiences {
+    padding: var(--ds-size-10) var(--ds-size-4);
+    background-color: var(--ds-color-neutral-surface-default);
+  }
+
+  .audiences-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .audiences-heading {
+    text-align: center;
+    font-size: var(--ds-font-size-6);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-8);
+  }
+
+  .audiences-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--ds-size-6);
+  }
+
+  .audience-card {
+    padding: var(--ds-size-6);
+    background-color: var(--ds-color-neutral-background-default);
+    border-radius: var(--ds-border-radius-lg);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+  }
+
+  .audience-title {
+    font-size: var(--ds-font-size-3);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-2);
+  }
+
+  .audience-description {
+    font-size: var(--ds-font-size-1);
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0 0 var(--ds-size-4);
+    line-height: 1.5;
+  }
+
+  .audience-features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-2);
+  }
+
+  .audience-feature {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-size-2);
+    font-size: var(--ds-font-size-1);
+    color: var(--ds-color-neutral-text-default);
+  }
+
+  .check-icon {
+    color: var(--ds-color-success-text-default);
+    flex-shrink: 0;
+  }
+</style>

@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:deno.com)",
+      "WebFetch(domain:designsystemet.no)",
+      "Bash(curl:*)",
+      "Bash(sh:*)",
+      "Bash(/Users/lars/.deno/bin/deno install --allow-scripts)",
+      "Bash(/Users/lars/.deno/bin/deno add:*)",
+      "Bash(/Users/lars/.deno/bin/deno task build)",
+      "Bash(timeout 10 /Users/lars/.deno/bin/deno task:*)",
+      "*"
+    ]
+  }
+}

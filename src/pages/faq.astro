@@ -1,0 +1,197 @@
+---
+import Layout from '../components/layout/Layout.astro';
+
+const faqs = [
+  {
+    question: 'Hva er KI Norge?',
+    answer: 'KI Norge er et samarbeid mellom Nkom, Datatilsynet og Digdir som arbeider for ansvarlig bruk av kunstig intelligens i norsk offentlig sektor. Vi tilbyr veiledning, en regulatorisk sandkasse og samler gode eksempler fra offentlige virksomheter.',
+  },
+  {
+    question: 'Hva er den regulatoriske sandkassen?',
+    answer: 'Den regulatoriske sandkassen er et kontrollert miljo der offentlige virksomheter kan teste og utvikle KI-losninger med veiledning fra eksperter pa regelverk og personvern. Dette gir mulighet til a utforske innovative losninger mens man sikrer at de er i trad med gjeldende lover og regler.',
+  },
+  {
+    question: 'Hvordan kan min virksomhet delta i sandkassen?',
+    answer: 'For a soke om deltakelse i sandkassen, besok var sandkasseside og fyll ut soknadsskjemaet. Vi vurderer soknader basert pa prosjektets innovasjonsgrad, relevans for offentlig sektor, og potensial for laring.',
+  },
+  {
+    question: 'Hva slags veiledning tilbyr KI Norge?',
+    answer: 'Vi tilbyr veiledning om blant annet: KI-forskriften og EU AI Act, anskaffelse av KI-losninger, risikovurdering av KI-systemer, etiske retningslinjer, personvern og databehandling, og implementering av KI i offentlige tjenester.',
+  },
+  {
+    question: 'Er tjenestene gratis?',
+    answer: 'Ja, alle vare tjenester er gratis for offentlige virksomheter. KI Norge er finansiert gjennom offentlige midler og har som mal a stotte hele offentlig sektor i arbeidet med kunstig intelligens.',
+  },
+  {
+    question: 'Hvordan forholder KI Norge seg til EU AI Act?',
+    answer: 'KI Norge arbeider aktivt med implementeringen av EU AI Act i Norge. Vi utvikler veiledning som hjelper offentlige virksomheter a forsta og etterleve regelverket, og vi stotter virksomheter gjennom den regulatoriske sandkassen.',
+  },
+  {
+    question: 'Kan private virksomheter bruke KI Norges ressurser?',
+    answer: 'Vare veiledningsressurser er tilgjengelige for alle, men var primarmalgrupppe er offentlig sektor. Den regulatoriske sandkassen er forbeholdt prosjekter som involverer offentlige virksomheter.',
+  },
+  {
+    question: 'Hvordan kan jeg bidra med et godt eksempel?',
+    answer: 'Hvis din virksomhet har implementert KI pa en vellykket mate, onsker vi gjerne a hore fra deg. Besok var side for innsending av eksempler og del din historie.',
+  },
+];
+---
+
+<Layout title="Vanlige sporsmal (FAQ)" description="Svar pa vanlige sporsmal om KI Norge, den regulatoriske sandkassen og kunstig intelligens i offentlig sektor.">
+  <div class="page-container">
+    <header class="page-header">
+      <h1>Vanlige sporsmal</h1>
+      <p class="lead">
+        Her finner du svar pa de vanligste sporsmalene om KI Norge og vare tjenester.
+      </p>
+    </header>
+
+    <div class="faq-list">
+      {faqs.map((faq, index) => (
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span class="faq-number">{index + 1}</span>
+            <span class="faq-text">{faq.question}</span>
+            <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+          </summary>
+          <div class="faq-answer">
+            <p>{faq.answer}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+
+    <section class="contact-section">
+      <h2>Fant du ikke svar pa sporsmalet ditt?</h2>
+      <p>
+        Ta gjerne <a href="/kontakt">kontakt med oss</a> sa hjelper vi deg.
+      </p>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .page-header {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .page-header h1 {
+    font-size: var(--ds-font-size-8);
+    font-weight: var(--ds-font-weight-bold);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    font-size: var(--ds-font-size-3);
+    color: var(--ds-color-neutral-text-subtle);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-3);
+    margin-bottom: var(--ds-size-10);
+  }
+
+  .faq-item {
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-md);
+    overflow: hidden;
+  }
+
+  .faq-item[open] {
+    border-color: var(--ds-color-accent-border-default);
+  }
+
+  .faq-question {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-size-3);
+    padding: var(--ds-size-4) var(--ds-size-5);
+    cursor: pointer;
+    font-size: var(--ds-font-size-2);
+    font-weight: var(--ds-font-weight-medium);
+    list-style: none;
+  }
+
+  .faq-question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-question:hover {
+    background-color: var(--ds-color-neutral-surface-hover);
+  }
+
+  .faq-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: var(--ds-color-accent-surface-default);
+    color: var(--ds-color-accent-text-default);
+    border-radius: var(--ds-border-radius-full);
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-semibold);
+    flex-shrink: 0;
+  }
+
+  .faq-text {
+    flex: 1;
+  }
+
+  .faq-icon {
+    color: var(--ds-color-neutral-text-subtle);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .faq-item[open] .faq-icon {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding: 0 var(--ds-size-5) var(--ds-size-5);
+    padding-left: calc(var(--ds-size-5) + 28px + var(--ds-size-3));
+  }
+
+  .faq-answer p {
+    font-size: var(--ds-font-size-1);
+    line-height: 1.7;
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
+  }
+
+  .contact-section {
+    padding: var(--ds-size-6);
+    background-color: var(--ds-color-accent-surface-default);
+    border-radius: var(--ds-border-radius-lg);
+    text-align: center;
+  }
+
+  .contact-section h2 {
+    font-size: var(--ds-font-size-4);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-2);
+  }
+
+  .contact-section p {
+    font-size: var(--ds-font-size-1);
+    margin: 0;
+  }
+
+  .contact-section a {
+    color: var(--ds-color-accent-text-default);
+  }
+</style>

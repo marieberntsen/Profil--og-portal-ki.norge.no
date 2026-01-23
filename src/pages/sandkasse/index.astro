@@ -1,0 +1,287 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+
+const benefits = [
+  {
+    title: 'Ekspertveiledning',
+    description: 'Fa tilgang til eksperter pa regelverk, personvern og KI-utvikling gjennom hele prosjektet.',
+  },
+  {
+    title: 'Trygt testmiljo',
+    description: 'Utforsk innovative losninger i et kontrollert miljo med redusert risiko.',
+  },
+  {
+    title: 'Regelverksklarhet',
+    description: 'Fa tydelige svar pa regulatoriske sporsmal for ditt spesifikke prosjekt.',
+  },
+  {
+    title: 'Nettverksbygging',
+    description: 'Koble deg med andre offentlige virksomheter som arbeider med lignende utfordringer.',
+  },
+];
+
+const process = [
+  { step: 1, title: 'Soknad', description: 'Send inn prosjektbeskrivelse og mal' },
+  { step: 2, title: 'Vurdering', description: 'Vi evaluerer prosjektets egnethet' },
+  { step: 3, title: 'Opptak', description: 'Avtale og prosjektplan utarbeides' },
+  { step: 4, title: 'Gjennomforing', description: 'Utvikling med lopende veiledning' },
+  { step: 5, title: 'Avslutning', description: 'Evaluering og deling av lardommer' },
+];
+---
+
+<Layout title="Regulatorisk sandkasse" description="Test og utvikle KI-losninger i et trygt miljo med veiledning fra eksperter.">
+  <div class="page-container">
+    <header class="page-header">
+      <h1>Regulatorisk sandkasse</h1>
+      <p class="lead">
+        Et trygt miljo for a teste og utvikle KI-losninger med veiledning
+        fra eksperter pa regelverk, personvern og teknologi.
+      </p>
+    </header>
+
+    <section class="section">
+      <h2>Hva er sandkassen?</h2>
+      <p>
+        Den regulatoriske sandkassen for KI er et kontrollert miljo der offentlige
+        virksomheter kan utforske og utvikle innovative KI-losninger sammen med
+        regulatoriske myndigheter. Sandkassen gir deltakerne mulighet til a teste
+        nye ideer mens de far veiledning om hvordan de kan overholde regelverket.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Fordeler ved deltakelse</h2>
+      <div class="benefits-grid">
+        {benefits.map((benefit) => (
+          <div class="benefit-card">
+            <h3 class="benefit-title">{benefit.title}</h3>
+            <p class="benefit-description">{benefit.description}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Prosess</h2>
+      <div class="process-steps">
+        {process.map((item) => (
+          <div class="process-step">
+            <div class="step-number">{item.step}</div>
+            <div class="step-content">
+              <h3 class="step-title">{item.title}</h3>
+              <p class="step-description">{item.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Hvem kan soke?</h2>
+      <ul class="eligibility-list">
+        <li>Kommuner og fylkeskommuner</li>
+        <li>Statlige etater og direktorater</li>
+        <li>Offentlig eide selskaper</li>
+        <li>Samarbeidsprosjekter med offentlig sektor</li>
+      </ul>
+    </section>
+
+    <div class="cta-section">
+      <h2>Interessert?</h2>
+      <p>Se pagaende prosjekter eller ta kontakt for a diskutere ditt prosjekt.</p>
+      <div class="cta-buttons">
+        <a href="/sandkasse/prosjekter" class="cta-button primary">Se prosjekter</a>
+        <a href="/kontakt" class="cta-button secondary">Kontakt oss</a>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .page-header {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .page-header h1 {
+    font-size: var(--ds-font-size-8);
+    font-weight: var(--ds-font-weight-bold);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    font-size: var(--ds-font-size-3);
+    color: var(--ds-color-neutral-text-subtle);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .section {
+    margin-bottom: var(--ds-size-10);
+  }
+
+  .section h2 {
+    font-size: var(--ds-font-size-5);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .section p {
+    font-size: var(--ds-font-size-1);
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--ds-size-4);
+  }
+
+  .benefit-card {
+    padding: var(--ds-size-5);
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-md);
+  }
+
+  .benefit-title {
+    font-size: var(--ds-font-size-2);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-2);
+  }
+
+  .benefit-description {
+    font-size: var(--ds-font-size-0);
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .process-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-4);
+  }
+
+  .process-step {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--ds-size-4);
+  }
+
+  .step-number {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--ds-color-accent-base-default);
+    color: var(--ds-color-accent-contrast-default);
+    border-radius: var(--ds-border-radius-full);
+    font-weight: var(--ds-font-weight-semibold);
+    flex-shrink: 0;
+  }
+
+  .step-content {
+    flex: 1;
+    padding-top: var(--ds-size-2);
+  }
+
+  .step-title {
+    font-size: var(--ds-font-size-2);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-1);
+  }
+
+  .step-description {
+    font-size: var(--ds-font-size-1);
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
+  }
+
+  .eligibility-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-2);
+  }
+
+  .eligibility-list li {
+    font-size: var(--ds-font-size-1);
+    padding: var(--ds-size-3);
+    background-color: var(--ds-color-neutral-surface-default);
+    border-radius: var(--ds-border-radius-sm);
+    display: flex;
+    align-items: center;
+    gap: var(--ds-size-2);
+  }
+
+  .eligibility-list li::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background-color: var(--ds-color-success-base-default);
+    border-radius: 50%;
+  }
+
+  .cta-section {
+    padding: var(--ds-size-8);
+    background-color: var(--ds-color-accent-surface-default);
+    border-radius: var(--ds-border-radius-lg);
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    font-size: var(--ds-font-size-5);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-2);
+  }
+
+  .cta-section p {
+    font-size: var(--ds-font-size-1);
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: var(--ds-size-3);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cta-button {
+    padding: var(--ds-size-3) var(--ds-size-6);
+    text-decoration: none;
+    border-radius: var(--ds-border-radius-md);
+    font-weight: var(--ds-font-weight-medium);
+    transition: all 0.2s ease;
+  }
+
+  .cta-button.primary {
+    background-color: var(--ds-color-accent-base-default);
+    color: var(--ds-color-accent-contrast-default);
+  }
+
+  .cta-button.primary:hover {
+    background-color: var(--ds-color-accent-base-hover);
+  }
+
+  .cta-button.secondary {
+    background-color: var(--ds-color-neutral-surface-default);
+    color: var(--ds-color-neutral-text-default);
+    border: 1px solid var(--ds-color-neutral-border-default);
+  }
+
+  .cta-button.secondary:hover {
+    background-color: var(--ds-color-neutral-surface-hover);
+  }
+</style>

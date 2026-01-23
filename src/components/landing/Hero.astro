@@ -1,0 +1,89 @@
+---
+---
+
+<section class="hero">
+  <div class="hero-container">
+    <h1 class="hero-title">Kunstig intelligens for Norge</h1>
+    <p class="hero-subtitle">
+      Sammen bygger vi et trygt og innovativt KI-landskap for norsk offentlig sektor
+    </p>
+    <div class="hero-actions">
+      <a href="/veiledning" class="hero-button primary">
+        Utforsk veiledning
+      </a>
+      <a href="/sandkasse" class="hero-button secondary">
+        Regulatorisk sandkasse
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    background: linear-gradient(
+      135deg,
+      var(--ds-color-accent-surface-default) 0%,
+      var(--ds-color-neutral-background-default) 100%
+    );
+    padding: var(--ds-size-12) var(--ds-size-4);
+    text-align: center;
+  }
+
+  .hero-container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .hero-title {
+    font-size: clamp(var(--ds-font-size-7), 5vw, var(--ds-font-size-10));
+    font-weight: var(--ds-font-weight-bold);
+    margin: 0 0 var(--ds-size-4);
+    color: var(--ds-color-neutral-text-default);
+    line-height: 1.1;
+  }
+
+  .hero-subtitle {
+    font-size: var(--ds-font-size-3);
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0 0 var(--ds-size-8);
+    line-height: 1.5;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--ds-size-4);
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--ds-size-3) var(--ds-size-6);
+    border-radius: var(--ds-border-radius-md);
+    font-size: var(--ds-font-size-2);
+    font-weight: var(--ds-font-weight-medium);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .hero-button.primary {
+    background-color: var(--ds-color-accent-base-default);
+    color: var(--ds-color-accent-contrast-default);
+  }
+
+  .hero-button.primary:hover {
+    background-color: var(--ds-color-accent-base-hover);
+  }
+
+  .hero-button.secondary {
+    background-color: var(--ds-color-neutral-surface-default);
+    color: var(--ds-color-neutral-text-default);
+    border: 1px solid var(--ds-color-neutral-border-default);
+  }
+
+  .hero-button.secondary:hover {
+    background-color: var(--ds-color-neutral-surface-hover);
+  }
+</style>

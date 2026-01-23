@@ -1,0 +1,12 @@
+{
+  "tasks": {
+    "dev": "deno -A npm:astro dev",
+    "build": "deno -A npm:astro build",
+    "preview": "deno -A npm:astro preview"
+  },
+  "nodeModulesDir": "auto",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
+}

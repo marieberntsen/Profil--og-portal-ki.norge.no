@@ -1,0 +1,236 @@
+---
+import Layout from '../../../components/layout/Layout.astro';
+
+// Placeholder projects - will be replaced with Strapi data
+const projects = [
+  {
+    title: 'KI-stottet saksbehandling',
+    slug: 'ki-saksbehandling',
+    organization: 'NAV',
+    status: 'active',
+    description: 'Utforsker bruk av KI for a effektivisere saksbehandling mens personvern ivaretas.',
+  },
+  {
+    title: 'Automatisk dokumentklassifisering',
+    slug: 'dokumentklassifisering',
+    organization: 'Skatteetaten',
+    status: 'completed',
+    description: 'Ferdigstilt prosjekt for automatisk kategorisering av innkommende dokumenter.',
+  },
+  {
+    title: 'Prediktiv vedlikehold',
+    slug: 'prediktiv-vedlikehold',
+    organization: 'Statens vegvesen',
+    status: 'planning',
+    description: 'Planlegger bruk av KI for a forutsi vedlikeholdsbehov pa veinettet.',
+  },
+];
+
+const statusLabels = {
+  planning: 'Planlegging',
+  active: 'Pagaende',
+  completed: 'Fullfort',
+};
+
+const statusColors = {
+  planning: 'warning',
+  active: 'success',
+  completed: 'neutral',
+};
+---
+
+<Layout title="Sandkasse-prosjekter" description="Se pagaende og fullforte prosjekter i den regulatoriske sandkassen.">
+  <div class="page-container">
+    <header class="page-header">
+      <h1>Sandkasse-prosjekter</h1>
+      <p class="lead">
+        Utforsk pagaende og fullforte prosjekter i var regulatoriske sandkasse.
+      </p>
+    </header>
+
+    <div class="filters">
+      <button class="filter-button active">Alle</button>
+      <button class="filter-button">Pagaende</button>
+      <button class="filter-button">Fullforte</button>
+      <button class="filter-button">Planlegging</button>
+    </div>
+
+    <div class="projects-grid">
+      {projects.map((project) => (
+        <a href={`/sandkasse/prosjekter/${project.slug}`} class="project-card">
+          <div class="project-header">
+            <span class={`status-badge ${statusColors[project.status]}`}>
+              {statusLabels[project.status]}
+            </span>
+          </div>
+          <h2 class="project-title">{project.title}</h2>
+          <p class="project-org">{project.organization}</p>
+          <p class="project-description">{project.description}</p>
+        </a>
+      ))}
+    </div>
+
+    <section class="apply-section">
+      <h2>Har du et KI-prosjekt?</h2>
+      <p>Vi er alltid interessert i a hore om nye prosjekter som kan passe i sandkassen.</p>
+      <a href="/kontakt" class="apply-button">Ta kontakt</a>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .page-header {
+    margin-bottom: var(--ds-size-6);
+  }
+
+  .page-header h1 {
+    font-size: var(--ds-font-size-8);
+    font-weight: var(--ds-font-weight-bold);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    font-size: var(--ds-font-size-3);
+    color: var(--ds-color-neutral-text-subtle);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .filters {
+    display: flex;
+    gap: var(--ds-size-2);
+    margin-bottom: var(--ds-size-6);
+    flex-wrap: wrap;
+  }
+
+  .filter-button {
+    padding: var(--ds-size-2) var(--ds-size-4);
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-md);
+    font-size: var(--ds-font-size-1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .filter-button:hover {
+    background-color: var(--ds-color-neutral-surface-hover);
+  }
+
+  .filter-button.active {
+    background-color: var(--ds-color-accent-surface-default);
+    border-color: var(--ds-color-accent-border-default);
+    color: var(--ds-color-accent-text-default);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--ds-size-5);
+    margin-bottom: var(--ds-size-10);
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--ds-size-5);
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .project-card:hover {
+    border-color: var(--ds-color-accent-border-default);
+    box-shadow: var(--ds-shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .project-header {
+    margin-bottom: var(--ds-size-3);
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: var(--ds-size-1) var(--ds-size-2);
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-medium);
+    border-radius: var(--ds-border-radius-sm);
+  }
+
+  .status-badge.success {
+    background-color: var(--ds-color-success-surface-default);
+    color: var(--ds-color-success-text-default);
+  }
+
+  .status-badge.warning {
+    background-color: var(--ds-color-warning-surface-default);
+    color: var(--ds-color-warning-text-default);
+  }
+
+  .status-badge.neutral {
+    background-color: var(--ds-color-neutral-surface-default);
+    color: var(--ds-color-neutral-text-subtle);
+  }
+
+  .project-title {
+    font-size: var(--ds-font-size-3);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-1);
+  }
+
+  .project-org {
+    font-size: var(--ds-font-size-0);
+    color: var(--ds-color-accent-text-default);
+    margin: 0 0 var(--ds-size-3);
+  }
+
+  .project-description {
+    font-size: var(--ds-font-size-1);
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .apply-section {
+    padding: var(--ds-size-8);
+    background-color: var(--ds-color-accent-surface-default);
+    border-radius: var(--ds-border-radius-lg);
+    text-align: center;
+  }
+
+  .apply-section h2 {
+    font-size: var(--ds-font-size-5);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-2);
+  }
+
+  .apply-section p {
+    font-size: var(--ds-font-size-1);
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .apply-button {
+    display: inline-block;
+    padding: var(--ds-size-3) var(--ds-size-6);
+    background-color: var(--ds-color-accent-base-default);
+    color: var(--ds-color-accent-contrast-default);
+    text-decoration: none;
+    border-radius: var(--ds-border-radius-md);
+    font-weight: var(--ds-font-weight-medium);
+    transition: background-color 0.2s ease;
+  }
+
+  .apply-button:hover {
+    background-color: var(--ds-color-accent-base-hover);
+  }
+</style>

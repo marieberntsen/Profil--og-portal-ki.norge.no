@@ -1,0 +1,184 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+
+const categories = [
+  {
+    title: 'Regelverk',
+    items: [
+      { title: 'KI-forskriften', description: 'Norges implementering av EU AI Act', href: '#' },
+      { title: 'EU AI Act oversikt', description: 'Hovedpunkter i EUs KI-forordning', href: '#' },
+      { title: 'GDPR og KI', description: 'Personvern ved bruk av kunstig intelligens', href: '#' },
+    ],
+  },
+  {
+    title: 'Anskaffelse',
+    items: [
+      { title: 'Anskaffelsesveileder', description: 'Steg-for-steg for KI-anskaffelser', href: '#' },
+      { title: 'Kravspesifikasjon', description: 'Hvordan spesifisere KI-krav', href: '#' },
+      { title: 'Leverandorvurdering', description: 'Evaluering av KI-leverandorer', href: '#' },
+    ],
+  },
+  {
+    title: 'Risikovurdering',
+    items: [
+      { title: 'Risikorammeverk', description: 'Strukturert tilnarming til KI-risiko', href: '#' },
+      { title: 'Konsekvensanalyse', description: 'DPIA for KI-systemer', href: '#' },
+      { title: 'Risikokategorier', description: 'Forsta hoy-risiko vs lav-risiko KI', href: '#' },
+    ],
+  },
+  {
+    title: 'Etikk og ansvar',
+    items: [
+      { title: 'Etiske retningslinjer', description: 'Prinsipper for ansvarlig KI', href: '#' },
+      { title: 'Transparens', description: 'Appenhet om KI-bruk', href: '#' },
+      { title: 'Menneske i loopen', description: 'Sikre menneskelig kontroll', href: '#' },
+    ],
+  },
+];
+---
+
+<Layout title="Veiledning" description="Omfattende veiledningsressurser for ansvarlig bruk av kunstig intelligens i offentlig sektor.">
+  <div class="page-container">
+    <header class="page-header">
+      <h1>Veiledning</h1>
+      <p class="lead">
+        Omfattende ressurser og retningslinjer for ansvarlig bruk av kunstig
+        intelligens i offentlig sektor.
+      </p>
+    </header>
+
+    <div class="categories">
+      {categories.map((category) => (
+        <section class="category">
+          <h2 class="category-title">{category.title}</h2>
+          <div class="items-grid">
+            {category.items.map((item) => (
+              <a href={item.href} class="item-card">
+                <h3 class="item-title">{item.title}</h3>
+                <p class="item-description">{item.description}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <section class="cta-section">
+      <h2>Trenger du mer hjelp?</h2>
+      <p>
+        Den regulatoriske sandkassen tilbyr hands-on veiledning for KI-prosjekter.
+      </p>
+      <a href="/sandkasse" class="cta-button">Les om sandkassen</a>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .page-header {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .page-header h1 {
+    font-size: var(--ds-font-size-8);
+    font-weight: var(--ds-font-weight-bold);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    font-size: var(--ds-font-size-3);
+    color: var(--ds-color-neutral-text-subtle);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .categories {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-8);
+    margin-bottom: var(--ds-size-10);
+  }
+
+  .category-title {
+    font-size: var(--ds-font-size-4);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-4);
+    padding-bottom: var(--ds-size-2);
+    border-bottom: 2px solid var(--ds-color-accent-border-default);
+  }
+
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--ds-size-4);
+  }
+
+  .item-card {
+    display: block;
+    padding: var(--ds-size-5);
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-md);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .item-card:hover {
+    border-color: var(--ds-color-accent-border-default);
+    box-shadow: var(--ds-shadow-sm);
+  }
+
+  .item-title {
+    font-size: var(--ds-font-size-2);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-2);
+    color: var(--ds-color-accent-text-default);
+  }
+
+  .item-description {
+    font-size: var(--ds-font-size-1);
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .cta-section {
+    padding: var(--ds-size-8);
+    background-color: var(--ds-color-accent-surface-default);
+    border-radius: var(--ds-border-radius-lg);
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    font-size: var(--ds-font-size-5);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-2);
+  }
+
+  .cta-section p {
+    font-size: var(--ds-font-size-1);
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .cta-button {
+    display: inline-block;
+    padding: var(--ds-size-3) var(--ds-size-6);
+    background-color: var(--ds-color-accent-base-default);
+    color: var(--ds-color-accent-contrast-default);
+    text-decoration: none;
+    border-radius: var(--ds-border-radius-md);
+    font-weight: var(--ds-font-weight-medium);
+    transition: background-color 0.2s ease;
+  }
+
+  .cta-button:hover {
+    background-color: var(--ds-color-accent-base-hover);
+  }
+</style>

@@ -1,0 +1,185 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+
+// Placeholder data - will be replaced with Strapi data
+const cases = [
+  {
+    title: 'Chatbot for innbyggerservice',
+    slug: 'chatbot-innbyggerservice',
+    organization: 'Oslo kommune',
+    description: 'Hvordan Oslo kommune implementerte en KI-drevet chatbot for a svare pa henvendelser fra innbyggere.',
+    tools: 'Azure Bot Service, GPT-4',
+  },
+  {
+    title: 'Automatisk bildeanalyse',
+    slug: 'bildeanalyse-kulturarv',
+    organization: 'Riksantikvaren',
+    description: 'Bruk av KI for a katalogisere og analysere historiske fotografier.',
+    tools: 'Azure Computer Vision, Custom Vision',
+  },
+  {
+    title: 'Prediktiv analyse for barnevern',
+    slug: 'prediktiv-barnevern',
+    organization: 'Bergen kommune',
+    description: 'Forsiktig bruk av data for a identifisere familier som kan trenge stotte.',
+    tools: 'Egenutviklet modell',
+  },
+];
+---
+
+<Layout title="Gode eksempler" description="Lar av andre offentlige virksomheters suksesshistorier med kunstig intelligens.">
+  <div class="page-container">
+    <header class="page-header">
+      <h1>Gode eksempler</h1>
+      <p class="lead">
+        Lar av andre offentlige virksomheters erfaringer med kunstig intelligens.
+        Her deler vi suksesshistorier, lardommer og beste praksis.
+      </p>
+    </header>
+
+    <div class="cases-grid">
+      {cases.map((case_) => (
+        <a href={`/eksempler/${case_.slug}`} class="case-card">
+          <span class="case-org">{case_.organization}</span>
+          <h2 class="case-title">{case_.title}</h2>
+          <p class="case-description">{case_.description}</p>
+          <div class="case-tools">
+            <span class="tools-label">Verktoy:</span>
+            <span class="tools-value">{case_.tools}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <section class="submit-section">
+      <h2>Har du et eksempel a dele?</h2>
+      <p>
+        Vi onsker a hore om hvordan din virksomhet bruker KI.
+        Del din historie og inspirer andre!
+      </p>
+      <a href="/eksempler/send-inn" class="submit-button">Send inn eksempel</a>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .page-header {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .page-header h1 {
+    font-size: var(--ds-font-size-8);
+    font-weight: var(--ds-font-weight-bold);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    font-size: var(--ds-font-size-3);
+    color: var(--ds-color-neutral-text-subtle);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .cases-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--ds-size-5);
+    margin-bottom: var(--ds-size-10);
+  }
+
+  .case-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--ds-size-6);
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .case-card:hover {
+    border-color: var(--ds-color-accent-border-default);
+    box-shadow: var(--ds-shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .case-org {
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--ds-color-accent-text-default);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--ds-size-2);
+  }
+
+  .case-title {
+    font-size: var(--ds-font-size-3);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-3);
+    line-height: 1.3;
+  }
+
+  .case-description {
+    font-size: var(--ds-font-size-1);
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0 0 var(--ds-size-4);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  .case-tools {
+    font-size: var(--ds-font-size-0);
+    padding-top: var(--ds-size-3);
+    border-top: 1px solid var(--ds-color-neutral-border-subtle);
+  }
+
+  .tools-label {
+    color: var(--ds-color-neutral-text-subtle);
+  }
+
+  .tools-value {
+    color: var(--ds-color-neutral-text-default);
+  }
+
+  .submit-section {
+    padding: var(--ds-size-8);
+    background-color: var(--ds-color-accent-surface-default);
+    border-radius: var(--ds-border-radius-lg);
+    text-align: center;
+  }
+
+  .submit-section h2 {
+    font-size: var(--ds-font-size-5);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-2);
+  }
+
+  .submit-section p {
+    font-size: var(--ds-font-size-1);
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .submit-button {
+    display: inline-block;
+    padding: var(--ds-size-3) var(--ds-size-6);
+    background-color: var(--ds-color-accent-base-default);
+    color: var(--ds-color-accent-contrast-default);
+    text-decoration: none;
+    border-radius: var(--ds-border-radius-md);
+    font-weight: var(--ds-font-weight-medium);
+    transition: background-color 0.2s ease;
+  }
+
+  .submit-button:hover {
+    background-color: var(--ds-color-accent-base-hover);
+  }
+</style>

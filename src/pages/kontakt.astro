@@ -1,0 +1,188 @@
+---
+import Layout from '../components/layout/Layout.astro';
+
+const contacts = [
+  {
+    org: 'Nkom',
+    email: 'post@nkom.no',
+    phone: '+47 22 82 46 00',
+    address: 'Lillesand',
+  },
+  {
+    org: 'Datatilsynet',
+    email: 'postkasse@datatilsynet.no',
+    phone: '+47 22 39 69 00',
+    address: 'Oslo',
+  },
+  {
+    org: 'Digdir',
+    email: 'postmottak@digdir.no',
+    phone: '+47 97 64 00 00',
+    address: 'Leikanger / Bro',
+  },
+];
+---
+
+<Layout title="Kontakt" description="Ta kontakt med KI Norge for sporsmal om kunstig intelligens i offentlig sektor.">
+  <div class="page-container">
+    <header class="page-header">
+      <h1>Kontakt oss</h1>
+      <p class="lead">
+        Har du sporsmal om KI Norge, vare tjenester eller kunstig intelligens
+        i offentlig sektor? Ta gjerne kontakt.
+      </p>
+    </header>
+
+    <section class="section">
+      <h2>Generelle henvendelser</h2>
+      <p>
+        For generelle sporsmal om KI Norge og vart arbeid, kan du kontakte
+        en av vare samarbeidspartnere nedenfor.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Samarbeidspartnere</h2>
+      <div class="contacts-grid">
+        {contacts.map((contact) => (
+          <div class="contact-card">
+            <h3 class="contact-org">{contact.org}</h3>
+            <dl class="contact-details">
+              <div class="contact-item">
+                <dt>E-post</dt>
+                <dd>
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                </dd>
+              </div>
+              <div class="contact-item">
+                <dt>Telefon</dt>
+                <dd>
+                  <a href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a>
+                </dd>
+              </div>
+              <div class="contact-item">
+                <dt>Sted</dt>
+                <dd>{contact.address}</dd>
+              </div>
+            </dl>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Regulatorisk sandkasse</h2>
+      <p>
+        Onsker din virksomhet a delta i den regulatoriske sandkassen?
+        Besok <a href="/sandkasse">sandkassesiden</a> for mer informasjon
+        om hvordan du kan soke.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Send inn eksempel</h2>
+      <p>
+        Har din virksomhet implementert KI pa en vellykket mate?
+        Vi onsker a hore fra deg! <a href="/eksempler/send-inn">Send inn ditt eksempel</a>
+        sa kan det bli en del av var samling av gode praksiser.
+      </p>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .page-header {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .page-header h1 {
+    font-size: var(--ds-font-size-8);
+    font-weight: var(--ds-font-weight-bold);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    font-size: var(--ds-font-size-3);
+    color: var(--ds-color-neutral-text-subtle);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .section {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .section h2 {
+    font-size: var(--ds-font-size-5);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .section p {
+    font-size: var(--ds-font-size-1);
+    line-height: 1.7;
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .section a {
+    color: var(--ds-color-accent-text-default);
+  }
+
+  .contacts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--ds-size-4);
+  }
+
+  .contact-card {
+    padding: var(--ds-size-5);
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-md);
+  }
+
+  .contact-org {
+    font-size: var(--ds-font-size-3);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .contact-details {
+    margin: 0;
+  }
+
+  .contact-item {
+    margin-bottom: var(--ds-size-3);
+  }
+
+  .contact-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .contact-item dt {
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--ds-color-neutral-text-subtle);
+    margin-bottom: var(--ds-size-1);
+  }
+
+  .contact-item dd {
+    font-size: var(--ds-font-size-1);
+    margin: 0;
+  }
+
+  .contact-item a {
+    color: var(--ds-color-accent-text-default);
+    text-decoration: none;
+  }
+
+  .contact-item a:hover {
+    text-decoration: underline;
+  }
+</style>
