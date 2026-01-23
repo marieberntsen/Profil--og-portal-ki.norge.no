@@ -1,5 +1,6 @@
 ---
 import Layout from '../components/layout/Layout.astro';
+import { Heading, Paragraph, Link, Details } from '@digdir/designsystemet-react';
 
 const faqs = [
   {
@@ -40,34 +41,31 @@ const faqs = [
 <Layout title="Vanlige sporsmal (FAQ)" description="Svar pa vanlige sporsmal om KI Norge, den regulatoriske sandkassen og kunstig intelligens i offentlig sektor.">
   <div class="page-container">
     <header class="page-header">
-      <h1>Vanlige sporsmal</h1>
-      <p class="lead">
+      <Heading level={1} size="2xlarge">Vanlige sporsmal</Heading>
+      <Paragraph class="lead" size="large">
         Her finner du svar pa de vanligste sporsmalene om KI Norge og vare tjenester.
-      </p>
+      </Paragraph>
     </header>
 
     <div class="faq-list">
       {faqs.map((faq, index) => (
-        <details class="faq-item">
-          <summary class="faq-question">
+        <Details client:load class="faq-item">
+          <Details.Summary>
             <span class="faq-number">{index + 1}</span>
             <span class="faq-text">{faq.question}</span>
-            <svg class="faq-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"/>
-            </svg>
-          </summary>
-          <div class="faq-answer">
-            <p>{faq.answer}</p>
-          </div>
-        </details>
+          </Details.Summary>
+          <Details.Content>
+            <Paragraph class="faq-answer">{faq.answer}</Paragraph>
+          </Details.Content>
+        </Details>
       ))}
     </div>
 
     <section class="contact-section">
-      <h2>Fant du ikke svar pa sporsmalet ditt?</h2>
-      <p>
-        Ta gjerne <a href="/kontakt">kontakt med oss</a> sa hjelper vi deg.
-      </p>
+      <Heading level={2} size="medium">Fant du ikke svar pa sporsmalet ditt?</Heading>
+      <Paragraph>
+        Ta gjerne <Link href="/kontakt">kontakt med oss</Link> sa hjelper vi deg.
+      </Paragraph>
     </section>
   </div>
 </Layout>
@@ -83,54 +81,27 @@ const faqs = [
     margin-bottom: var(--ds-size-8);
   }
 
-  .page-header h1 {
-    font-size: var(--ds-font-size-8);
-    font-weight: var(--ds-font-weight-bold);
+  .page-header :global(h1) {
     margin: 0 0 var(--ds-size-4);
   }
 
   .lead {
-    font-size: var(--ds-font-size-3);
     color: var(--ds-color-neutral-text-subtle);
-    line-height: 1.6;
     margin: 0;
   }
 
   .faq-list {
+    margin-bottom: var(--ds-size-10);
     display: flex;
     flex-direction: column;
     gap: var(--ds-size-3);
-    margin-bottom: var(--ds-size-10);
   }
 
-  .faq-item {
-    background-color: var(--ds-color-neutral-surface-default);
-    border: 1px solid var(--ds-color-neutral-border-subtle);
-    border-radius: var(--ds-border-radius-md);
-    overflow: hidden;
-  }
-
-  .faq-item[open] {
-    border-color: var(--ds-color-accent-border-default);
-  }
-
-  .faq-question {
+  .faq-item :global(summary) {
     display: flex;
     align-items: center;
     gap: var(--ds-size-3);
-    padding: var(--ds-size-4) var(--ds-size-5);
     cursor: pointer;
-    font-size: var(--ds-font-size-2);
-    font-weight: var(--ds-font-weight-medium);
-    list-style: none;
-  }
-
-  .faq-question::-webkit-details-marker {
-    display: none;
-  }
-
-  .faq-question:hover {
-    background-color: var(--ds-color-neutral-surface-hover);
   }
 
   .faq-number {
@@ -151,24 +122,7 @@ const faqs = [
     flex: 1;
   }
 
-  .faq-icon {
-    color: var(--ds-color-neutral-text-subtle);
-    transition: transform 0.2s ease;
-    flex-shrink: 0;
-  }
-
-  .faq-item[open] .faq-icon {
-    transform: rotate(180deg);
-  }
-
   .faq-answer {
-    padding: 0 var(--ds-size-5) var(--ds-size-5);
-    padding-left: calc(var(--ds-size-5) + 28px + var(--ds-size-3));
-  }
-
-  .faq-answer p {
-    font-size: var(--ds-font-size-1);
-    line-height: 1.7;
     color: var(--ds-color-neutral-text-subtle);
     margin: 0;
   }
@@ -180,18 +134,11 @@ const faqs = [
     text-align: center;
   }
 
-  .contact-section h2 {
-    font-size: var(--ds-font-size-4);
-    font-weight: var(--ds-font-weight-semibold);
+  .contact-section :global(h2) {
     margin: 0 0 var(--ds-size-2);
   }
 
-  .contact-section p {
-    font-size: var(--ds-font-size-1);
+  .contact-section :global(p) {
     margin: 0;
-  }
-
-  .contact-section a {
-    color: var(--ds-color-accent-text-default);
   }
 </style>
