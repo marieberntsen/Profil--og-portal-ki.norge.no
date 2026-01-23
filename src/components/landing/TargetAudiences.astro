@@ -1,4 +1,6 @@
 ---
+import { Heading, Paragraph } from '@digdir/designsystemet-react';
+
 const audiences = [
   {
     title: 'Offentlige virksomheter',
@@ -20,12 +22,12 @@ const audiences = [
 
 <section class="audiences">
   <div class="audiences-container">
-    <h2 class="audiences-heading">Hvem er vi for?</h2>
+    <Heading level={2} size="large" className="audiences-heading">Hvem er vi for?</Heading>
     <div class="audiences-grid">
       {audiences.map((audience) => (
         <div class="audience-card">
-          <h3 class="audience-title">{audience.title}</h3>
-          <p class="audience-description">{audience.description}</p>
+          <Heading level={3} size="medium" className="audience-title">{audience.title}</Heading>
+          <Paragraph size="small" className="audience-description">{audience.description}</Paragraph>
           <ul class="audience-features">
             {audience.features.map((feature) => (
               <li class="audience-feature">
@@ -53,10 +55,8 @@ const audiences = [
     margin: 0 auto;
   }
 
-  .audiences-heading {
+  .audiences-heading :global(h2) {
     text-align: center;
-    font-size: var(--ds-font-size-6);
-    font-weight: var(--ds-font-weight-semibold);
     margin: 0 0 var(--ds-size-8);
   }
 
@@ -73,14 +73,11 @@ const audiences = [
     border: 1px solid var(--ds-color-neutral-border-subtle);
   }
 
-  .audience-title {
-    font-size: var(--ds-font-size-3);
-    font-weight: var(--ds-font-weight-semibold);
+  .audience-title :global(h3) {
     margin: 0 0 var(--ds-size-2);
   }
 
-  .audience-description {
-    font-size: var(--ds-font-size-1);
+  .audience-description :global(p) {
     color: var(--ds-color-neutral-text-subtle);
     margin: 0 0 var(--ds-size-4);
     line-height: 1.5;

@@ -1,4 +1,6 @@
 ---
+import { Heading } from '@digdir/designsystemet-react';
+
 const stats = [
   { value: '3', label: 'Samarbeidspartnere', description: 'Nkom, Datatilsynet, Digdir' },
   { value: '100+', label: 'Veiledningsressurser', description: 'For offentlig sektor' },
@@ -9,7 +11,7 @@ const stats = [
 
 <section class="stats">
   <div class="stats-container">
-    <h2 class="stats-heading">KI Norge i tall</h2>
+    <Heading level={2} size="large" className="stats-heading">KI Norge i tall</Heading>
     <div class="stats-grid">
       {stats.map((stat) => (
         <div class="stat-card">
@@ -33,10 +35,8 @@ const stats = [
     margin: 0 auto;
   }
 
-  .stats-heading {
+  .stats-heading :global(h2) {
     text-align: center;
-    font-size: var(--ds-font-size-6);
-    font-weight: var(--ds-font-weight-semibold);
     margin: 0 0 var(--ds-size-8);
   }
 

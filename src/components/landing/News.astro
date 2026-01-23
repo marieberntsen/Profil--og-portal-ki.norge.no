@@ -1,4 +1,5 @@
 ---
+import { Heading, Link } from '@digdir/designsystemet-react';
 import ArticleCard from '../shared/ArticleCard.astro';
 
 interface Props {
@@ -44,8 +45,8 @@ const displayArticles = articles.length > 0 ? articles : placeholderArticles;
 <section class="news">
   <div class="news-container">
     <div class="news-header">
-      <h2 class="news-heading">Siste nytt</h2>
-      <a href="/artikler" class="news-link">Se alle artikler</a>
+      <Heading level={2} size="large" className="news-heading">Siste nytt</Heading>
+      <Link href="/artikler" className="news-link">Se alle artikler</Link>
     </div>
     <div class="news-grid">
       {displayArticles.slice(0, 3).map((article) => (
@@ -81,21 +82,13 @@ const displayArticles = articles.length > 0 ? articles : placeholderArticles;
     gap: var(--ds-size-4);
   }
 
-  .news-heading {
-    font-size: var(--ds-font-size-6);
-    font-weight: var(--ds-font-weight-semibold);
+  .news-heading :global(h2) {
     margin: 0;
   }
 
-  .news-link {
+  .news-link :global(a) {
     font-size: var(--ds-font-size-1);
     font-weight: var(--ds-font-weight-medium);
-    color: var(--ds-color-accent-text-default);
-    text-decoration: none;
-  }
-
-  .news-link:hover {
-    text-decoration: underline;
   }
 
   .news-grid {

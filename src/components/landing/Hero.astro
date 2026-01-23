@@ -1,19 +1,30 @@
 ---
+import { Heading, Paragraph, Button } from '@digdir/designsystemet-react';
 ---
 
 <section class="hero">
   <div class="hero-container">
-    <h1 class="hero-title">Kunstig intelligens for Norge</h1>
-    <p class="hero-subtitle">
+    <Heading level={1} size="2xlarge" className="hero-title">
+      Kunstig intelligens for Norge
+    </Heading>
+    <Paragraph size="large" className="hero-subtitle">
       Sammen bygger vi et trygt og innovativt KI-landskap for norsk offentlig sektor
-    </p>
+    </Paragraph>
     <div class="hero-actions">
-      <a href="/veiledning" class="hero-button primary">
-        Utforsk veiledning
-      </a>
-      <a href="/sandkasse" class="hero-button secondary">
-        Regulatorisk sandkasse
-      </a>
+      <Button
+        asChild
+        variant="primary"
+        size="large"
+      >
+        <a href="/veiledning">Utforsk veiledning</a>
+      </Button>
+      <Button
+        asChild
+        variant="secondary"
+        size="large"
+      >
+        <a href="/sandkasse">Regulatorisk sandkasse</a>
+      </Button>
     </div>
   </div>
 </section>
@@ -34,16 +45,13 @@
     margin: 0 auto;
   }
 
-  .hero-title {
-    font-size: clamp(var(--ds-font-size-7), 5vw, var(--ds-font-size-10));
-    font-weight: var(--ds-font-weight-bold);
+  :global(.hero-title) {
     margin: 0 0 var(--ds-size-4);
     color: var(--ds-color-neutral-text-default);
     line-height: 1.1;
   }
 
-  .hero-subtitle {
-    font-size: var(--ds-font-size-3);
+  :global(.hero-subtitle) {
     color: var(--ds-color-neutral-text-subtle);
     margin: 0 0 var(--ds-size-8);
     line-height: 1.5;
@@ -56,34 +64,7 @@
     flex-wrap: wrap;
   }
 
-  .hero-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: var(--ds-size-3) var(--ds-size-6);
-    border-radius: var(--ds-border-radius-md);
-    font-size: var(--ds-font-size-2);
-    font-weight: var(--ds-font-weight-medium);
+  .hero-actions :global(a) {
     text-decoration: none;
-    transition: all 0.2s ease;
-  }
-
-  .hero-button.primary {
-    background-color: var(--ds-color-accent-base-default);
-    color: var(--ds-color-accent-contrast-default);
-  }
-
-  .hero-button.primary:hover {
-    background-color: var(--ds-color-accent-base-hover);
-  }
-
-  .hero-button.secondary {
-    background-color: var(--ds-color-neutral-surface-default);
-    color: var(--ds-color-neutral-text-default);
-    border: 1px solid var(--ds-color-neutral-border-default);
-  }
-
-  .hero-button.secondary:hover {
-    background-color: var(--ds-color-neutral-surface-hover);
   }
 </style>

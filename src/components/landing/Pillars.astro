@@ -1,4 +1,6 @@
 ---
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+
 const pillars = [
   {
     title: 'Veiledning',
@@ -23,13 +25,13 @@ const pillars = [
 
 <section class="pillars">
   <div class="pillars-container">
-    <h2 class="pillars-heading">Vare hovedomrader</h2>
-    <p class="pillars-intro">
+    <Heading level={2} size="large" className="pillars-heading">Vare hovedomrader</Heading>
+    <Paragraph size="medium" className="pillars-intro">
       KI Norge tilbyr tre hovedtjenester for a stotte offentlig sektors arbeid med kunstig intelligens
-    </p>
+    </Paragraph>
     <div class="pillars-grid">
       {pillars.map((pillar) => (
-        <a href={pillar.href} class="pillar-card">
+        <Link href={pillar.href} className="pillar-card">
           <div class="pillar-icon" aria-hidden="true">
             {pillar.icon === 'book' && (
               <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -52,10 +54,10 @@ const pillars = [
               </svg>
             )}
           </div>
-          <h3 class="pillar-title">{pillar.title}</h3>
-          <p class="pillar-description">{pillar.description}</p>
+          <Heading level={3} size="medium" className="pillar-title">{pillar.title}</Heading>
+          <Paragraph size="small" className="pillar-description">{pillar.description}</Paragraph>
           <span class="pillar-link">Les mer</span>
-        </a>
+        </Link>
       ))}
     </div>
   </div>
@@ -72,16 +74,13 @@ const pillars = [
     margin: 0 auto;
   }
 
-  .pillars-heading {
+  .pillars-heading :global(h2) {
     text-align: center;
-    font-size: var(--ds-font-size-6);
-    font-weight: var(--ds-font-weight-semibold);
     margin: 0 0 var(--ds-size-3);
   }
 
-  .pillars-intro {
+  .pillars-intro :global(p) {
     text-align: center;
-    font-size: var(--ds-font-size-2);
     color: var(--ds-color-neutral-text-subtle);
     margin: 0 0 var(--ds-size-8);
     max-width: 600px;
@@ -95,7 +94,7 @@ const pillars = [
     gap: var(--ds-size-6);
   }
 
-  .pillar-card {
+  :global(.pillar-card) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -109,7 +108,7 @@ const pillars = [
     transition: all 0.2s ease;
   }
 
-  .pillar-card:hover {
+  :global(.pillar-card:hover) {
     border-color: var(--ds-color-accent-border-default);
     box-shadow: var(--ds-shadow-md);
     transform: translateY(-4px);
@@ -127,14 +126,11 @@ const pillars = [
     margin-bottom: var(--ds-size-4);
   }
 
-  .pillar-title {
-    font-size: var(--ds-font-size-4);
-    font-weight: var(--ds-font-weight-semibold);
+  .pillar-title :global(h3) {
     margin: 0 0 var(--ds-size-2);
   }
 
-  .pillar-description {
-    font-size: var(--ds-font-size-1);
+  .pillar-description :global(p) {
     color: var(--ds-color-neutral-text-subtle);
     margin: 0 0 var(--ds-size-4);
     line-height: 1.5;

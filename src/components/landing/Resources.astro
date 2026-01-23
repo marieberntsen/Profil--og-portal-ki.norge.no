@@ -1,4 +1,6 @@
 ---
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+
 const resources = [
   {
     title: 'KI-forskriften',
@@ -30,16 +32,16 @@ const resources = [
 <section class="resources">
   <div class="resources-container">
     <div class="resources-header">
-      <h2 class="resources-heading">Populare ressurser</h2>
-      <a href="/veiledning" class="resources-link">Se alle ressurser</a>
+      <Heading level={2} size="large" className="resources-heading">Populare ressurser</Heading>
+      <Link href="/veiledning" className="resources-link">Se alle ressurser</Link>
     </div>
     <div class="resources-grid">
       {resources.map((resource) => (
-        <a href={resource.href} class="resource-card">
+        <Link href={resource.href} className="resource-card">
           <span class="resource-type">{resource.type}</span>
-          <h3 class="resource-title">{resource.title}</h3>
-          <p class="resource-description">{resource.description}</p>
-        </a>
+          <Heading level={3} size="small" className="resource-title">{resource.title}</Heading>
+          <Paragraph size="xsmall" className="resource-description">{resource.description}</Paragraph>
+        </Link>
       ))}
     </div>
   </div>
@@ -65,21 +67,13 @@ const resources = [
     gap: var(--ds-size-4);
   }
 
-  .resources-heading {
-    font-size: var(--ds-font-size-6);
-    font-weight: var(--ds-font-weight-semibold);
+  .resources-heading :global(h2) {
     margin: 0;
   }
 
-  .resources-link {
+  .resources-link :global(a) {
     font-size: var(--ds-font-size-1);
     font-weight: var(--ds-font-weight-medium);
-    color: var(--ds-color-accent-text-default);
-    text-decoration: none;
-  }
-
-  .resources-link:hover {
-    text-decoration: underline;
   }
 
   .resources-grid {
@@ -88,7 +82,7 @@ const resources = [
     gap: var(--ds-size-4);
   }
 
-  .resource-card {
+  :global(.resource-card) {
     display: flex;
     flex-direction: column;
     padding: var(--ds-size-5);
@@ -100,7 +94,7 @@ const resources = [
     transition: all 0.2s ease;
   }
 
-  .resource-card:hover {
+  :global(.resource-card:hover) {
     border-color: var(--ds-color-accent-border-default);
     box-shadow: var(--ds-shadow-sm);
   }
@@ -114,14 +108,11 @@ const resources = [
     margin-bottom: var(--ds-size-2);
   }
 
-  .resource-title {
-    font-size: var(--ds-font-size-2);
-    font-weight: var(--ds-font-weight-semibold);
+  .resource-title :global(h3) {
     margin: 0 0 var(--ds-size-2);
   }
 
-  .resource-description {
-    font-size: var(--ds-font-size-0);
+  .resource-description :global(p) {
     color: var(--ds-color-neutral-text-subtle);
     margin: 0;
     line-height: 1.5;
