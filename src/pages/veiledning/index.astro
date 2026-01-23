@@ -1,5 +1,6 @@
 ---
 import Layout from '../../components/layout/Layout.astro';
+import { Heading, Paragraph, Link, Button } from '@digdir/designsystemet-react';
 
 const categories = [
   {
@@ -40,23 +41,23 @@ const categories = [
 <Layout title="Veiledning" description="Omfattende veiledningsressurser for ansvarlig bruk av kunstig intelligens i offentlig sektor.">
   <div class="page-container">
     <header class="page-header">
-      <h1>Veiledning</h1>
-      <p class="lead">
+      <Heading level={1} size="2xlarge">Veiledning</Heading>
+      <Paragraph size="large" class="lead">
         Omfattende ressurser og retningslinjer for ansvarlig bruk av kunstig
         intelligens i offentlig sektor.
-      </p>
+      </Paragraph>
     </header>
 
     <div class="categories">
       {categories.map((category) => (
         <section class="category">
-          <h2 class="category-title">{category.title}</h2>
+          <Heading level={2} size="large" class="category-title">{category.title}</Heading>
           <div class="items-grid">
             {category.items.map((item) => (
-              <a href={item.href} class="item-card">
-                <h3 class="item-title">{item.title}</h3>
-                <p class="item-description">{item.description}</p>
-              </a>
+              <Link href={item.href} class="item-card">
+                <Heading level={3} size="small" class="item-title">{item.title}</Heading>
+                <Paragraph size="small" class="item-description">{item.description}</Paragraph>
+              </Link>
             ))}
           </div>
         </section>
@@ -64,11 +65,13 @@ const categories = [
     </div>
 
     <section class="cta-section">
-      <h2>Trenger du mer hjelp?</h2>
-      <p>
+      <Heading level={2} size="large">Trenger du mer hjelp?</Heading>
+      <Paragraph>
         Den regulatoriske sandkassen tilbyr hands-on veiledning for KI-prosjekter.
-      </p>
-      <a href="/sandkasse" class="cta-button">Les om sandkassen</a>
+      </Paragraph>
+      <Button asChild size="medium">
+        <a href="/sandkasse">Les om sandkassen</a>
+      </Button>
     </section>
   </div>
 </Layout>
@@ -84,16 +87,11 @@ const categories = [
     margin-bottom: var(--ds-size-8);
   }
 
-  .page-header h1 {
-    font-size: var(--ds-font-size-8);
-    font-weight: var(--ds-font-weight-bold);
+  .page-header :global(h1) {
     margin: 0 0 var(--ds-size-4);
   }
 
   .lead {
-    font-size: var(--ds-font-size-3);
-    color: var(--ds-color-neutral-text-subtle);
-    line-height: 1.6;
     margin: 0;
   }
 
@@ -105,8 +103,6 @@ const categories = [
   }
 
   .category-title {
-    font-size: var(--ds-font-size-4);
-    font-weight: var(--ds-font-weight-semibold);
     margin: 0 0 var(--ds-size-4);
     padding-bottom: var(--ds-size-2);
     border-bottom: 2px solid var(--ds-color-accent-border-default);
@@ -135,17 +131,12 @@ const categories = [
   }
 
   .item-title {
-    font-size: var(--ds-font-size-2);
-    font-weight: var(--ds-font-weight-semibold);
     margin: 0 0 var(--ds-size-2);
     color: var(--ds-color-accent-text-default);
   }
 
   .item-description {
-    font-size: var(--ds-font-size-1);
-    color: var(--ds-color-neutral-text-subtle);
     margin: 0;
-    line-height: 1.5;
   }
 
   .cta-section {
@@ -155,30 +146,15 @@ const categories = [
     text-align: center;
   }
 
-  .cta-section h2 {
-    font-size: var(--ds-font-size-5);
-    font-weight: var(--ds-font-weight-semibold);
+  .cta-section :global(h2) {
     margin: 0 0 var(--ds-size-2);
   }
 
-  .cta-section p {
-    font-size: var(--ds-font-size-1);
-    color: var(--ds-color-neutral-text-subtle);
+  .cta-section :global(p) {
     margin: 0 0 var(--ds-size-4);
   }
 
-  .cta-button {
+  .cta-section :global(button) {
     display: inline-block;
-    padding: var(--ds-size-3) var(--ds-size-6);
-    background-color: var(--ds-color-accent-base-default);
-    color: var(--ds-color-accent-contrast-default);
-    text-decoration: none;
-    border-radius: var(--ds-border-radius-md);
-    font-weight: var(--ds-font-weight-medium);
-    transition: background-color 0.2s ease;
-  }
-
-  .cta-button:hover {
-    background-color: var(--ds-color-accent-base-hover);
   }
 </style>
