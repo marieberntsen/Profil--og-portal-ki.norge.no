@@ -1,19 +1,20 @@
 ---
 import Layout from '../../components/layout/Layout.astro';
+import { Heading, Paragraph, Button, Textfield, Textarea, Label, Checkbox } from '@digdir/designsystemet-react';
 ---
 
 <Layout title="Send inn eksempel" description="Del din organisasjons erfaring med kunstig intelligens.">
   <div class="page-container">
     <header class="page-header">
-      <h1>Send inn eksempel</h1>
-      <p class="lead">
+      <Heading level={1} size="2xlarge">Send inn eksempel</Heading>
+      <Paragraph size="large" class="lead">
         Del din organisasjons erfaring med kunstig intelligens.
         Bidra til a inspirere og hjelpe andre offentlige virksomheter.
-      </p>
+      </Paragraph>
     </header>
 
     <div class="info-box">
-      <h2>Hva leter vi etter?</h2>
+      <Heading level={2} size="small">Hva leter vi etter?</Heading>
       <ul>
         <li>Konkrete eksempler pa KI-bruk i offentlig sektor</li>
         <li>Bade suksesser og lardommer fra utfordringer</li>
@@ -24,59 +25,58 @@ import Layout from '../../components/layout/Layout.astro';
 
     <form class="submission-form">
       <div class="form-group">
-        <label for="organization">Organisasjon *</label>
-        <input type="text" id="organization" name="organization" required />
+        <Label htmlFor="organization">Organisasjon *</Label>
+        <Textfield id="organization" name="organization" required />
       </div>
 
       <div class="form-group">
-        <label for="contact-name">Kontaktperson *</label>
-        <input type="text" id="contact-name" name="contactName" required />
+        <Label htmlFor="contact-name">Kontaktperson *</Label>
+        <Textfield id="contact-name" name="contactName" required />
       </div>
 
       <div class="form-group">
-        <label for="contact-email">E-post *</label>
-        <input type="email" id="contact-email" name="contactEmail" required />
+        <Label htmlFor="contact-email">E-post *</Label>
+        <Textfield type="email" id="contact-email" name="contactEmail" required />
       </div>
 
       <div class="form-group">
-        <label for="title">Tittel pa eksempelet *</label>
-        <input type="text" id="title" name="title" required />
+        <Label htmlFor="title">Tittel pa eksempelet *</Label>
+        <Textfield id="title" name="title" required />
       </div>
 
       <div class="form-group">
-        <label for="description">Kort beskrivelse *</label>
-        <textarea id="description" name="description" rows="3" required></textarea>
-        <span class="help-text">Maks 200 tegn</span>
+        <Label htmlFor="description">Kort beskrivelse *</Label>
+        <Textarea id="description" name="description" rows={3} required />
+        <Paragraph size="xsmall" class="help-text">Maks 200 tegn</Paragraph>
       </div>
 
       <div class="form-group">
-        <label for="tools">Verktoy og teknologi</label>
-        <input type="text" id="tools" name="tools" placeholder="F.eks. Azure OpenAI, Python, TensorFlow" />
+        <Label htmlFor="tools">Verktoy og teknologi</Label>
+        <Textfield id="tools" name="tools" placeholder="F.eks. Azure OpenAI, Python, TensorFlow" />
       </div>
 
       <div class="form-group">
-        <label for="outcomes">Resultater og lardommer</label>
-        <textarea id="outcomes" name="outcomes" rows="3"></textarea>
+        <Label htmlFor="outcomes">Resultater og lardommer</Label>
+        <Textarea id="outcomes" name="outcomes" rows={3} />
       </div>
 
       <div class="form-group">
-        <label for="full-story">Full historie</label>
-        <textarea id="full-story" name="fullStory" rows="8" placeholder="Fortell hele historien: bakgrunn, utfordringer, losning, resultater og lardommer"></textarea>
+        <Label htmlFor="full-story">Full historie</Label>
+        <Textarea id="full-story" name="fullStory" rows={8} placeholder="Fortell hele historien: bakgrunn, utfordringer, losning, resultater og lardommer" />
       </div>
 
       <div class="form-group checkbox-group">
-        <label>
-          <input type="checkbox" name="consent" required />
-          <span>Jeg godtar at informasjonen kan publiseres pa ki.norge.no *</span>
-        </label>
+        <Checkbox name="consent" required>
+          Jeg godtar at informasjonen kan publiseres pa ki.norge.no *
+        </Checkbox>
       </div>
 
-      <button type="submit" class="submit-button">Send inn</button>
+      <Button type="submit" size="medium">Send inn</Button>
     </form>
 
-    <p class="note">
+    <Paragraph size="small" class="note">
       * Obligatoriske felt. Vi tar kontakt for eventuell oppfolging for publiseres.
-    </p>
+    </Paragraph>
   </div>
 </Layout>
 
@@ -91,16 +91,11 @@ import Layout from '../../components/layout/Layout.astro';
     margin-bottom: var(--ds-size-6);
   }
 
-  .page-header h1 {
-    font-size: var(--ds-font-size-8);
-    font-weight: var(--ds-font-weight-bold);
+  .page-header :global(h1) {
     margin: 0 0 var(--ds-size-4);
   }
 
   .lead {
-    font-size: var(--ds-font-size-3);
-    color: var(--ds-color-neutral-text-subtle);
-    line-height: 1.6;
     margin: 0;
   }
 
@@ -111,9 +106,7 @@ import Layout from '../../components/layout/Layout.astro';
     margin-bottom: var(--ds-size-8);
   }
 
-  .info-box h2 {
-    font-size: var(--ds-font-size-2);
-    font-weight: var(--ds-font-weight-semibold);
+  .info-box :global(h2) {
     margin: 0 0 var(--ds-size-3);
   }
 
@@ -140,66 +133,19 @@ import Layout from '../../components/layout/Layout.astro';
     gap: var(--ds-size-2);
   }
 
-  .form-group label {
-    font-size: var(--ds-font-size-1);
-    font-weight: var(--ds-font-weight-medium);
-  }
-
-  .form-group input[type="text"],
-  .form-group input[type="email"],
-  .form-group textarea {
-    padding: var(--ds-size-3);
-    border: 1px solid var(--ds-color-neutral-border-default);
-    border-radius: var(--ds-border-radius-md);
-    font-size: var(--ds-font-size-1);
-    font-family: inherit;
-    transition: border-color 0.2s ease;
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus {
-    outline: none;
-    border-color: var(--ds-color-accent-border-default);
-    box-shadow: 0 0 0 3px var(--ds-color-accent-surface-default);
-  }
-
   .help-text {
-    font-size: var(--ds-font-size-0);
-    color: var(--ds-color-neutral-text-subtle);
-  }
-
-  .checkbox-group label {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--ds-size-2);
-    font-weight: normal;
-    cursor: pointer;
-  }
-
-  .checkbox-group input[type="checkbox"] {
     margin-top: var(--ds-size-1);
   }
 
-  .submit-button {
-    padding: var(--ds-size-3) var(--ds-size-6);
-    background-color: var(--ds-color-accent-base-default);
-    color: var(--ds-color-accent-contrast-default);
-    border: none;
-    border-radius: var(--ds-border-radius-md);
-    font-size: var(--ds-font-size-2);
-    font-weight: var(--ds-font-weight-medium);
-    cursor: pointer;
-    transition: background-color 0.2s ease;
+  .checkbox-group {
+    gap: 0;
+  }
+
+  .submission-form :global(button[type="submit"]) {
     align-self: flex-start;
   }
 
-  .submit-button:hover {
-    background-color: var(--ds-color-accent-base-hover);
-  }
-
   .note {
-    font-size: var(--ds-font-size-0);
-    color: var(--ds-color-neutral-text-subtle);
     margin: 0;
   }
 </style>

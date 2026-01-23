@@ -1,5 +1,6 @@
 ---
 import Layout from '../../components/layout/Layout.astro';
+import { Heading, Paragraph, Link, Button } from '@digdir/designsystemet-react';
 
 // Placeholder data - will be replaced with Strapi data
 const cases = [
@@ -30,34 +31,36 @@ const cases = [
 <Layout title="Gode eksempler" description="Lar av andre offentlige virksomheters suksesshistorier med kunstig intelligens.">
   <div class="page-container">
     <header class="page-header">
-      <h1>Gode eksempler</h1>
-      <p class="lead">
+      <Heading level={1} size="2xlarge">Gode eksempler</Heading>
+      <Paragraph size="large" class="lead">
         Lar av andre offentlige virksomheters erfaringer med kunstig intelligens.
         Her deler vi suksesshistorier, lardommer og beste praksis.
-      </p>
+      </Paragraph>
     </header>
 
     <div class="cases-grid">
       {cases.map((case_) => (
-        <a href={`/eksempler/${case_.slug}`} class="case-card">
+        <Link href={`/eksempler/${case_.slug}`} class="case-card">
           <span class="case-org">{case_.organization}</span>
-          <h2 class="case-title">{case_.title}</h2>
-          <p class="case-description">{case_.description}</p>
+          <Heading level={2} size="medium" class="case-title">{case_.title}</Heading>
+          <Paragraph size="small" class="case-description">{case_.description}</Paragraph>
           <div class="case-tools">
             <span class="tools-label">Verktoy:</span>
             <span class="tools-value">{case_.tools}</span>
           </div>
-        </a>
+        </Link>
       ))}
     </div>
 
     <section class="submit-section">
-      <h2>Har du et eksempel a dele?</h2>
-      <p>
+      <Heading level={2} size="large">Har du et eksempel a dele?</Heading>
+      <Paragraph>
         Vi onsker a hore om hvordan din virksomhet bruker KI.
         Del din historie og inspirer andre!
-      </p>
-      <a href="/eksempler/send-inn" class="submit-button">Send inn eksempel</a>
+      </Paragraph>
+      <Button asChild size="medium">
+        <a href="/eksempler/send-inn">Send inn eksempel</a>
+      </Button>
     </section>
   </div>
 </Layout>
@@ -73,16 +76,11 @@ const cases = [
     margin-bottom: var(--ds-size-8);
   }
 
-  .page-header h1 {
-    font-size: var(--ds-font-size-8);
-    font-weight: var(--ds-font-weight-bold);
+  .page-header :global(h1) {
     margin: 0 0 var(--ds-size-4);
   }
 
   .lead {
-    font-size: var(--ds-font-size-3);
-    color: var(--ds-color-neutral-text-subtle);
-    line-height: 1.6;
     margin: 0;
   }
 
@@ -121,17 +119,11 @@ const cases = [
   }
 
   .case-title {
-    font-size: var(--ds-font-size-3);
-    font-weight: var(--ds-font-weight-semibold);
     margin: 0 0 var(--ds-size-3);
-    line-height: 1.3;
   }
 
   .case-description {
-    font-size: var(--ds-font-size-1);
-    color: var(--ds-color-neutral-text-subtle);
     margin: 0 0 var(--ds-size-4);
-    line-height: 1.5;
     flex: 1;
   }
 
@@ -156,30 +148,15 @@ const cases = [
     text-align: center;
   }
 
-  .submit-section h2 {
-    font-size: var(--ds-font-size-5);
-    font-weight: var(--ds-font-weight-semibold);
+  .submit-section :global(h2) {
     margin: 0 0 var(--ds-size-2);
   }
 
-  .submit-section p {
-    font-size: var(--ds-font-size-1);
-    color: var(--ds-color-neutral-text-subtle);
+  .submit-section :global(p) {
     margin: 0 0 var(--ds-size-4);
   }
 
-  .submit-button {
+  .submit-section :global(button) {
     display: inline-block;
-    padding: var(--ds-size-3) var(--ds-size-6);
-    background-color: var(--ds-color-accent-base-default);
-    color: var(--ds-color-accent-contrast-default);
-    text-decoration: none;
-    border-radius: var(--ds-border-radius-md);
-    font-weight: var(--ds-font-weight-medium);
-    transition: background-color 0.2s ease;
-  }
-
-  .submit-button:hover {
-    background-color: var(--ds-color-accent-base-hover);
   }
 </style>
