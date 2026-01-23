@@ -1,4 +1,6 @@
 ---
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+
 interface Props {
   title: string;
   excerpt: string;
@@ -17,14 +19,18 @@ const formattedDate = new Date(publishedAt).toLocaleDateString('nb-NO', {
 ---
 
 <article class="article-card">
-  <a href={`/artikler/${slug}`} class="card-link">
+  <Link href={`/artikler/${slug}`} className="card-link">
     <div class="card-content">
       {category && <span class="category">{category}</span>}
-      <h3 class="title">{title}</h3>
-      <p class="excerpt">{excerpt}</p>
+      <Heading level={3} size="medium" className="title">
+        {title}
+      </Heading>
+      <Paragraph size="small" className="excerpt">
+        {excerpt}
+      </Paragraph>
       <time class="date" datetime={publishedAt}>{formattedDate}</time>
     </div>
-  </a>
+  </Link>
 </article>
 
 <style>
@@ -41,7 +47,7 @@ const formattedDate = new Date(publishedAt).toLocaleDateString('nb-NO', {
     transform: translateY(-2px);
   }
 
-  .card-link {
+  :global(.card-link) {
     display: block;
     text-decoration: none;
     color: inherit;
@@ -62,16 +68,13 @@ const formattedDate = new Date(publishedAt).toLocaleDateString('nb-NO', {
     letter-spacing: 0.05em;
   }
 
-  .title {
-    font-size: var(--ds-font-size-3);
-    font-weight: var(--ds-font-weight-semibold);
+  :global(.title) {
     margin: 0;
     line-height: 1.3;
     color: var(--ds-color-neutral-text-default);
   }
 
-  .excerpt {
-    font-size: var(--ds-font-size-1);
+  :global(.excerpt) {
     color: var(--ds-color-neutral-text-subtle);
     margin: 0;
     line-height: 1.5;
