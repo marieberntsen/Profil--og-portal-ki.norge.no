@@ -1,0 +1,160 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import { Heading, Paragraph, Link, Button } from '@digdir/designsystemet-react';
+
+const categories = [
+  {
+    title: 'Regelverk',
+    items: [
+      { title: 'KI-forskriften', description: 'Norges implementering av EU AI Act', href: '#' },
+      { title: 'EU AI Act oversikt', description: 'Hovedpunkter i EUs KI-forordning', href: '#' },
+      { title: 'GDPR og KI', description: 'Personvern ved bruk av kunstig intelligens', href: '#' },
+    ],
+  },
+  {
+    title: 'Anskaffelse',
+    items: [
+      { title: 'Anskaffelsesveileder', description: 'Steg-for-steg for KI-anskaffelser', href: '#' },
+      { title: 'Kravspesifikasjon', description: 'Hvordan spesifisere KI-krav', href: '#' },
+      { title: 'Leverandorvurdering', description: 'Evaluering av KI-leverandorer', href: '#' },
+    ],
+  },
+  {
+    title: 'Risikovurdering',
+    items: [
+      { title: 'Risikorammeverk', description: 'Strukturert tilnarming til KI-risiko', href: '#' },
+      { title: 'Konsekvensanalyse', description: 'DPIA for KI-systemer', href: '#' },
+      { title: 'Risikokategorier', description: 'Forsta hoy-risiko vs lav-risiko KI', href: '#' },
+    ],
+  },
+  {
+    title: 'Etikk og ansvar',
+    items: [
+      { title: 'Etiske retningslinjer', description: 'Prinsipper for ansvarlig KI', href: '#' },
+      { title: 'Transparens', description: 'Appenhet om KI-bruk', href: '#' },
+      { title: 'Menneske i loopen', description: 'Sikre menneskelig kontroll', href: '#' },
+    ],
+  },
+];
+---
+
+<Layout title="Veiledning" description="Omfattende veiledningsressurser for ansvarlig bruk av kunstig intelligens i offentlig sektor.">
+  <div class="page-container">
+    <header class="page-header">
+      <Heading level={1} size="2xlarge">Veiledning</Heading>
+      <Paragraph size="large" class="lead">
+        Omfattende ressurser og retningslinjer for ansvarlig bruk av kunstig
+        intelligens i offentlig sektor.
+      </Paragraph>
+    </header>
+
+    <div class="categories">
+      {categories.map((category) => (
+        <section class="category">
+          <Heading level={2} size="large" class="category-title">{category.title}</Heading>
+          <div class="items-grid">
+            {category.items.map((item) => (
+              <Link href={item.href} class="item-card">
+                <Heading level={3} size="small" class="item-title">{item.title}</Heading>
+                <Paragraph size="small" class="item-description">{item.description}</Paragraph>
+              </Link>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <section class="cta-section">
+      <Heading level={2} size="large">Trenger du mer hjelp?</Heading>
+      <Paragraph>
+        Den regulatoriske sandkassen tilbyr hands-on veiledning for KI-prosjekter.
+      </Paragraph>
+      <Button asChild size="medium">
+        <a href="/sandkasse">Les om sandkassen</a>
+      </Button>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .page-header {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .page-header :global(h1) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    margin: 0;
+  }
+
+  .categories {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-8);
+    margin-bottom: var(--ds-size-10);
+  }
+
+  .category-title {
+    margin: 0 0 var(--ds-size-4);
+    padding-bottom: var(--ds-size-2);
+    border-bottom: 2px solid var(--ds-color-accent-border-default);
+  }
+
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--ds-size-4);
+  }
+
+  .item-card {
+    display: block;
+    padding: var(--ds-size-5);
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-md);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+  }
+
+  .item-card:hover {
+    border-color: var(--ds-color-accent-border-default);
+    box-shadow: var(--ds-shadow-sm);
+  }
+
+  .item-title {
+    margin: 0 0 var(--ds-size-2);
+    color: var(--ds-color-accent-text-default);
+  }
+
+  .item-description {
+    margin: 0;
+  }
+
+  .cta-section {
+    padding: var(--ds-size-8);
+    background-color: var(--ds-color-accent-surface-default);
+    border-radius: var(--ds-border-radius-lg);
+    text-align: center;
+  }
+
+  .cta-section :global(h2) {
+    margin: 0 0 var(--ds-size-2);
+  }
+
+  .cta-section :global(p) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .cta-section :global(button) {
+    display: inline-block;
+  }
+</style>

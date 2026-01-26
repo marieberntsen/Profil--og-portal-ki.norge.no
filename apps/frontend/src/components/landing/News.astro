@@ -1,0 +1,99 @@
+---
+import { Heading, Link } from '@digdir/designsystemet-react';
+import ArticleCard from '../shared/ArticleCard.astro';
+
+interface Props {
+  articles?: Array<{
+    title: string;
+    excerpt: string;
+    slug: string;
+    publishedAt: string;
+    category?: string;
+  }>;
+}
+
+const { articles = [] } = Astro.props;
+
+// Placeholder articles for when Strapi is not connected
+const placeholderArticles = [
+  {
+    title: 'Lansering av regulatorisk sandkasse for KI',
+    excerpt: 'Nkom, Datatilsynet og Digdir lanserer den forste regulatoriske sandkassen for kunstig intelligens i Norge.',
+    slug: 'lansering-sandkasse',
+    publishedAt: '2024-01-15',
+    category: 'Nyhet',
+  },
+  {
+    title: 'Nye retningslinjer for KI i offentlig sektor',
+    excerpt: 'Oppdaterte retningslinjer for ansvarlig bruk av kunstig intelligens i offentlige virksomheter.',
+    slug: 'nye-retningslinjer',
+    publishedAt: '2024-01-10',
+    category: 'Veiledning',
+  },
+  {
+    title: 'Suksesshistorie: KI i helsetjenesten',
+    excerpt: 'Les om hvordan en norsk kommune har implementert KI for a forbedre helsetjenestene.',
+    slug: 'ki-helsetjenesten',
+    publishedAt: '2024-01-05',
+    category: 'Eksempel',
+  },
+];
+
+const displayArticles = articles.length > 0 ? articles : placeholderArticles;
+---
+
+<section class="news">
+  <div class="news-container">
+    <div class="news-header">
+      <Heading level={2} size="large" className="news-heading">Siste nytt</Heading>
+      <Link href="/artikler" className="news-link">Se alle artikler</Link>
+    </div>
+    <div class="news-grid">
+      {displayArticles.slice(0, 3).map((article) => (
+        <ArticleCard
+          title={article.title}
+          excerpt={article.excerpt}
+          slug={article.slug}
+          publishedAt={article.publishedAt}
+          category={article.category}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .news {
+    padding: var(--ds-size-10) var(--ds-size-4);
+    background-color: var(--ds-color-neutral-surface-default);
+  }
+
+  .news-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--ds-size-6);
+    flex-wrap: wrap;
+    gap: var(--ds-size-4);
+  }
+
+  .news-heading :global(h2) {
+    margin: 0;
+  }
+
+  .news-link :global(a) {
+    font-size: var(--ds-font-size-1);
+    font-weight: var(--ds-font-weight-medium);
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--ds-size-6);
+  }
+</style>

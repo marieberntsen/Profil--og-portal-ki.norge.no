@@ -1,0 +1,133 @@
+---
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+
+const partners = [
+  { name: 'Nkom', url: 'https://www.nkom.no' },
+  { name: 'Datatilsynet', url: 'https://www.datatilsynet.no' },
+  { name: 'Digdir', url: 'https://www.digdir.no' },
+];
+---
+
+<footer class="footer">
+  <div class="footer-container">
+    <div class="footer-section">
+      <Heading level={2} size="xsmall" className="footer-heading">
+        KI Norge
+      </Heading>
+      <Paragraph size="small" className="footer-text">
+        Norges nasjonale strategi for kunstig intelligens.
+        Et samarbeid mellom Nkom, Datatilsynet og Digdir.
+      </Paragraph>
+    </div>
+
+    <div class="footer-section">
+      <Heading level={2} size="xsmall" className="footer-heading">
+        Samarbeidspartnere
+      </Heading>
+      <ul class="partner-list">
+        {partners.map((partner) => (
+          <li>
+            <Link
+              href={partner.url}
+              className="partner-link"
+            >
+              {partner.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="footer-section">
+      <Heading level={2} size="xsmall" className="footer-heading">
+        Kontakt
+      </Heading>
+      <Paragraph size="small" className="footer-text">
+        <Link href="/kontakt" className="footer-link">Kontakt oss</Link><br />
+        <Link href="/faq" className="footer-link">Vanlige sporsmal (FAQ)</Link>
+      </Paragraph>
+    </div>
+
+    <div class="footer-section">
+      <Heading level={2} size="xsmall" className="footer-heading">
+        Lenker
+      </Heading>
+      <ul class="link-list">
+        <li><Link href="/om-oss" className="footer-link">Om oss</Link></li>
+        <li><Link href="/personvern" className="footer-link">Personvern</Link></li>
+        <li><Link href="/tilgjengelighet" className="footer-link">Tilgjengelighet</Link></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <Paragraph size="small">&copy; {new Date().getFullYear()} KI Norge. Alle rettigheter reservert.</Paragraph>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background-color: var(--ds-color-neutral-surface-default);
+    border-top: 1px solid var(--ds-color-neutral-border-subtle);
+    margin-top: auto;
+  }
+
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--ds-size-6);
+  }
+
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-2);
+  }
+
+  :global(.footer-heading) {
+    margin: 0;
+    color: var(--ds-color-neutral-text-default);
+  }
+
+  :global(.footer-text) {
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .partner-list,
+  .link-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-1);
+  }
+
+  :global(.partner-link),
+  :global(.footer-link) {
+    color: var(--ds-color-accent-text-default);
+    text-decoration: none;
+    font-size: var(--ds-font-size-0);
+  }
+
+  :global(.partner-link:hover),
+  :global(.footer-link:hover) {
+    text-decoration: underline;
+  }
+
+  .footer-bottom {
+    border-top: 1px solid var(--ds-color-neutral-border-subtle);
+    padding: var(--ds-size-4);
+    text-align: center;
+  }
+
+  :global(.footer-bottom p) {
+    margin: 0;
+    color: var(--ds-color-neutral-text-subtle);
+  }
+</style>

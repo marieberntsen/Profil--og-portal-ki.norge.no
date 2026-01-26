@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+.astro/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Strapi
+apps/cms/.tmp/
+apps/cms/build/
+apps/cms/.cache/
+apps/cms/data/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Test results
+playwright-report/
+test-results/

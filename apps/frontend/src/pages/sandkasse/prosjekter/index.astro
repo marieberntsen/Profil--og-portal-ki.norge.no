@@ -1,0 +1,193 @@
+---
+import Layout from '../../../components/layout/Layout.astro';
+import { Heading, Paragraph, Button, Link } from '@digdir/designsystemet-react';
+
+// Placeholder projects - will be replaced with Strapi data
+const projects = [
+  {
+    title: 'KI-stottet saksbehandling',
+    slug: 'ki-saksbehandling',
+    organization: 'NAV',
+    status: 'active',
+    description: 'Utforsker bruk av KI for a effektivisere saksbehandling mens personvern ivaretas.',
+  },
+  {
+    title: 'Automatisk dokumentklassifisering',
+    slug: 'dokumentklassifisering',
+    organization: 'Skatteetaten',
+    status: 'completed',
+    description: 'Ferdigstilt prosjekt for automatisk kategorisering av innkommende dokumenter.',
+  },
+  {
+    title: 'Prediktiv vedlikehold',
+    slug: 'prediktiv-vedlikehold',
+    organization: 'Statens vegvesen',
+    status: 'planning',
+    description: 'Planlegger bruk av KI for a forutsi vedlikeholdsbehov pa veinettet.',
+  },
+];
+
+const statusLabels = {
+  planning: 'Planlegging',
+  active: 'Pagaende',
+  completed: 'Fullfort',
+};
+
+const statusColors = {
+  planning: 'warning',
+  active: 'success',
+  completed: 'neutral',
+};
+---
+
+<Layout title="Sandkasse-prosjekter" description="Se pagaende og fullforte prosjekter i den regulatoriske sandkassen.">
+  <div class="page-container">
+    <header class="page-header">
+      <Heading level={1} size="2xlarge">Sandkasse-prosjekter</Heading>
+      <Paragraph size="large" class="lead">
+        Utforsk pagaende og fullforte prosjekter i var regulatoriske sandkasse.
+      </Paragraph>
+    </header>
+
+    <div class="filters">
+      <Button variant="primary" size="small">Alle</Button>
+      <Button variant="secondary" size="small">Pagaende</Button>
+      <Button variant="secondary" size="small">Fullforte</Button>
+      <Button variant="secondary" size="small">Planlegging</Button>
+    </div>
+
+    <div class="projects-grid">
+      {projects.map((project) => (
+        <Link href={`/sandkasse/prosjekter/${project.slug}`} className="project-card">
+          <div class="project-header">
+            <span class={`status-badge ${statusColors[project.status]}`}>
+              {statusLabels[project.status]}
+            </span>
+          </div>
+          <Heading level={2} size="medium" class="project-title">{project.title}</Heading>
+          <Paragraph size="xsmall" class="project-org">{project.organization}</Paragraph>
+          <Paragraph size="small" class="project-description">{project.description}</Paragraph>
+        </Link>
+      ))}
+    </div>
+
+    <section class="apply-section">
+      <Heading level={2} size="large">Har du et KI-prosjekt?</Heading>
+      <Paragraph>Vi er alltid interessert i a hore om nye prosjekter som kan passe i sandkassen.</Paragraph>
+      <Button asChild size="medium">
+        <a href="/kontakt">Ta kontakt</a>
+      </Button>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .page-header {
+    margin-bottom: var(--ds-size-6);
+  }
+
+  .page-header :global(h1) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    margin: 0;
+  }
+
+  .filters {
+    display: flex;
+    gap: var(--ds-size-2);
+    margin-bottom: var(--ds-size-6);
+    flex-wrap: wrap;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--ds-size-5);
+    margin-bottom: var(--ds-size-10);
+  }
+
+  :global(.project-card) {
+    display: flex;
+    flex-direction: column;
+    padding: var(--ds-size-5);
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+  }
+
+  :global(.project-card:hover) {
+    border-color: var(--ds-color-accent-border-default);
+    box-shadow: var(--ds-shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .project-header {
+    margin-bottom: var(--ds-size-3);
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: var(--ds-size-1) var(--ds-size-2);
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-medium);
+    border-radius: var(--ds-border-radius-sm);
+  }
+
+  .status-badge.success {
+    background-color: var(--ds-color-success-surface-default);
+    color: var(--ds-color-success-text-default);
+  }
+
+  .status-badge.warning {
+    background-color: var(--ds-color-warning-surface-default);
+    color: var(--ds-color-warning-text-default);
+  }
+
+  .status-badge.neutral {
+    background-color: var(--ds-color-neutral-surface-default);
+    color: var(--ds-color-neutral-text-subtle);
+  }
+
+  .project-title {
+    margin: 0 0 var(--ds-size-1);
+  }
+
+  .project-org {
+    color: var(--ds-color-accent-text-default);
+    margin: 0 0 var(--ds-size-3);
+  }
+
+  .project-description {
+    margin: 0;
+  }
+
+  .apply-section {
+    padding: var(--ds-size-8);
+    background-color: var(--ds-color-accent-surface-default);
+    border-radius: var(--ds-border-radius-lg);
+    text-align: center;
+  }
+
+  .apply-section :global(h2) {
+    margin: 0 0 var(--ds-size-2);
+  }
+
+  .apply-section :global(p) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .apply-section :global(button) {
+    display: inline-block;
+  }
+</style>

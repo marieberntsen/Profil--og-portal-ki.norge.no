@@ -1,0 +1,120 @@
+---
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+
+const resources = [
+  {
+    title: 'KI-forskriften',
+    description: 'Norges implementering av EU AI Act med nasjonale tilpasninger.',
+    href: '/veiledning/ki-forskriften',
+    type: 'Regelverk',
+  },
+  {
+    title: 'Anskaffelsesveileder',
+    description: 'Steg-for-steg veiledning for anskaffelse av KI-losninger.',
+    href: '/veiledning/anskaffelse',
+    type: 'Veileder',
+  },
+  {
+    title: 'Risikovurdering',
+    description: 'Hvordan gjennomfore risikovurdering av KI-systemer.',
+    href: '/veiledning/risikovurdering',
+    type: 'Veileder',
+  },
+  {
+    title: 'Etiske retningslinjer',
+    description: 'Prinsipper for etisk bruk av kunstig intelligens.',
+    href: '/veiledning/etikk',
+    type: 'Retningslinjer',
+  },
+];
+---
+
+<section class="resources">
+  <div class="resources-container">
+    <div class="resources-header">
+      <Heading level={2} size="large" className="resources-heading">Populare ressurser</Heading>
+      <Link href="/veiledning" className="resources-link">Se alle ressurser</Link>
+    </div>
+    <div class="resources-grid">
+      {resources.map((resource) => (
+        <Link href={resource.href} className="resource-card">
+          <span class="resource-type">{resource.type}</span>
+          <Heading level={3} size="small" className="resource-title">{resource.title}</Heading>
+          <Paragraph size="xsmall" className="resource-description">{resource.description}</Paragraph>
+        </Link>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .resources {
+    padding: var(--ds-size-10) var(--ds-size-4);
+    background-color: var(--ds-color-neutral-background-default);
+  }
+
+  .resources-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .resources-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--ds-size-6);
+    flex-wrap: wrap;
+    gap: var(--ds-size-4);
+  }
+
+  .resources-heading :global(h2) {
+    margin: 0;
+  }
+
+  .resources-link :global(a) {
+    font-size: var(--ds-font-size-1);
+    font-weight: var(--ds-font-weight-medium);
+  }
+
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--ds-size-4);
+  }
+
+  :global(.resource-card) {
+    display: flex;
+    flex-direction: column;
+    padding: var(--ds-size-5);
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-md);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+  }
+
+  :global(.resource-card:hover) {
+    border-color: var(--ds-color-accent-border-default);
+    box-shadow: var(--ds-shadow-sm);
+  }
+
+  .resource-type {
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--ds-color-accent-text-default);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--ds-size-2);
+  }
+
+  .resource-title :global(h3) {
+    margin: 0 0 var(--ds-size-2);
+  }
+
+  .resource-description :global(p) {
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
+    line-height: 1.5;
+  }
+</style>

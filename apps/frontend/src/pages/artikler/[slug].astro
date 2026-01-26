@@ -1,0 +1,138 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import BlocksRenderer from '../../components/shared/BlocksRenderer.astro';
+import { getArtikler, getArtikkel, type Artikkel, type BlockNode } from '../../lib/strapi';
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+
+// Helper to extract text from blocks for excerpt
+function getExcerpt(blocks?: BlockNode[]): string {
+  if (!blocks || blocks.length === 0) return '';
+  const firstParagraph = blocks.find(b => b.type === 'paragraph');
+  if (!firstParagraph?.children) return '';
+  return firstParagraph.children
+    .filter(c => c.type === 'text')
+    .map(c => c.text || '')
+    .join('')
+    .slice(0, 200);
+}
+
+export async function getStaticPaths() {
+  try {
+    const response = await getArtikler();
+    return response.data.map((article) => ({
+      params: { slug: article.slug },
+      props: { article },
+    }));
+  } catch (error) {
+    console.error('Failed to fetch articles for paths:', error);
+    return [];
+  }
+}
+
+const { article } = Astro.props as { article: Artikkel };
+
+const formattedDate = new Date(article.publishedAt).toLocaleDateString('nb-NO', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<Layout title={article.tittel} description={getExcerpt(article.innhold)}>
+  <article class="page-container">
+    <nav class="breadcrumb">
+      <Link href="/artikler">Artikler</Link>
+      <span>/</span>
+      <span>{article.tittel}</span>
+    </nav>
+
+    <header class="article-header">
+      <Heading level={1} size="2xlarge">{article.tittel}</Heading>
+      <Paragraph size="large" class="lead">{getExcerpt(article.innhold)}</Paragraph>
+      <div class="meta">
+        <time datetime={article.publishedAt}>{formattedDate}</time>
+      </div>
+    </header>
+
+    <BlocksRenderer blocks={article.innhold} class="article-content" />
+
+    <nav class="article-nav">
+      <Link href="/artikler" class="back-link">
+        Tilbake til artikler
+      </Link>
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .breadcrumb {
+    display: flex;
+    gap: var(--ds-size-2);
+    margin-bottom: var(--ds-size-6);
+    font-size: var(--ds-font-size-0);
+    color: var(--ds-color-neutral-text-subtle);
+  }
+
+  .breadcrumb :global(a) {
+    color: var(--ds-color-accent-text-default);
+    text-decoration: none;
+  }
+
+  .breadcrumb :global(a:hover) {
+    text-decoration: underline;
+  }
+
+  .article-header {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .category-label {
+    display: inline-block;
+    padding: var(--ds-size-1) var(--ds-size-3);
+    background-color: var(--ds-color-accent-surface-default);
+    color: var(--ds-color-accent-text-default);
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-medium);
+    border-radius: var(--ds-border-radius-sm);
+    margin-bottom: var(--ds-size-3);
+  }
+
+  .article-header :global(h1) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .meta {
+    font-size: var(--ds-font-size-0);
+    color: var(--ds-color-neutral-text-subtle);
+    display: flex;
+    align-items: center;
+    gap: var(--ds-size-2);
+  }
+
+  .separator {
+    color: var(--ds-color-neutral-border-default);
+  }
+
+  .article-content {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .article-nav {
+    padding-top: var(--ds-size-6);
+    border-top: 1px solid var(--ds-color-neutral-border-subtle);
+  }
+
+  .back-link {
+    font-size: var(--ds-font-size-1);
+  }
+</style>

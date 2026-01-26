@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Human/LLM-readable route expectations for automated testing:
+Sitemap: /llm.txt

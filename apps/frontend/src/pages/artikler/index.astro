@@ -1,0 +1,105 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import ArticleCard from '../../components/shared/ArticleCard.astro';
+import { Heading, Paragraph, Button } from '@digdir/designsystemet-react';
+import { getArtikler, type Artikkel, type BlockNode } from '../../lib/strapi';
+
+// Helper to extract text from blocks for excerpt
+function getExcerpt(blocks?: BlockNode[]): string {
+  if (!blocks || blocks.length === 0) return '';
+  const firstParagraph = blocks.find(b => b.type === 'paragraph');
+  if (!firstParagraph?.children) return '';
+  return firstParagraph.children
+    .filter(c => c.type === 'text')
+    .map(c => c.text || '')
+    .join('')
+    .slice(0, 200) + '...';
+}
+
+// Fetch articles from Strapi
+let articles: Artikkel[] = [];
+try {
+  const response = await getArtikler();
+  articles = response.data;
+} catch (error) {
+  console.error('Failed to fetch articles:', error);
+}
+---
+
+<Layout title="Artikler" description="Nyheter, analyser og veiledning om kunstig intelligens i offentlig sektor.">
+  <div class="page-container">
+    <header class="page-header">
+      <Heading level={1} size="2xlarge">Artikler</Heading>
+      <Paragraph size="large" class="lead">
+        Hold deg oppdatert pa nyheter, analyser og veiledning om kunstig intelligens
+        i norsk offentlig sektor.
+      </Paragraph>
+    </header>
+
+    <div class="articles-grid">
+      {articles.length > 0 ? (
+        articles.map((article) => (
+          <ArticleCard
+            title={article.tittel}
+            excerpt={getExcerpt(article.innhold)}
+            slug={article.slug}
+            publishedAt={article.publishedAt}
+          />
+        ))
+      ) : (
+        <Paragraph>Ingen artikler funnet.</Paragraph>
+      )}
+    </div>
+
+    <nav class="pagination">
+      <Button variant="secondary" size="small" disabled>Forrige</Button>
+      <Paragraph size="small" class="pagination-info">Side 1 av 1</Paragraph>
+      <Button variant="secondary" size="small" disabled>Neste</Button>
+    </nav>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .page-header {
+    margin-bottom: var(--ds-size-6);
+  }
+
+  .page-header :global(h1) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    margin: 0;
+  }
+
+  .filters {
+    display: flex;
+    gap: var(--ds-size-2);
+    margin-bottom: var(--ds-size-6);
+    flex-wrap: wrap;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--ds-size-5);
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--ds-size-4);
+  }
+
+  .pagination-info {
+    margin: 0;
+  }
+</style>

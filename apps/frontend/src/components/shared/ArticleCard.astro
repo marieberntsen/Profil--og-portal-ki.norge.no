@@ -1,0 +1,92 @@
+---
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+
+interface Props {
+  title: string;
+  excerpt: string;
+  slug: string;
+  publishedAt: string;
+  category?: string;
+}
+
+const { title, excerpt, slug, publishedAt, category } = Astro.props;
+
+const formattedDate = new Date(publishedAt).toLocaleDateString('nb-NO', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<article class="article-card">
+  <Link href={`/artikler/${slug}`} className="card-link">
+    <div class="card-content">
+      {category && <span class="category">{category}</span>}
+      <Heading level={3} size="medium" className="title">
+        {title}
+      </Heading>
+      <Paragraph size="small" className="excerpt">
+        {excerpt}
+      </Paragraph>
+      <time class="date" datetime={publishedAt}>{formattedDate}</time>
+    </div>
+  </Link>
+</article>
+
+<style>
+  .article-card {
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-lg);
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .article-card:hover {
+    box-shadow: var(--ds-shadow-md);
+    transform: translateY(-2px);
+  }
+
+  :global(.card-link) {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .card-content {
+    padding: var(--ds-size-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-2);
+  }
+
+  .category {
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--ds-color-accent-text-default);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  :global(.title) {
+    margin: 0;
+    line-height: 1.3;
+    color: var(--ds-color-neutral-text-default);
+  }
+
+  :global(.excerpt) {
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .date {
+    font-size: var(--ds-font-size-0);
+    color: var(--ds-color-neutral-text-subtle);
+    margin-top: var(--ds-size-2);
+  }
+</style>

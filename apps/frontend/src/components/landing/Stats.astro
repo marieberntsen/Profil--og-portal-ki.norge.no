@@ -1,0 +1,76 @@
+---
+import { Heading } from '@digdir/designsystemet-react';
+
+const stats = [
+  { value: '3', label: 'Samarbeidspartnere', description: 'Nkom, Datatilsynet, Digdir' },
+  { value: '100+', label: 'Veiledningsressurser', description: 'For offentlig sektor' },
+  { value: '50+', label: 'Sandkasseprosjekter', description: 'Under utvikling' },
+  { value: '1000+', label: 'Brukere', description: 'Av plattformen' },
+];
+---
+
+<section class="stats">
+  <div class="stats-container">
+    <Heading level={2} size="large" className="stats-heading">KI Norge i tall</Heading>
+    <div class="stats-grid">
+      {stats.map((stat) => (
+        <div class="stat-card">
+          <span class="stat-value">{stat.value}</span>
+          <span class="stat-label">{stat.label}</span>
+          <span class="stat-description">{stat.description}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats {
+    padding: var(--ds-size-10) var(--ds-size-4);
+    background-color: var(--ds-color-neutral-surface-default);
+  }
+
+  .stats-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .stats-heading :global(h2) {
+    text-align: center;
+    margin: 0 0 var(--ds-size-8);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--ds-size-6);
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: var(--ds-size-6);
+    background-color: var(--ds-color-neutral-background-default);
+    border-radius: var(--ds-border-radius-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-1);
+  }
+
+  .stat-value {
+    font-size: var(--ds-font-size-9);
+    font-weight: var(--ds-font-weight-bold);
+    color: var(--ds-color-accent-text-default);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: var(--ds-font-size-2);
+    font-weight: var(--ds-font-weight-semibold);
+    color: var(--ds-color-neutral-text-default);
+  }
+
+  .stat-description {
+    font-size: var(--ds-font-size-0);
+    color: var(--ds-color-neutral-text-subtle);
+  }
+</style>

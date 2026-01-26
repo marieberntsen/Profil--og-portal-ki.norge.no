@@ -1,0 +1,10 @@
+{
+  "name": "ki-norge",
+  "private": true,
+  "scripts": {
+    "cms:dev": "pnpm --filter ki-norge-cms develop",
+    "cms:build": "pnpm --filter ki-norge-cms build",
+    "frontend:dev": "pnpm --filter ki-norge-frontend dev",
+    "frontend:build": "pnpm --filter ki-norge-frontend build"
+  }
+}

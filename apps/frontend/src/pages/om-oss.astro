@@ -1,0 +1,171 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+
+const partners = [
+  {
+    name: 'Nasjonal kommunikasjonsmyndighet (Nkom)',
+    role: 'Tilsynsmyndighet for elektronisk kommunikasjon og posttjenester',
+    url: 'https://www.nkom.no',
+    description: 'Nkom bidrar med ekspertise pa digital infrastruktur og regulering av kommunikasjonstjenester.',
+  },
+  {
+    name: 'Datatilsynet',
+    role: 'Tilsynsmyndighet for personvern',
+    url: 'https://www.datatilsynet.no',
+    description: 'Datatilsynet bringer inn kompetanse pa personvern, GDPR og ansvarlig databehandling.',
+  },
+  {
+    name: 'Digitaliseringsdirektoratet (Digdir)',
+    role: 'Fagdirektorat for digitalisering',
+    url: 'https://www.digdir.no',
+    description: 'Digdir bidrar med ekspertise pa digital transformasjon og offentlige digitale tjenester.',
+  },
+];
+---
+
+<Layout title="Om oss" description="Les om KI Norge og samarbeidspartnerne bak Norges nasjonale KI-strategi.">
+  <div class="page-container">
+    <header class="page-header">
+      <Heading level={1} size="2xlarge">Om KI Norge</Heading>
+      <Paragraph class="lead" size="large">
+        KI Norge er et samarbeid mellom Nkom, Datatilsynet og Digdir for a stotte
+        ansvarlig bruk av kunstig intelligens i norsk offentlig sektor.
+      </Paragraph>
+    </header>
+
+    <section class="section">
+      <Heading level={2} size="large">Var visjon</Heading>
+      <Paragraph>
+        Vi onsker at Norge skal vare i front nar det gjelder ansvarlig og innovativ
+        bruk av kunstig intelligens. Gjennom veiledning, regulatorisk stotte og
+        deling av gode eksempler, hjelper vi offentlige virksomheter med a ta i
+        bruk KI pa en trygg og effektiv mate.
+      </Paragraph>
+    </section>
+
+    <section class="section">
+      <Heading level={2} size="large">Vare hovedoppgaver</Heading>
+      <ul class="task-list">
+        <li>Utvikle og vedlikeholde veiledning for KI i offentlig sektor</li>
+        <li>Drifte regulatorisk sandkasse for KI-prosjekter</li>
+        <li>Samle og dele gode eksempler og beste praksis</li>
+        <li>Stotte implementering av EU AI Act i Norge</li>
+        <li>Fremme dialog mellom offentlig sektor, naringsliv og akademia</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <Heading level={2} size="large">Samarbeidspartnere</Heading>
+      <div class="partners-grid">
+        {partners.map((partner) => (
+          <article class="partner-card">
+            <Heading level={3} size="medium" class="partner-name">
+              <Link href={partner.url} target="_blank" rel="noopener noreferrer">
+                {partner.name}
+              </Link>
+            </Heading>
+            <Paragraph class="partner-role" size="small">{partner.role}</Paragraph>
+            <Paragraph class="partner-description" size="small">{partner.description}</Paragraph>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section">
+      <Heading level={2} size="large">Bakgrunn</Heading>
+      <Paragraph>
+        KI Norge ble etablert som en del av Norges nasjonale KI-strategi, med mal
+        om a sikre at kunstig intelligens tas i bruk pa en ansvarlig mate som
+        ivaretar grunnleggende rettigheter og verdier.
+      </Paragraph>
+      <Paragraph>
+        Samarbeidet bygger pa erkjennelsen av at KI-utfordringer krever tverrfaglig
+        kompetanse og koordinert innsats pa tvers av sektorer og myndigheter.
+      </Paragraph>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .page-header {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .page-header :global(h1) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
+  }
+
+  .section {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .section :global(h2) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .section :global(p) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .task-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .task-list li {
+    font-size: var(--ds-font-size-1);
+    padding: var(--ds-size-3) 0;
+    border-bottom: 1px solid var(--ds-color-neutral-border-subtle);
+    display: flex;
+    align-items: center;
+    gap: var(--ds-size-3);
+  }
+
+  .task-list li::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background-color: var(--ds-color-accent-base-default);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--ds-size-4);
+  }
+
+  .partner-card {
+    padding: var(--ds-size-5);
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-md);
+  }
+
+  .partner-name {
+    margin: 0 0 var(--ds-size-1);
+  }
+
+  .partner-role {
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0 0 var(--ds-size-3);
+  }
+
+  .partner-description {
+    margin: 0;
+  }
+</style>

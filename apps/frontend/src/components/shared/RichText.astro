@@ -1,0 +1,102 @@
+---
+interface Props {
+  content: string;
+  class?: string;
+}
+
+const { content, class: className } = Astro.props;
+---
+
+<div class:list={['rich-text', className]} set:html={content} />
+
+<style>
+  .rich-text {
+    line-height: 1.7;
+  }
+
+  .rich-text :global(h1) {
+    font-size: var(--ds-font-size-8);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: var(--ds-size-6) 0 var(--ds-size-3);
+  }
+
+  .rich-text :global(h2) {
+    font-size: var(--ds-font-size-6);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: var(--ds-size-5) 0 var(--ds-size-3);
+  }
+
+  .rich-text :global(h3) {
+    font-size: var(--ds-font-size-4);
+    font-weight: var(--ds-font-weight-semibold);
+    margin: var(--ds-size-4) 0 var(--ds-size-2);
+  }
+
+  .rich-text :global(p) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .rich-text :global(a) {
+    color: var(--ds-color-accent-text-default);
+    text-decoration: underline;
+  }
+
+  .rich-text :global(a:hover) {
+    text-decoration: none;
+  }
+
+  .rich-text :global(ul),
+  .rich-text :global(ol) {
+    margin: 0 0 var(--ds-size-4);
+    padding-left: var(--ds-size-6);
+  }
+
+  .rich-text :global(li) {
+    margin-bottom: var(--ds-size-2);
+  }
+
+  .rich-text :global(blockquote) {
+    border-left: 4px solid var(--ds-color-accent-border-default);
+    padding-left: var(--ds-size-4);
+    margin: var(--ds-size-4) 0;
+    font-style: italic;
+    color: var(--ds-color-neutral-text-subtle);
+  }
+
+  .rich-text :global(pre) {
+    background-color: var(--ds-color-neutral-surface-default);
+    padding: var(--ds-size-4);
+    border-radius: var(--ds-border-radius-md);
+    overflow-x: auto;
+    margin: var(--ds-size-4) 0;
+  }
+
+  .rich-text :global(code) {
+    font-family: var(--ds-font-family-mono, monospace);
+    font-size: var(--ds-font-size-0);
+  }
+
+  .rich-text :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--ds-border-radius-md);
+  }
+
+  .rich-text :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--ds-size-4) 0;
+  }
+
+  .rich-text :global(th),
+  .rich-text :global(td) {
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    padding: var(--ds-size-2) var(--ds-size-3);
+    text-align: left;
+  }
+
+  .rich-text :global(th) {
+    background-color: var(--ds-color-neutral-surface-default);
+    font-weight: var(--ds-font-weight-semibold);
+  }
+</style>

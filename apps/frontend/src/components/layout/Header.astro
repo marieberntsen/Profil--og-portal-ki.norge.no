@@ -1,0 +1,123 @@
+---
+import { Link } from '@digdir/designsystemet-react';
+
+const navItems = [
+  { href: '/veiledning', label: 'Veiledning' },
+  { href: '/sandkasse', label: 'Regulatorisk sandkasse' },
+  { href: '/eksempler', label: 'Gode eksempler' },
+  { href: '/artikler', label: 'Artikler' },
+  { href: '/om-oss', label: 'Om oss' },
+  { href: '/kontakt', label: 'Kontakt' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="header">
+  <Link href="#main-content" className="skip-link">
+    Hopp til hovedinnhold
+  </Link>
+  <div class="header-container">
+    <Link href="/" className="logo-link">
+      <span class="logo-text">KI Norge</span>
+    </Link>
+    <nav aria-label="Hovednavigasjon">
+      <ul class="nav-list">
+        {navItems.map((item) => (
+          <li>
+            <Link
+              href={item.href}
+              className={`nav-link ${currentPath.startsWith(item.href) ? 'active' : ''}`}
+              aria-current={currentPath.startsWith(item.href) ? 'page' : undefined}
+            >
+              {item.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    background-color: var(--ds-color-neutral-surface-default);
+    border-bottom: 1px solid var(--ds-color-neutral-border-subtle);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    z-index: 999;
+    padding: var(--ds-size-2) var(--ds-size-4);
+    background-color: var(--ds-color-accent-surface-default);
+    color: var(--ds-color-accent-text-default);
+    text-decoration: none;
+  }
+
+  .skip-link:focus {
+    left: var(--ds-size-4);
+    top: var(--ds-size-4);
+  }
+
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: var(--ds-size-3) var(--ds-size-4);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ds-size-6);
+  }
+
+  .logo-link {
+    text-decoration: none;
+    color: var(--ds-color-neutral-text-default);
+  }
+
+  .logo-text {
+    font-size: var(--ds-font-size-6);
+    font-weight: var(--ds-font-weight-semibold);
+  }
+
+  .nav-list {
+    display: flex;
+    gap: var(--ds-size-4);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  :global(.nav-link) {
+    text-decoration: none;
+    color: var(--ds-color-neutral-text-default);
+    font-size: var(--ds-font-size-1);
+    padding: var(--ds-size-2) var(--ds-size-3);
+    border-radius: var(--ds-border-radius-md);
+    transition: background-color 0.2s ease;
+  }
+
+  :global(.nav-link:hover) {
+    background-color: var(--ds-color-neutral-surface-hover);
+  }
+
+  :global(.nav-link.active) {
+    background-color: var(--ds-color-accent-surface-default);
+    color: var(--ds-color-accent-text-default);
+  }
+
+  @media (max-width: 768px) {
+    .header-container {
+      flex-direction: column;
+      gap: var(--ds-size-3);
+    }
+
+    .nav-list {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+</style>

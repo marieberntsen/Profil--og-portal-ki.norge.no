@@ -1,0 +1,166 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+
+const contacts = [
+  {
+    org: 'Nkom',
+    email: 'post@nkom.no',
+    phone: '+47 22 82 46 00',
+    address: 'Lillesand',
+  },
+  {
+    org: 'Datatilsynet',
+    email: 'postkasse@datatilsynet.no',
+    phone: '+47 22 39 69 00',
+    address: 'Oslo',
+  },
+  {
+    org: 'Digdir',
+    email: 'postmottak@digdir.no',
+    phone: '+47 97 64 00 00',
+    address: 'Leikanger / Bro',
+  },
+];
+---
+
+<Layout title="Kontakt" description="Ta kontakt med KI Norge for sporsmal om kunstig intelligens i offentlig sektor.">
+  <div class="page-container">
+    <header class="page-header">
+      <Heading level={1} size="2xlarge">Kontakt oss</Heading>
+      <Paragraph class="lead" size="large">
+        Har du sporsmal om KI Norge, vare tjenester eller kunstig intelligens
+        i offentlig sektor? Ta gjerne kontakt.
+      </Paragraph>
+    </header>
+
+    <section class="section">
+      <Heading level={2} size="large">Generelle henvendelser</Heading>
+      <Paragraph>
+        For generelle sporsmal om KI Norge og vart arbeid, kan du kontakte
+        en av vare samarbeidspartnere nedenfor.
+      </Paragraph>
+    </section>
+
+    <section class="section">
+      <Heading level={2} size="large">Samarbeidspartnere</Heading>
+      <div class="contacts-grid">
+        {contacts.map((contact) => (
+          <div class="contact-card">
+            <Heading level={3} size="medium" class="contact-org">{contact.org}</Heading>
+            <dl class="contact-details">
+              <div class="contact-item">
+                <dt>E-post</dt>
+                <dd>
+                  <Link href={`mailto:${contact.email}`}>{contact.email}</Link>
+                </dd>
+              </div>
+              <div class="contact-item">
+                <dt>Telefon</dt>
+                <dd>
+                  <Link href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</Link>
+                </dd>
+              </div>
+              <div class="contact-item">
+                <dt>Sted</dt>
+                <dd>{contact.address}</dd>
+              </div>
+            </dl>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="section">
+      <Heading level={2} size="large">Regulatorisk sandkasse</Heading>
+      <Paragraph>
+        Onsker din virksomhet a delta i den regulatoriske sandkassen?
+        Besok <Link href="/sandkasse">sandkassesiden</Link> for mer informasjon
+        om hvordan du kan soke.
+      </Paragraph>
+    </section>
+
+    <section class="section">
+      <Heading level={2} size="large">Send inn eksempel</Heading>
+      <Paragraph>
+        Har din virksomhet implementert KI pa en vellykket mate?
+        Vi onsker a hore fra deg! <Link href="/eksempler/send-inn">Send inn ditt eksempel</Link>
+        sa kan det bli en del av var samling av gode praksiser.
+      </Paragraph>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .page-header {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .page-header :global(h1) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
+  }
+
+  .section {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .section :global(h2) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .section :global(p) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .contacts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--ds-size-4);
+  }
+
+  .contact-card {
+    padding: var(--ds-size-5);
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-md);
+  }
+
+  .contact-org {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .contact-details {
+    margin: 0;
+  }
+
+  .contact-item {
+    margin-bottom: var(--ds-size-3);
+  }
+
+  .contact-item:last-child {
+    margin-bottom: 0;
+  }
+
+  .contact-item dt {
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--ds-color-neutral-text-subtle);
+    margin-bottom: var(--ds-size-1);
+  }
+
+  .contact-item dd {
+    font-size: var(--ds-font-size-1);
+    margin: 0;
+  }
+</style>

@@ -1,0 +1,166 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import BlocksRenderer from '../../components/shared/BlocksRenderer.astro';
+import { getEksempler, getEksempel, type Eksempel, type BlockNode } from '../../lib/strapi';
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+
+// Helper to extract text from blocks for description
+function getDescription(blocks?: BlockNode[]): string {
+  if (!blocks || blocks.length === 0) return '';
+  const firstParagraph = blocks.find(b => b.type === 'paragraph');
+  if (!firstParagraph?.children) return '';
+  return firstParagraph.children
+    .filter(c => c.type === 'text')
+    .map(c => c.text || '')
+    .join('')
+    .slice(0, 200);
+}
+
+// Status label mapping
+const statusLabels: Record<string, string> = {
+  i_utvikling: 'Under utvikling',
+  pilot: 'Pilot',
+  i_drift: 'I drift',
+  avsluttet: 'Avsluttet',
+};
+
+export async function getStaticPaths() {
+  try {
+    const response = await getEksempler();
+    return response.data.map((case_) => ({
+      params: { slug: case_.slug },
+      props: { case: case_ },
+    }));
+  } catch (error) {
+    console.error('Failed to fetch examples for paths:', error);
+    return [];
+  }
+}
+
+const { case: caseItem } = Astro.props as { case: Eksempel };
+---
+
+<Layout title={caseItem.tittel} description={getDescription(caseItem.beskrivelse)}>
+  <article class="page-container">
+    <nav class="breadcrumb">
+      <Link href="/eksempler">Gode eksempler</Link>
+      <span>/</span>
+      <span>{caseItem.tittel}</span>
+    </nav>
+
+    <header class="article-header">
+      <span class="org-label">{caseItem.organisasjon}</span>
+      <Heading level={1} size="2xlarge">{caseItem.tittel}</Heading>
+      <Paragraph size="large" class="lead">{getDescription(caseItem.beskrivelse)}</Paragraph>
+    </header>
+
+    <div class="meta-grid">
+      <div class="meta-item">
+        <dt>Organisasjon</dt>
+        <dd>{caseItem.organisasjon}</dd>
+      </div>
+      {caseItem.status && (
+        <div class="meta-item">
+          <dt>Status</dt>
+          <dd>{statusLabels[caseItem.status] || caseItem.status}</dd>
+        </div>
+      )}
+      {caseItem.resultater && (
+        <div class="meta-item">
+          <dt>Resultater</dt>
+          <dd>{caseItem.resultater}</dd>
+        </div>
+      )}
+    </div>
+
+    <BlocksRenderer blocks={caseItem.beskrivelse} class="article-content" />
+
+    <nav class="article-nav">
+      <Link href="/eksempler" class="back-link">
+        Tilbake til eksempler
+      </Link>
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .breadcrumb {
+    display: flex;
+    gap: var(--ds-size-2);
+    margin-bottom: var(--ds-size-6);
+    font-size: var(--ds-font-size-0);
+    color: var(--ds-color-neutral-text-subtle);
+  }
+
+  .breadcrumb :global(a) {
+    color: var(--ds-color-accent-text-default);
+    text-decoration: none;
+  }
+
+  .breadcrumb :global(a:hover) {
+    text-decoration: underline;
+  }
+
+  .article-header {
+    margin-bottom: var(--ds-size-6);
+  }
+
+  .org-label {
+    display: inline-block;
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--ds-color-accent-text-default);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--ds-size-3);
+  }
+
+  .article-header :global(h1) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    margin: 0;
+  }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--ds-size-4);
+    padding: var(--ds-size-5);
+    background-color: var(--ds-color-neutral-surface-default);
+    border-radius: var(--ds-border-radius-md);
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .meta-item dt {
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--ds-color-neutral-text-subtle);
+    margin-bottom: var(--ds-size-1);
+  }
+
+  .meta-item dd {
+    font-size: var(--ds-font-size-1);
+    margin: 0;
+  }
+
+  .article-content {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .article-nav {
+    padding-top: var(--ds-size-6);
+    border-top: 1px solid var(--ds-color-neutral-border-subtle);
+  }
+
+  .back-link {
+    font-size: var(--ds-font-size-1);
+  }
+</style>

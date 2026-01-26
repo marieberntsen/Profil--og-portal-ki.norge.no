@@ -1,0 +1,133 @@
+# KI Norge – ruteoversikt og forventninger (for Playwright/LLM)
+
+Dette dokumentet beskriver nåværende ruter i applikasjonen og hva en automatisk gjennomgang (f.eks. Playwright) bør forvente/verifisere.
+
+## Miljø
+- Base URL (lokalt): http://localhost:4321
+- Forventet status:
+  - 200 OK for alle “normale” sider under.
+  - 404 Not Found for ukjente ruter (se 404-test).
+
+## Globalt (gjelder alle sider)
+- Det skal finnes en toppnavigasjon med lenker:
+  - /veiledning
+  - /sandkasse
+  - /eksempler
+  - /artikler
+  - /om-oss
+  - /kontakt
+- “Hopp til hovedinnhold” finnes (a11y-smoke).
+- Footer inneholder lenker til samarbeidspartnere + interne sider som /faq, /personvern, /tilgjengelighet.
+
+## Ruter
+
+### / (Hjem)
+- Forventet:
+  - H1: “Kunstig intelligens for Norge”
+  - CTA-lenker til /veiledning og /sandkasse.
+
+### /veiledning
+- Forventet:
+  - H1: “Veiledning”
+  - Liste/kort med veiledningskategorier (lenker kan være # placeholders).
+  - CTA “Les om sandkassen” som lenker til /sandkasse.
+
+### /sandkasse
+- Forventet:
+  - H1: “Regulatorisk sandkasse”
+  - CTA “Se prosjekter” -> /sandkasse/prosjekter
+  - CTA “Kontakt oss” -> /kontakt
+
+### /sandkasse/prosjekter
+- Forventet:
+  - H1: “Sandkasse-prosjekter”
+  - Filterknapper: Alle, Pågående, Fullførte, Planlegging (foreløpig UI-only)
+  - Prosjektkort lenker til detaljsider under /sandkasse/prosjekter/<slug>
+
+### /sandkasse/prosjekter/[slug]
+- Type: statisk generert fra `src/lib/data.ts` (`sandboxProjects`).
+- Eksempelruter (skal finnes):
+  - /sandkasse/prosjekter/ki-saksbehandling
+  - /sandkasse/prosjekter/dokumentklassifisering
+  - /sandkasse/prosjekter/prediktiv-vedlikehold
+- Forventet:
+  - Breadcrumb: Sandkasse / Prosjekter / <tittel>
+  - H1 med prosjekttittel
+  - “Tilbake til prosjekter” -> /sandkasse/prosjekter
+
+### /eksempler
+- Forventet:
+  - H1: “Gode eksempler”
+  - Liste/kort med eksempler -> /eksempler/<slug>
+  - CTA “Send inn eksempel” -> /eksempler/send-inn
+
+### /eksempler/[slug]
+- Type: statisk generert fra `src/lib/data.ts` (`cases`).
+- Eksempelruter (skal finnes):
+  - /eksempler/chatbot-innbyggerservice
+  - /eksempler/bildeanalyse-kulturarv
+  - /eksempler/prediktiv-barnevern
+- Forventet:
+  - Breadcrumb: Gode eksempler / <tittel>
+  - H1 med eksempel-tittel
+  - “Tilbake til eksempler” -> /eksempler
+
+### /eksempler/send-inn
+- Forventet:
+  - H1: “Send inn eksempel”
+  - Skjema med obligatoriske felt:
+    - Organisasjon, Kontaktperson, E-post, Tittel, Kort beskrivelse
+  - Checkbox for samtykke (required)
+  - Submit-knapp “Send inn”
+- Merk:
+  - Det er per nå ikke definert server-side håndtering her, så Playwright bør primært verifisere at UI/validering rendrer (ikke at innsending faktisk lagres).
+
+### /artikler
+- Forventet:
+  - H1: “Artikler”
+  - Filterknapper (foreløpig UI-only)
+  - Artikkelkort -> /artikler/<slug>
+
+### /artikler/[slug]
+- Type: statisk generert fra `src/lib/data.ts` (`articles`).
+- Eksempelruter (skal finnes):
+  - /artikler/lansering-sandkasse
+  - /artikler/nye-retningslinjer
+  - /artikler/ki-helsetjenesten
+  - /artikler/eu-ai-act-norge
+  - /artikler/anskaffelse-guide
+- Forventet:
+  - Breadcrumb: Artikler / <tittel>
+  - H1 med artikkeltittel
+  - “Tilbake til artikler” -> /artikler
+
+### /om-oss
+- Forventet:
+  - H1: “Om KI Norge”
+  - Partnerkort med eksterne lenker (åpnes i ny fane)
+
+### /kontakt
+- Forventet:
+  - H1: “Kontakt oss”
+  - Kontaktkort med mailto: og tel:
+  - Lenkeseksjoner til /sandkasse og /eksempler/send-inn
+
+### /faq
+- Forventet:
+  - H1: “Vanlige spørsmål”
+  - Accordion/Details-komponenter (interaktiv):
+    - Implementasjonen rendrer ikke native `<details>/<summary>` i DOM-en.
+    - For Playwright: finn FAQ-elementer via f.eks. `u-details` eller elementer med `role="button"`, og verifiser at klikk toggler visning av svar.
+
+## “Static” ruter i footer
+- /personvern
+- /tilgjengelighet
+
+NB: Disse lenkene finnes i layout, men rute-filer ble ikke funnet under `src/pages` i denne gjennomgangen.
+- Forventet per nå: 404 i dev.
+- Hvis de skal fungere i prod må de eksistere som sider eller håndteres på annen måte.
+
+## 404-test
+- Forventet:
+  - GET /__does_not_exist__ -> 404
+  - Side skal vise “404: Not found” og vise path.

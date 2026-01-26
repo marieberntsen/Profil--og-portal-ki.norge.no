@@ -1,0 +1,124 @@
+---
+import Layout from '../components/layout/Layout.astro';
+import BlocksRenderer from '../components/shared/BlocksRenderer.astro';
+import { Heading, Paragraph, Link, Details } from '@digdir/designsystemet-react';
+import { getFAQs, type FAQ } from '../lib/strapi';
+
+// Fetch FAQs from Strapi
+let faqs: FAQ[] = [];
+try {
+  const response = await getFAQs();
+  faqs = response.data;
+} catch (error) {
+  console.error('Failed to fetch FAQs:', error);
+}
+---
+
+<Layout title="Vanlige sporsmal (FAQ)" description="Svar pa vanlige sporsmal om KI Norge, den regulatoriske sandkassen og kunstig intelligens i offentlig sektor.">
+  <div class="page-container">
+    <header class="page-header">
+      <Heading level={1} size="2xlarge">Vanlige sporsmal</Heading>
+      <Paragraph class="lead" size="large">
+        Her finner du svar pa de vanligste sporsmalene om KI Norge og vare tjenester.
+      </Paragraph>
+    </header>
+
+    <div class="faq-list">
+      {faqs.length > 0 ? (
+        faqs.map((faq, index) => (
+          <Details client:load class="faq-item">
+            <Details.Summary>
+              <span class="faq-number">{index + 1}</span>
+              <span class="faq-text">{faq.sporsmal}</span>
+            </Details.Summary>
+            <Details.Content>
+              <BlocksRenderer blocks={faq.svar} />
+            </Details.Content>
+          </Details>
+        ))
+      ) : (
+        <Paragraph>Ingen ofte stilte sporsmal funnet.</Paragraph>
+      )}
+    </div>
+
+    <section class="contact-section">
+      <Heading level={2} size="medium">Fant du ikke svar pa sporsmalet ditt?</Heading>
+      <Paragraph>
+        Ta gjerne <Link href="/kontakt">kontakt med oss</Link> sa hjelper vi deg.
+      </Paragraph>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .page-header {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .page-header :global(h1) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .lead {
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
+  }
+
+  .faq-list {
+    margin-bottom: var(--ds-size-10);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-3);
+  }
+
+  .faq-item :global(summary) {
+    display: flex;
+    align-items: center;
+    gap: var(--ds-size-3);
+    cursor: pointer;
+  }
+
+  .faq-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: var(--ds-color-accent-surface-default);
+    color: var(--ds-color-accent-text-default);
+    border-radius: var(--ds-border-radius-full);
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-semibold);
+    flex-shrink: 0;
+  }
+
+  .faq-text {
+    flex: 1;
+  }
+
+  .faq-answer {
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0;
+  }
+
+  .contact-section {
+    padding: var(--ds-size-6);
+    background-color: var(--ds-color-accent-surface-default);
+    border-radius: var(--ds-border-radius-lg);
+    text-align: center;
+  }
+
+  .contact-section :global(h2) {
+    margin: 0 0 var(--ds-size-2);
+  }
+
+  .contact-section :global(p) {
+    margin: 0;
+  }
+</style>

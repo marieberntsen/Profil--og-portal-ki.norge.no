@@ -1,0 +1,112 @@
+// Placeholder data - will be replaced with Strapi API calls
+
+export const articles = [
+  {
+    slug: 'lansering-sandkasse',
+    title: 'Lansering av regulatorisk sandkasse for KI',
+    excerpt: 'Nkom, Datatilsynet og Digdir lanserer den forste regulatoriske sandkassen for kunstig intelligens i Norge.',
+    publishedAt: '2024-01-15',
+    author: 'KI Norge-teamet',
+    category: 'Nyhet',
+    content: '<p>I dag lanserer Nkom, Datatilsynet og Digdir den forste regulatoriske sandkassen for kunstig intelligens i Norge. Dette er et viktig steg for a stotte innovasjon i offentlig sektor.</p><h2>Hva er en regulatorisk sandkasse?</h2><p>En regulatorisk sandkasse er et kontrollert miljo der virksomheter kan teste innovative losninger med veiledning fra regulatoriske myndigheter.</p><h2>Hvem kan delta?</h2><p>Sandkassen er apen for offentlige virksomheter som onsker a utforske bruk av kunstig intelligens.</p><h2>Hvordan soke?</h2><p>Interesserte virksomheter kan ta kontakt via var nettside for a diskutere sitt prosjekt.</p>',
+  },
+  {
+    slug: 'nye-retningslinjer',
+    title: 'Nye retningslinjer for KI i offentlig sektor',
+    excerpt: 'Oppdaterte retningslinjer for ansvarlig bruk av kunstig intelligens i offentlige virksomheter.',
+    publishedAt: '2024-01-10',
+    author: 'Digdir',
+    category: 'Veiledning',
+    content: '<p>Vi har na publisert oppdaterte retningslinjer for bruk av kunstig intelligens i offentlig sektor.</p><h2>Hovedpunkter</h2><ul><li>Krav til transparens</li><li>Personvernhensyn</li><li>Etiske vurderinger</li><li>Risikostyring</li></ul>',
+  },
+  {
+    slug: 'ki-helsetjenesten',
+    title: 'Suksesshistorie: KI i helsetjenesten',
+    excerpt: 'Les om hvordan en norsk kommune har implementert KI for a forbedre helsetjenestene.',
+    publishedAt: '2024-01-05',
+    author: 'Gjesteforfattar',
+    category: 'Eksempel',
+    content: '<p>En norsk kommune har tatt i bruk kunstig intelligens for a forbedre sine helsetjenester.</p><h2>Utfordringen</h2><p>Kommunen hadde utfordringer med a prioritere ressurser effektivt.</p><h2>Losningen</h2><p>Ved hjelp av KI kunne de analysere data og forutsi behov.</p>',
+  },
+  {
+    slug: 'eu-ai-act-norge',
+    title: 'EU AI Act: Hva betyr det for Norge?',
+    excerpt: 'En gjennomgang av EUs nye KI-forordning og hvordan den vil pavirke norsk offentlig sektor.',
+    publishedAt: '2024-01-02',
+    author: 'Datatilsynet',
+    category: 'Analyse',
+    content: '<p>EU har vedtatt verdens forste omfattende regulering av kunstig intelligens. Her forklarer vi hva dette betyr for Norge.</p>',
+  },
+  {
+    slug: 'anskaffelse-guide',
+    title: 'Anskaffelse av KI-losninger: En praktisk guide',
+    excerpt: 'Steg-for-steg veiledning for offentlige virksomheter som onsker a anskaffe KI-losninger.',
+    publishedAt: '2023-12-20',
+    author: 'Digdir',
+    category: 'Veiledning',
+    content: '<p>Denne guiden hjelper offentlige virksomheter gjennom prosessen med a anskaffe KI-losninger.</p>',
+  },
+];
+
+export const cases = [
+  {
+    slug: 'chatbot-innbyggerservice',
+    title: 'Chatbot for innbyggerservice',
+    organization: 'Oslo kommune',
+    description: 'Hvordan Oslo kommune implementerte en KI-drevet chatbot for a svare pa henvendelser fra innbyggere.',
+    tools: 'Azure Bot Service, GPT-4',
+    outcomes: 'Reduserte ventetid med 60%, hoyere brukertilfredshet',
+    content: '<p>Oslo kommune onsketa a forbedre innbyggerservicen ved a tilby raskere svar pa vanlige sporsmal. Losningen ble en KI-drevet chatbot.</p><h2>Utfordringen</h2><p>Kommunen mottok tusenvis av henvendelser daglig, og mange handlet om de samme temaene: renovasjon, parkering, og byggesoknader.</p><h2>Losningen</h2><p>Ved a implementere en chatbot basert pa Azure Bot Service og GPT-4, kunne de svare pa opptil 70% av alle henvendelser automatisk.</p><h2>Resultater</h2><ul><li>60% reduksjon i ventetid</li><li>24/7 tilgjengelighet</li><li>Hoyere brukertilfredshet</li></ul><h2>Lardommer</h2><p>Det var viktig a vare tydelig overfor innbyggerne om at de snakket med en KI, og a tilby enkel overgang til menneskelig kontakt ved behov.</p>',
+  },
+  {
+    slug: 'bildeanalyse-kulturarv',
+    title: 'Automatisk bildeanalyse',
+    organization: 'Riksantikvaren',
+    description: 'Bruk av KI for a katalogisere og analysere historiske fotografier.',
+    tools: 'Azure Computer Vision, Custom Vision',
+    outcomes: 'Katalogisert 50 000 bilder, spart 2 arsverk',
+    content: '<p>Riksantikvaren hadde et enormt arkiv med ukatalogiserte historiske fotografier. KI hjalp med a gjore dette materialet tilgjengelig.</p><h2>Bakgrunn</h2><p>Over 100 000 fotografier la i arkivet uten tilstrekkelige metadata for sok.</p><h2>Losningen</h2><p>Ved hjelp av bildegjenkjenning kunne KI automatisk identifisere bygninger, landskap og andre elementer.</p>',
+  },
+  {
+    slug: 'prediktiv-barnevern',
+    title: 'Prediktiv analyse for barnevern',
+    organization: 'Bergen kommune',
+    description: 'Forsiktig bruk av data for a identifisere familier som kan trenge stotte.',
+    tools: 'Egenutviklet modell',
+    outcomes: 'Tidligere intervensjon, bedre ressursbruk',
+    content: '<p>Et kontroversielt men viktig prosjekt som viser hvordan KI kan brukes ansvarlig i sensitive omrader.</p><h2>Etiske hensyn</h2><p>Prosjektet hadde strenge retningslinjer for personvern og etikk, med omfattende involvering av Datatilsynet.</p>',
+  },
+];
+
+export const sandboxProjects = [
+  {
+    slug: 'ki-saksbehandling',
+    title: 'KI-stottet saksbehandling',
+    organization: 'NAV',
+    status: 'active' as const,
+    description: 'Utforsker bruk av KI for a effektivisere saksbehandling mens personvern ivaretas.',
+    progress: 'Prosjektet er i fase 2 av 4. Vi har gjennomfort innledende analyser og arbeider na med prototyping.',
+    partners: 'NAV, Datatilsynet, SINTEF',
+    content: '<p>Dette prosjektet utforsker hvordan kunstig intelligens kan brukes for a stotte saksbehandlere i NAV. Malet er a effektivisere behandlingen av soknader samtidig som personvernet ivaretas.</p><h2>Bakgrunn</h2><p>NAV behandler millioner av soknader arlig. Ved a bruke KI til a forhands-kategorisere og prioritere saker, kan saksbehandlere fokusere pa de mest komplekse sakene.</p><h2>Utfordringer</h2><p>Prosjektet adresserer flere regulatoriske utfordringer knyttet til automatisert beslutningstaking og personvern.</p>',
+  },
+  {
+    slug: 'dokumentklassifisering',
+    title: 'Automatisk dokumentklassifisering',
+    organization: 'Skatteetaten',
+    status: 'completed' as const,
+    description: 'Ferdigstilt prosjekt for automatisk kategorisering av innkommende dokumenter.',
+    progress: 'Prosjektet er fullfort og losningen er na i produksjon.',
+    partners: 'Skatteetaten, Digdir',
+    content: '<p>Et vellykket prosjekt som har implementert automatisk klassifisering av innkommende dokumenter i Skatteetaten.</p><h2>Resultater</h2><p>Losningen kategoriserer na over 80% av alle innkommende dokumenter automatisk, med en noyaktighet pa 95%.</p>',
+  },
+  {
+    slug: 'prediktiv-vedlikehold',
+    title: 'Prediktiv vedlikehold',
+    organization: 'Statens vegvesen',
+    status: 'planning' as const,
+    description: 'Planlegger bruk av KI for a forutsi vedlikeholdsbehov pa veinettet.',
+    progress: 'Prosjektet er i planleggingsfasen. Soknad om deltakelse i sandkassen er godkjent.',
+    partners: 'Statens vegvesen, NTNU',
+    content: '<p>Dette prosjektet vil utforske bruk av maskinlaring for a forutsi nar veier og broer trenger vedlikehold.</p><h2>Forventet nytte</h2><p>Ved a forutsi vedlikeholdsbehov kan ressurser allokeres mer effektivt og kritiske skader forebygges.</p>',
+  },
+];

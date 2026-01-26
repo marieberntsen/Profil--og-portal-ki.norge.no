@@ -1,0 +1,144 @@
+---
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+
+const pillars = [
+  {
+    title: 'Veiledning',
+    description: 'Omfattende ressurser og retningslinjer for ansvarlig bruk av KI i offentlig sektor.',
+    href: '/veiledning',
+    icon: 'book',
+  },
+  {
+    title: 'Regulatorisk sandkasse',
+    description: 'Test og utvikle KI-losninger i et trygt miljo med veiledning fra eksperter.',
+    href: '/sandkasse',
+    icon: 'sandbox',
+  },
+  {
+    title: 'Gode eksempler',
+    description: 'Lar av andres suksesshistorier og beste praksis for KI-implementering.',
+    href: '/eksempler',
+    icon: 'lightbulb',
+  },
+];
+---
+
+<section class="pillars">
+  <div class="pillars-container">
+    <Heading level={2} size="large" className="pillars-heading">Vare hovedomrader</Heading>
+    <Paragraph size="medium" className="pillars-intro">
+      KI Norge tilbyr tre hovedtjenester for a stotte offentlig sektors arbeid med kunstig intelligens
+    </Paragraph>
+    <div class="pillars-grid">
+      {pillars.map((pillar) => (
+        <Link href={pillar.href} className="pillar-card">
+          <div class="pillar-icon" aria-hidden="true">
+            {pillar.icon === 'book' && (
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+              </svg>
+            )}
+            {pillar.icon === 'sandbox' && (
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="9" y1="21" x2="9" y2="9"/>
+              </svg>
+            )}
+            {pillar.icon === 'lightbulb' && (
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="9" y1="18" x2="15" y2="18"/>
+                <line x1="10" y1="22" x2="14" y2="22"/>
+                <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
+              </svg>
+            )}
+          </div>
+          <Heading level={3} size="medium" className="pillar-title">{pillar.title}</Heading>
+          <Paragraph size="small" className="pillar-description">{pillar.description}</Paragraph>
+          <span class="pillar-link">Les mer</span>
+        </Link>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .pillars {
+    padding: var(--ds-size-10) var(--ds-size-4);
+    background-color: var(--ds-color-neutral-background-default);
+  }
+
+  .pillars-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .pillars-heading :global(h2) {
+    text-align: center;
+    margin: 0 0 var(--ds-size-3);
+  }
+
+  .pillars-intro :global(p) {
+    text-align: center;
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0 0 var(--ds-size-8);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--ds-size-6);
+  }
+
+  :global(.pillar-card) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: var(--ds-size-8) var(--ds-size-6);
+    background-color: var(--ds-color-neutral-surface-default);
+    border: 1px solid var(--ds-color-neutral-border-subtle);
+    border-radius: var(--ds-border-radius-lg);
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+  }
+
+  :global(.pillar-card:hover) {
+    border-color: var(--ds-color-accent-border-default);
+    box-shadow: var(--ds-shadow-md);
+    transform: translateY(-4px);
+  }
+
+  .pillar-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--ds-color-accent-surface-default);
+    border-radius: var(--ds-border-radius-full);
+    color: var(--ds-color-accent-text-default);
+    margin-bottom: var(--ds-size-4);
+  }
+
+  .pillar-title :global(h3) {
+    margin: 0 0 var(--ds-size-2);
+  }
+
+  .pillar-description :global(p) {
+    color: var(--ds-color-neutral-text-subtle);
+    margin: 0 0 var(--ds-size-4);
+    line-height: 1.5;
+  }
+
+  .pillar-link {
+    font-size: var(--ds-font-size-1);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--ds-color-accent-text-default);
+  }
+</style>
