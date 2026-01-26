@@ -1,24 +1,37 @@
-# build output
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
 dist/
-# generated types
 .astro/
 
-# dependencies
-node_modules/
+# Environment files
+.env
+.env.local
+.env.*.local
 
-# logs
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Strapi
+apps/cms/.tmp/
+apps/cms/build/
+apps/cms/.cache/
+apps/cms/data/
+
+# Logs
+*.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 pnpm-debug.log*
 
-
-# environment variables
-.env
-.env.production
-
-# macOS-specific files
-.DS_Store
-
-# jetbrains setting folder
-.idea/
+# Test results
+playwright-report/
+test-results/

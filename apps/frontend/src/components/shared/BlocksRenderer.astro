@@ -1,0 +1,169 @@
+---
+/**
+ * BlocksRenderer - Renders Strapi v5 blocks to HTML using Designsystemet components
+ *
+ * Supports: paragraphs, headings (h1-h6), lists (ordered/unordered), quotes, code, images, links
+ */
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+import type { BlockNode, BlockChild } from '../../lib/strapi';
+
+interface Props {
+  blocks?: BlockNode[];
+  class?: string;
+}
+
+const { blocks, class: className } = Astro.props;
+
+// Helper to render text with formatting
+function renderTextChild(child: BlockChild): string {
+  if (!child.text) return '';
+
+  let text = child.text;
+
+  if (child.bold) text = `<strong>${text}</strong>`;
+  if (child.italic) text = `<em>${text}</em>`;
+  if (child.underline) text = `<u>${text}</u>`;
+  if (child.strikethrough) text = `<s>${text}</s>`;
+  if (child.code) text = `<code>${text}</code>`;
+
+  return text;
+}
+
+// Helper to render children (text nodes, links, etc.)
+function renderChildren(children?: BlockChild[]): string {
+  if (!children) return '';
+
+  return children.map(child => {
+    if (child.type === 'link' && child.url) {
+      const linkText = child.children?.map(c => renderTextChild(c)).join('') || '';
+      return `<a href="${child.url}">${linkText}</a>`;
+    }
+    return renderTextChild(child);
+  }).join('');
+}
+
+// Helper to render list items
+function renderListItems(children?: BlockChild[]): string {
+  if (!children) return '';
+
+  return children.map(item => {
+    const content = item.children?.map(c => renderTextChild(c)).join('') || '';
+    return `<li>${content}</li>`;
+  }).join('');
+}
+---
+
+{blocks && blocks.length > 0 && (
+  <div class={className}>
+    {blocks.map((block) => {
+      switch (block.type) {
+        case 'paragraph':
+          return (
+            <Paragraph size="medium">
+              <Fragment set:html={renderChildren(block.children)} />
+            </Paragraph>
+          );
+
+        case 'heading':
+          const level = block.level || 2;
+          return (
+            <Heading
+              level={level as 1 | 2 | 3 | 4 | 5 | 6}
+              size={level === 1 ? 'xlarge' : level === 2 ? 'large' : level === 3 ? 'medium' : 'small'}
+            >
+              <Fragment set:html={renderChildren(block.children)} />
+            </Heading>
+          );
+
+        case 'list':
+          if (block.format === 'ordered') {
+            return (
+              <ol class="ds-list">
+                <Fragment set:html={renderListItems(block.children)} />
+              </ol>
+            );
+          }
+          return (
+            <ul class="ds-list">
+              <Fragment set:html={renderListItems(block.children)} />
+            </ul>
+          );
+
+        case 'quote':
+          return (
+            <blockquote class="ds-blockquote">
+              <Fragment set:html={renderChildren(block.children)} />
+            </blockquote>
+          );
+
+        case 'code':
+          return (
+            <pre class="ds-code">
+              <code>
+                <Fragment set:html={renderChildren(block.children)} />
+              </code>
+            </pre>
+          );
+
+        case 'image':
+          if (block.image?.url) {
+            return (
+              <figure class="ds-figure">
+                <img
+                  src={block.image.url}
+                  alt={block.image.alternativeText || ''}
+                  loading="lazy"
+                />
+              </figure>
+            );
+          }
+          return null;
+
+        default:
+          return null;
+      }
+    })}
+  </div>
+)}
+
+<style>
+  .ds-list {
+    margin: var(--ds-size-4) 0;
+    padding-left: var(--ds-size-6);
+  }
+
+  .ds-list li {
+    margin-bottom: var(--ds-size-2);
+  }
+
+  .ds-blockquote {
+    margin: var(--ds-size-4) 0;
+    padding: var(--ds-size-4);
+    border-left: 4px solid var(--ds-color-accent-base-default);
+    background-color: var(--ds-color-neutral-background-subtle);
+    font-style: italic;
+  }
+
+  .ds-code {
+    margin: var(--ds-size-4) 0;
+    padding: var(--ds-size-4);
+    background-color: var(--ds-color-neutral-background-subtle);
+    border-radius: var(--ds-border-radius-md);
+    overflow-x: auto;
+  }
+
+  .ds-code code {
+    font-family: var(--ds-font-family-mono);
+    font-size: var(--ds-font-size-sm);
+  }
+
+  .ds-figure {
+    margin: var(--ds-size-4) 0;
+  }
+
+  .ds-figure img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--ds-border-radius-md);
+  }
+</style>
