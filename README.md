@@ -106,6 +106,29 @@ The frontend is a **static site generator**. Pages are pre-rendered with content
 | FAQ | `/api/faqs` | FAQ items |
 | Merkelapp | `/api/merkelapps` | Tags/categories |
 
+## Content Architecture
+
+Overview of what's controlled by Strapi (editorial content) vs code (structure/layout):
+
+| Page | Strapi-controlled | Code-controlled |
+|------|-------------------|-----------------|
+| `/` (homepage) | Articles (News), Veiledninger (Resources) | Layout, Hero, Stats, Pillars, TargetAudiences |
+| `/artikler` | Article list | Page layout |
+| `/artikler/[slug]` | Article content (blocks) | Page template |
+| `/eksempler` | Example list | Page layout |
+| `/eksempler/[slug]` | Example content (blocks) | Page template |
+| `/eksempler/send-inn` | - | Entire page (form) |
+| `/veiledning` | Veiledning list | Page layout |
+| `/veiledning/[slug]` | Veiledning content (blocks) | Page template |
+| `/faq` | FAQ items | Page layout |
+| `/kontakt` | Page content (blocks) | Page template |
+| `/om-oss` | Page content (blocks) | Page template |
+| `/sandkasse` | Page content (blocks) | Page template |
+| `/sandkasse/prosjekter` | - | Placeholder (future Altinn) |
+| `/sandkasse/prosjekter/[slug]` | - | Placeholder (future Altinn) |
+
+**Principle:** Editorial content lives in Strapi. Page structure, navigation, and design live in code.
+
 ## Environment Variables
 
 ### CMS (`apps/cms/.env`)
@@ -122,4 +145,17 @@ DATABASE_FILENAME=.tmp/data.db
 ### Frontend (`apps/frontend/.env`)
 ```
 STRAPI_URL=http://localhost:1337
+PREVIEW_SECRET=<shared-secret-with-cms>
 ```
+
+## Preview Mode
+
+Editors can preview draft content before publishing:
+
+1. In Strapi admin, click "Open preview" on any content item
+2. This opens the frontend with a preview banner showing draft content
+3. Click "Avslutt forhåndsvisning" to exit preview mode
+
+**Configuration:**
+- Set matching `PREVIEW_SECRET` in both CMS and frontend `.env` files
+- Preview uses the Strapi Document Service `status=draft` parameter
