@@ -1,43 +1,125 @@
-# Astro Starter Kit: Minimal
+# KI Norge Portal
 
-```sh
-deno create astro@latest -- --template minimal
+Portal for kunstig intelligens i norsk offentlig sektor.
+
+## Tech Stack
+
+### Backend / CMS
+- **Strapi v5.33.4** - Headless CMS (self-hosted, Node.js)
+- **SQLite** - Database for development (file-based, `.tmp/data.db`)
+- **PostgreSQL** - Recommended for production
+- **better-sqlite3** - Native SQLite bindings for Node.js
+- **Knex.js** - SQL query builder (used by Strapi internally)
+- **Koa.js** - Web framework (Strapi's underlying server)
+- **Node.js v20** - Runtime requirement
+
+### API
+- **REST API** - Strapi's built-in REST endpoints (`/api/artikkels`, etc.)
+- **Strapi Document Service** - v5's new content API
+- **Public permissions** - Configured via bootstrap script (no auth needed for reads)
+
+### Frontend
+- **Astro v5** - Static site generator
+- **React 19** - Component library (via Astro integration)
+- **Designsystemet v1.11** - Digdir's design system (`@digdir/designsystemet-react`)
+- **TypeScript** - Type safety
+
+### Monorepo / Tooling
+- **pnpm** - Package manager with workspaces
+- **pnpm-workspace.yaml** - Monorepo configuration
+
+### Hosting
+- **Self-hosted** - No vendor lock-in
+- **Static export** - Frontend builds to static HTML
+- **Strapi server** - Needs Node.js hosting (Docker, VM, etc.)
+
+## Project Structure
+
 ```
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
+ki.norge.no/
+├── apps/
+│   ├── cms/                 # Strapi v5 CMS
+│   │   ├── config/          # Strapi configuration
+│   │   ├── src/
+│   │   │   ├── api/         # Content types (artikkel, side, eksempel, etc.)
+│   │   │   └── components/  # Block components (advarsel, lenke, etc.)
+│   │   └── .tmp/data.db     # SQLite database (dev)
+│   └── frontend/            # Astro frontend
+│       ├── src/
+│       │   ├── components/  # Astro/React components
+│       │   ├── pages/       # Routes
+│       │   └── lib/         # Strapi client, utilities
+│       └── public/          # Static assets
+├── dokumentasjon/           # Project documentation
+├── pnpm-workspace.yaml      # Monorepo config
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Development
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+### Prerequisites
+- Node.js v20+
+- pnpm
 
-Any static assets, like images, can be placed in the `public/` directory.
+### Setup
+```bash
+pnpm install
+```
 
-## 🧞 Commands
+### Start Development Servers
 
-All commands are run from the root of the project, from a terminal:
+**Terminal 1 - CMS (Strapi):**
+```bash
+cd apps/cms
+pnpm develop
+```
+Admin panel: http://localhost:1337/admin
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `deno install`             | Installs dependencies                            |
-| `deno dev`             | Starts local dev server at `localhost:4321`      |
-| `deno build`           | Build your production site to `./dist/`          |
-| `deno preview`         | Preview your build locally, before deploying     |
-| `deno astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `deno astro -- --help` | Get help using the Astro CLI                     |
+**Terminal 2 - Frontend (Astro):**
+```bash
+cd apps/frontend
+npm run dev
+```
+Frontend: http://localhost:4321
 
-## 👀 Want to learn more?
+### Important: Static Site Architecture
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+The frontend is a **static site generator**. Pages are pre-rendered with content fetched from Strapi at build time.
+
+**In development:**
+- Changes in Strapi admin won't appear immediately
+- Restart the frontend dev server to see CMS changes
+- Or trigger a page reload by saving a frontend file
+
+**In production:**
+- Run `npm run build` in `apps/frontend` to rebuild with latest CMS content
+- Consider webhook-triggered rebuilds when CMS content changes
+
+## Content Types
+
+| Type | API Endpoint | Description |
+|------|--------------|-------------|
+| Artikkel | `/api/artikkels` | News articles |
+| Side | `/api/sides` | Static pages |
+| Eksempel | `/api/eksempels` | Case studies |
+| Veiledning | `/api/veilednings` | Guidance docs |
+| FAQ | `/api/faqs` | FAQ items |
+| Merkelapp | `/api/merkelapps` | Tags/categories |
+
+## Environment Variables
+
+### CMS (`apps/cms/.env`)
+```
+HOST=0.0.0.0
+PORT=1337
+APP_KEYS=<generated>
+ADMIN_JWT_SECRET=<generated>
+API_TOKEN_SALT=<generated>
+DATABASE_CLIENT=sqlite
+DATABASE_FILENAME=.tmp/data.db
+```
+
+### Frontend (`apps/frontend/.env`)
+```
+STRAPI_URL=http://localhost:1337
+```
