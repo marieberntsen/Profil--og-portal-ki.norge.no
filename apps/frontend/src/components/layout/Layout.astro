@@ -1,6 +1,7 @@
 ---
 import Header from './Header.astro';
 import Footer from './Footer.astro';
+import PreviewBanner from '../shared/PreviewBanner.astro';
 import '../../styles/global.css';
 
 interface Props {
@@ -9,6 +10,10 @@ interface Props {
 }
 
 const { title, description = 'Norges nasjonale strategi for kunstig intelligens' } = Astro.props;
+
+// Check for preview mode
+const isPreview = Astro.url.searchParams.has('preview') || Astro.cookies.has('preview');
+const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -19,6 +24,7 @@ const { title, description = 'Norges nasjonale strategi for kunstig intelligens'
     <meta name="description" content={description} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title} | KI Norge</title>
+    {isPreview && <meta name="robots" content="noindex" />}
   </head>
   <body>
     <Header />
@@ -26,6 +32,7 @@ const { title, description = 'Norges nasjonale strategi for kunstig intelligens'
       <slot />
     </main>
     <Footer />
+    {isPreview && <PreviewBanner currentPath={currentPath} />}
   </body>
 </html>
 
@@ -38,5 +45,9 @@ const { title, description = 'Norges nasjonale strategi for kunstig intelligens'
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+  }
+
+  body:has(.preview-banner) {
+    padding-bottom: 60px;
   }
 </style>

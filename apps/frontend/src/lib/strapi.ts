@@ -1,6 +1,11 @@
 const STRAPI_URL = import.meta.env.STRAPI_URL || 'http://localhost:1337';
 const API_TOKEN = import.meta.env.STRAPI_API_TOKEN;
 
+// Preview mode options
+export interface FetchOptions {
+  preview?: boolean;
+}
+
 // Strapi v5 response format
 interface StrapiResponse<T> {
   data: T[];
@@ -141,7 +146,7 @@ export interface StrapiMedia {
 }
 
 // Generic fetch function for Strapi v5
-async function fetchAPI<T>(endpoint: string): Promise<StrapiResponse<T>> {
+async function fetchAPI<T>(endpoint: string, options: FetchOptions = {}): Promise<StrapiResponse<T>> {
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
   };
@@ -150,7 +155,12 @@ async function fetchAPI<T>(endpoint: string): Promise<StrapiResponse<T>> {
     headers['Authorization'] = `Bearer ${API_TOKEN}`;
   }
 
-  const url = `${STRAPI_URL}/api${endpoint}`;
+  // Add preview status if in preview mode
+  let url = `${STRAPI_URL}/api${endpoint}`;
+  if (options.preview) {
+    const separator = endpoint.includes('?') ? '&' : '?';
+    url += `${separator}status=draft`;
+  }
 
   try {
     const res = await fetch(url, { headers });
@@ -174,73 +184,79 @@ export function getMediaUrl(media?: StrapiMedia): string | undefined {
 }
 
 // Artikkel API functions
-export async function getArtikler(limit?: number) {
+export async function getArtikler(limit?: number, options: FetchOptions = {}) {
   const pagination = limit ? `&pagination[limit]=${limit}` : '';
-  return fetchAPI<Artikkel>(`/artikkels?populate=*&sort=publishedAt:desc${pagination}`);
+  return fetchAPI<Artikkel>(`/artikkels?populate=*&sort=publishedAt:desc${pagination}`, options);
 }
 
-export async function getArtikkel(slug: string) {
+export async function getArtikkel(slug: string, options: FetchOptions = {}) {
   const response = await fetchAPI<Artikkel>(
-    `/artikkels?filters[slug][$eq]=${slug}&populate=*`
+    `/artikkels?filters[slug][$eq]=${slug}&populate=*`,
+    options
   );
   return response.data[0] || null;
 }
 
 // Side (Page) API functions
-export async function getSider() {
-  return fetchAPI<Side>('/sides?populate=*');
+export async function getSider(options: FetchOptions = {}) {
+  return fetchAPI<Side>('/sides?populate=*', options);
 }
 
-export async function getSide(slug: string) {
+export async function getSide(slug: string, options: FetchOptions = {}) {
   const response = await fetchAPI<Side>(
-    `/sides?filters[slug][$eq]=${slug}&populate=*`
+    `/sides?filters[slug][$eq]=${slug}&populate=*`,
+    options
   );
   return response.data[0] || null;
 }
 
 // Eksempel (Case) API functions
-export async function getEksempler() {
-  return fetchAPI<Eksempel>('/eksempels?populate=*&sort=createdAt:desc');
+export async function getEksempler(options: FetchOptions = {}) {
+  return fetchAPI<Eksempel>('/eksempels?populate=*&sort=createdAt:desc', options);
 }
 
-export async function getEksempel(slug: string) {
+export async function getEksempel(slug: string, options: FetchOptions = {}) {
   const response = await fetchAPI<Eksempel>(
-    `/eksempels?filters[slug][$eq]=${slug}&populate=*`
+    `/eksempels?filters[slug][$eq]=${slug}&populate=*`,
+    options
   );
   return response.data[0] || null;
 }
 
 // Veiledning (Guidance) API functions
-export async function getVeiledninger() {
-  return fetchAPI<Veiledning>('/veilednings?populate=*&sort=rekkefølge:asc');
+export async function getVeiledninger(options: FetchOptions = {}) {
+  return fetchAPI<Veiledning>('/veilednings?populate=*&sort=rekkefølge:asc', options);
 }
 
-export async function getVeiledning(slug: string) {
+export async function getVeiledning(slug: string, options: FetchOptions = {}) {
   const response = await fetchAPI<Veiledning>(
-    `/veilednings?filters[slug][$eq]=${slug}&populate=*`
+    `/veilednings?filters[slug][$eq]=${slug}&populate=*`,
+    options
   );
   return response.data[0] || null;
 }
 
 // FAQ API functions
-export async function getFAQs() {
-  return fetchAPI<FAQ>('/faqs?populate=*&sort=rekkefølge:asc');
+export async function getFAQs(options: FetchOptions = {}) {
+  return fetchAPI<FAQ>('/faqs?populate=*&sort=rekkefølge:asc', options);
 }
 
-export async function getFAQsByKategori(kategoriSlug: string) {
+export async function getFAQsByKategori(kategoriSlug: string, options: FetchOptions = {}) {
   return fetchAPI<FAQ>(
-    `/faqs?filters[kategori][slug][$eq]=${kategoriSlug}&populate=*&sort=rekkefølge:asc`
+    `/faqs?filters[kategori][slug][$eq]=${kategoriSlug}&populate=*&sort=rekkefølge:asc`,
+    options
   );
 }
 
 // Merkelapp (Tag) API functions
-export async function getMerkelapper() {
-  return fetchAPI<Merkelapp>('/merkelapps?populate=*');
+export async function getMerkelapper(options: FetchOptions = {}) {
+  return fetchAPI<Merkelapp>('/merkelapps?populate=*', options);
 }
 
-export async function getMerkelapp(slug: string) {
+export async function getMerkelapp(slug: string, options: FetchOptions = {}) {
   const response = await fetchAPI<Merkelapp>(
-    `/merkelapps?filters[slug][$eq]=${slug}&populate=*`
+    `/merkelapps?filters[slug][$eq]=${slug}&populate=*`,
+    options
   );
   return response.data[0] || null;
 }

@@ -1,247 +1,75 @@
 ---
 import Layout from '../../components/layout/Layout.astro';
-import { Heading, Paragraph, Button } from '@digdir/designsystemet-react';
+import BlocksRenderer from '../../components/shared/BlocksRenderer.astro';
+import { Heading, Paragraph, Button, Link } from '@digdir/designsystemet-react';
+import { getSide } from '../../lib/strapi';
 
-const benefits = [
-  {
-    title: 'Ekspertveiledning',
-    description: 'Fa tilgang til eksperter pa regelverk, personvern og KI-utvikling gjennom hele prosjektet.',
-  },
-  {
-    title: 'Trygt testmiljo',
-    description: 'Utforsk innovative losninger i et kontrollert miljo med redusert risiko.',
-  },
-  {
-    title: 'Regelverksklarhet',
-    description: 'Fa tydelige svar pa regulatoriske sporsmal for ditt spesifikke prosjekt.',
-  },
-  {
-    title: 'Nettverksbygging',
-    description: 'Koble deg med andre offentlige virksomheter som arbeider med lignende utfordringer.',
-  },
-];
+// Check for preview mode
+const isPreview = Astro.url.searchParams.has('preview') || Astro.cookies.has('preview');
 
-const process = [
-  { step: 1, title: 'Soknad', description: 'Send inn prosjektbeskrivelse og mal' },
-  { step: 2, title: 'Vurdering', description: 'Vi evaluerer prosjektets egnethet' },
-  { step: 3, title: 'Opptak', description: 'Avtale og prosjektplan utarbeides' },
-  { step: 4, title: 'Gjennomforing', description: 'Utvikling med lopende veiledning' },
-  { step: 5, title: 'Avslutning', description: 'Evaluering og deling av lardommer' },
-];
+// Fetch page content from Strapi
+let page = null;
+try {
+  page = await getSide('sandkasse', { preview: isPreview });
+} catch (error) {
+  console.error('Failed to fetch sandkasse page:', error);
+}
+
+const title = page?.tittel || 'Sandkasse';
+const seoDescription = page?.seoBeskrivelse || '';
 ---
 
-<Layout title="Regulatorisk sandkasse" description="Test og utvikle KI-losninger i et trygt miljo med veiledning fra eksperter.">
+<Layout title={title} description={seoDescription}>
   <div class="page-container">
-    <header class="page-header">
-      <Heading level={1} size="2xlarge">Regulatorisk sandkasse</Heading>
-      <Paragraph size="large" class="lead">
-        Et trygt miljo for a teste og utvikle KI-losninger med veiledning
-        fra eksperter pa regelverk, personvern og teknologi.
-      </Paragraph>
-    </header>
-
-    <section class="section">
-      <Heading level={2} size="large">Hva er sandkassen?</Heading>
-      <Paragraph>
-        Den regulatoriske sandkassen for KI er et kontrollert miljo der offentlige
-        virksomheter kan utforske og utvikle innovative KI-losninger sammen med
-        regulatoriske myndigheter. Sandkassen gir deltakerne mulighet til a teste
-        nye ideer mens de far veiledning om hvordan de kan overholde regelverket.
-      </Paragraph>
-    </section>
-
-    <section class="section">
-      <Heading level={2} size="large">Fordeler ved deltakelse</Heading>
-      <div class="benefits-grid">
-        {benefits.map((benefit) => (
-          <div class="benefit-card">
-            <Heading level={3} size="small" class="benefit-title">{benefit.title}</Heading>
-            <Paragraph size="small" class="benefit-description">{benefit.description}</Paragraph>
-          </div>
-        ))}
+    {page?.innhold ? (
+      <>
+        <header class="page-header">
+          <Heading level={1} size="2xlarge">{page.tittel}</Heading>
+        </header>
+        <BlocksRenderer blocks={page.innhold} class="page-content" />
+      </>
+    ) : (
+      <div class="not-found">
+        <Heading level={1} size="2xlarge">Siden er ikke tilgjengelig</Heading>
+        <Paragraph>
+          Denne siden er ikke publisert ennå. Vennligst prøv igjen senere.
+        </Paragraph>
+        <Link href="/">Gå til forsiden</Link>
       </div>
-    </section>
-
-    <section class="section">
-      <Heading level={2} size="large">Prosess</Heading>
-      <div class="process-steps">
-        {process.map((item) => (
-          <div class="process-step">
-            <div class="step-number">{item.step}</div>
-            <div class="step-content">
-              <Heading level={3} size="small" class="step-title">{item.title}</Heading>
-              <Paragraph size="small" class="step-description">{item.description}</Paragraph>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <section class="section">
-      <Heading level={2} size="large">Hvem kan soke?</Heading>
-      <ul class="eligibility-list">
-        <li>Kommuner og fylkeskommuner</li>
-        <li>Statlige etater og direktorater</li>
-        <li>Offentlig eide selskaper</li>
-        <li>Samarbeidsprosjekter med offentlig sektor</li>
-      </ul>
-    </section>
-
-    <div class="cta-section">
-      <Heading level={2} size="large">Interessert?</Heading>
-      <Paragraph>Se pagaende prosjekter eller ta kontakt for a diskutere ditt prosjekt.</Paragraph>
-      <div class="cta-buttons">
-        <Button asChild size="medium" variant="primary">
-          <a href="/sandkasse/prosjekter">Se prosjekter</a>
-        </Button>
-        <Button asChild size="medium" variant="secondary">
-          <a href="/kontakt">Kontakt oss</a>
-        </Button>
-      </div>
-    </div>
+    )}
   </div>
 </Layout>
 
 <style>
   .page-container {
-    max-width: 900px;
+    max-width: 800px;
     margin: 0 auto;
     padding: var(--ds-size-8) var(--ds-size-4);
   }
 
   .page-header {
-    margin-bottom: var(--ds-size-8);
+    margin-bottom: var(--ds-size-6);
   }
 
   .page-header :global(h1) {
-    margin: 0 0 var(--ds-size-4);
-  }
-
-  .lead {
     margin: 0;
   }
 
-  .section {
-    margin-bottom: var(--ds-size-10);
+  .page-content {
+    margin-bottom: var(--ds-size-8);
   }
 
-  .section :global(h2) {
-    margin: 0 0 var(--ds-size-4);
-  }
-
-  .section :global(p) {
-    margin: 0;
-  }
-
-  .benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--ds-size-4);
-  }
-
-  .benefit-card {
-    padding: var(--ds-size-5);
-    background-color: var(--ds-color-neutral-surface-default);
-    border: 1px solid var(--ds-color-neutral-border-subtle);
-    border-radius: var(--ds-border-radius-md);
-  }
-
-  .benefit-title {
-    margin: 0 0 var(--ds-size-2);
-  }
-
-  .benefit-description {
-    margin: 0;
-  }
-
-  .process-steps {
-    display: flex;
-    flex-direction: column;
-    gap: var(--ds-size-4);
-  }
-
-  .process-step {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--ds-size-4);
-  }
-
-  .step-number {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--ds-color-accent-base-default);
-    color: var(--ds-color-accent-contrast-default);
-    border-radius: var(--ds-border-radius-full);
-    font-weight: var(--ds-font-weight-semibold);
-    flex-shrink: 0;
-  }
-
-  .step-content {
-    flex: 1;
-    padding-top: var(--ds-size-2);
-  }
-
-  .step-title {
-    margin: 0 0 var(--ds-size-1);
-  }
-
-  .step-description {
-    margin: 0;
-  }
-
-  .eligibility-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--ds-size-2);
-  }
-
-  .eligibility-list li {
-    font-size: var(--ds-font-size-1);
-    padding: var(--ds-size-3);
-    background-color: var(--ds-color-neutral-surface-default);
-    border-radius: var(--ds-border-radius-sm);
-    display: flex;
-    align-items: center;
-    gap: var(--ds-size-2);
-  }
-
-  .eligibility-list li::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    background-color: var(--ds-color-success-base-default);
-    border-radius: 50%;
-  }
-
-  .cta-section {
-    padding: var(--ds-size-8);
-    background-color: var(--ds-color-accent-surface-default);
-    border-radius: var(--ds-border-radius-lg);
+  .not-found {
     text-align: center;
+    padding: var(--ds-size-12) var(--ds-size-4);
   }
 
-  .cta-section :global(h2) {
-    margin: 0 0 var(--ds-size-2);
-  }
-
-  .cta-section :global(p) {
+  .not-found :global(h1) {
     margin: 0 0 var(--ds-size-4);
   }
 
-  .cta-buttons {
-    display: flex;
-    gap: var(--ds-size-3);
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .cta-buttons :global(button) {
-    display: inline-block;
+  .not-found :global(p) {
+    margin: 0 0 var(--ds-size-6);
+    color: var(--ds-color-neutral-text-subtle);
   }
 </style>

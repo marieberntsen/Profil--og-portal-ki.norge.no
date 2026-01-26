@@ -1,78 +1,68 @@
 ---
 import Layout from '../../components/layout/Layout.astro';
-import { Heading, Paragraph, Link, Button } from '@digdir/designsystemet-react';
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+import { getVeiledninger, type Veiledning } from '../../lib/strapi';
 
-const categories = [
-  {
-    title: 'Regelverk',
-    items: [
-      { title: 'KI-forskriften', description: 'Norges implementering av EU AI Act', href: '#' },
-      { title: 'EU AI Act oversikt', description: 'Hovedpunkter i EUs KI-forordning', href: '#' },
-      { title: 'GDPR og KI', description: 'Personvern ved bruk av kunstig intelligens', href: '#' },
-    ],
-  },
-  {
-    title: 'Anskaffelse',
-    items: [
-      { title: 'Anskaffelsesveileder', description: 'Steg-for-steg for KI-anskaffelser', href: '#' },
-      { title: 'Kravspesifikasjon', description: 'Hvordan spesifisere KI-krav', href: '#' },
-      { title: 'Leverandorvurdering', description: 'Evaluering av KI-leverandorer', href: '#' },
-    ],
-  },
-  {
-    title: 'Risikovurdering',
-    items: [
-      { title: 'Risikorammeverk', description: 'Strukturert tilnarming til KI-risiko', href: '#' },
-      { title: 'Konsekvensanalyse', description: 'DPIA for KI-systemer', href: '#' },
-      { title: 'Risikokategorier', description: 'Forsta hoy-risiko vs lav-risiko KI', href: '#' },
-    ],
-  },
-  {
-    title: 'Etikk og ansvar',
-    items: [
-      { title: 'Etiske retningslinjer', description: 'Prinsipper for ansvarlig KI', href: '#' },
-      { title: 'Transparens', description: 'Appenhet om KI-bruk', href: '#' },
-      { title: 'Menneske i loopen', description: 'Sikre menneskelig kontroll', href: '#' },
-    ],
-  },
-];
+// Fetch veiledninger from Strapi
+let veiledninger: Veiledning[] = [];
+try {
+  const veiledningerRes = await getVeiledninger();
+  veiledninger = veiledningerRes.data || [];
+} catch (error) {
+  console.error('Failed to fetch veiledninger:', error);
+}
+
+// Group veiledninger by kategori
+const groupedVeiledninger = veiledninger.reduce((acc, veiledning) => {
+  const kategoriNavn = veiledning.kategori?.navn || 'Annet';
+  if (!acc[kategoriNavn]) {
+    acc[kategoriNavn] = [];
+  }
+  acc[kategoriNavn].push(veiledning);
+  return acc;
+}, {} as Record<string, Veiledning[]>);
+
+// Convert to array format for rendering
+const categories = Object.entries(groupedVeiledninger).map(([title, items]) => ({
+  title,
+  items: items.map(v => ({
+    title: v.tittel,
+    description: v.innhold?.[0]?.children?.[0]?.text?.substring(0, 80) || '',
+    href: `/veiledning/${v.slug}`,
+  })),
+}));
+
+const hasContent = categories.length > 0;
 ---
 
-<Layout title="Veiledning" description="Omfattende veiledningsressurser for ansvarlig bruk av kunstig intelligens i offentlig sektor.">
+<Layout title="Veiledning" description="Veiledningsressurser for ansvarlig bruk av kunstig intelligens i offentlig sektor.">
   <div class="page-container">
     <header class="page-header">
       <Heading level={1} size="2xlarge">Veiledning</Heading>
-      <Paragraph size="large" class="lead">
-        Omfattende ressurser og retningslinjer for ansvarlig bruk av kunstig
-        intelligens i offentlig sektor.
-      </Paragraph>
     </header>
 
-    <div class="categories">
-      {categories.map((category) => (
-        <section class="category">
-          <Heading level={2} size="large" class="category-title">{category.title}</Heading>
-          <div class="items-grid">
-            {category.items.map((item) => (
-              <Link href={item.href} class="item-card">
-                <Heading level={3} size="small" class="item-title">{item.title}</Heading>
-                <Paragraph size="small" class="item-description">{item.description}</Paragraph>
-              </Link>
-            ))}
-          </div>
-        </section>
-      ))}
-    </div>
-
-    <section class="cta-section">
-      <Heading level={2} size="large">Trenger du mer hjelp?</Heading>
-      <Paragraph>
-        Den regulatoriske sandkassen tilbyr hands-on veiledning for KI-prosjekter.
-      </Paragraph>
-      <Button asChild size="medium">
-        <a href="/sandkasse">Les om sandkassen</a>
-      </Button>
-    </section>
+    {hasContent ? (
+      <div class="categories">
+        {categories.map((category) => (
+          <section class="category">
+            <Heading level={2} size="large" class="category-title">{category.title}</Heading>
+            <div class="items-grid">
+              {category.items.map((item) => (
+                <Link href={item.href} class="item-card">
+                  <Heading level={3} size="small" class="item-title">{item.title}</Heading>
+                  <Paragraph size="small" class="item-description">{item.description}</Paragraph>
+                </Link>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    ) : (
+      <div class="empty-state">
+        <Paragraph>Ingen veiledninger er publisert ennå.</Paragraph>
+        <Link href="/">Gå til forsiden</Link>
+      </div>
+    )}
   </div>
 </Layout>
 
@@ -154,7 +144,13 @@ const categories = [
     margin: 0 0 var(--ds-size-4);
   }
 
-  .cta-section :global(button) {
-    display: inline-block;
+  .empty-state {
+    text-align: center;
+    padding: var(--ds-size-12) var(--ds-size-4);
+  }
+
+  .empty-state :global(p) {
+    margin: 0 0 var(--ds-size-4);
+    color: var(--ds-color-neutral-text-subtle);
   }
 </style>

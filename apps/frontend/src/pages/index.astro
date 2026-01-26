@@ -6,13 +6,60 @@ import Pillars from '../components/landing/Pillars.astro';
 import Resources from '../components/landing/Resources.astro';
 import TargetAudiences from '../components/landing/TargetAudiences.astro';
 import News from '../components/landing/News.astro';
+import { getArtikler, getVeiledninger, getSide, type Artikkel, type Veiledning } from '../lib/strapi';
+
+// Fetch latest articles for News section
+let artikler: Artikkel[] = [];
+try {
+  const artiklerRes = await getArtikler(3);
+  artikler = artiklerRes.data || [];
+} catch (error) {
+  console.error('Failed to fetch articles for homepage:', error);
+}
+
+// Transform articles for News component
+const articles = artikler.map(a => ({
+  title: a.tittel,
+  excerpt: a.innhold?.[0]?.children?.[0]?.text?.substring(0, 120) || '',
+  slug: a.slug,
+  publishedAt: a.publishedAt,
+  category: 'Nyhet',
+}));
+
+// Fetch veiledninger for Resources section
+let veiledninger: Veiledning[] = [];
+try {
+  const veiledningerRes = await getVeiledninger();
+  veiledninger = veiledningerRes.data || [];
+} catch (error) {
+  console.error('Failed to fetch veiledninger for homepage:', error);
+}
+
+// Transform veiledninger for Resources component
+const resources = veiledninger.slice(0, 4).map(v => ({
+  title: v.tittel,
+  description: v.innhold?.[0]?.children?.[0]?.text?.substring(0, 80) || '',
+  href: `/veiledning/${v.slug}`,
+  type: v.kategori?.navn || 'Veiledning',
+}));
+
+// Fetch homepage content from CMS (optional)
+let forside = null;
+try {
+  forside = await getSide('forside');
+} catch (error) {
+  // Homepage content is optional
+}
+
+const title = forside?.tittel || 'Hjem';
+const seoDescription = forside?.seoBeskrivelse || 'KI Norge - Norges nasjonale strategi for kunstig intelligens. Veiledning, regulatorisk sandkasse og gode eksempler for offentlig sektor.';
 ---
 
-<Layout title="Hjem" description="KI Norge - Norges nasjonale strategi for kunstig intelligens. Veiledning, regulatorisk sandkasse og gode eksempler for offentlig sektor.">
+<Layout title={title} description={seoDescription}>
   <Hero />
   <Stats />
   <Pillars />
-  <Resources />
+  <Resources resources={resources} />
   <TargetAudiences />
-  <News />
+  <News articles={articles} />
 </Layout>

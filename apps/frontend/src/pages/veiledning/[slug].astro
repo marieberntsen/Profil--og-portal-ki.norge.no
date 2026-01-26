@@ -1,0 +1,163 @@
+---
+import Layout from '../../components/layout/Layout.astro';
+import BlocksRenderer from '../../components/shared/BlocksRenderer.astro';
+import { getVeiledninger, getVeiledning, type Veiledning, type BlockNode } from '../../lib/strapi';
+import { Heading, Paragraph, Link } from '@digdir/designsystemet-react';
+
+// Helper to extract text from blocks for excerpt
+function getExcerpt(blocks?: BlockNode[]): string {
+  if (!blocks || blocks.length === 0) return '';
+  const firstParagraph = blocks.find(b => b.type === 'paragraph');
+  if (!firstParagraph?.children) return '';
+  return firstParagraph.children
+    .filter(c => c.type === 'text')
+    .map(c => c.text || '')
+    .join('')
+    .slice(0, 200);
+}
+
+export async function getStaticPaths() {
+  try {
+    const response = await getVeiledninger();
+    return response.data.map((veiledning) => ({
+      params: { slug: veiledning.slug },
+      props: { veiledning },
+    }));
+  } catch (error) {
+    console.error('Failed to fetch veiledninger for paths:', error);
+    return [];
+  }
+}
+
+const { veiledning } = Astro.props as { veiledning: Veiledning };
+
+const kategori = veiledning.kategori?.navn || 'Veiledning';
+---
+
+<Layout title={veiledning.tittel} description={getExcerpt(veiledning.innhold)}>
+  <article class="page-container">
+    <nav class="breadcrumb">
+      <Link href="/veiledning">Veiledning</Link>
+      <span>/</span>
+      <span>{veiledning.tittel}</span>
+    </nav>
+
+    <header class="article-header">
+      <span class="category-label">{kategori}</span>
+      <Heading level={1} size="2xlarge">{veiledning.tittel}</Heading>
+    </header>
+
+    {veiledning.innhold && veiledning.innhold.length > 0 ? (
+      <BlocksRenderer blocks={veiledning.innhold} class="article-content" />
+    ) : (
+      <Paragraph>Innhold ikke funnet.</Paragraph>
+    )}
+
+    {veiledning.lenker && veiledning.lenker.length > 0 && (
+      <section class="related-links">
+        <Heading level={2} size="medium">Relaterte lenker</Heading>
+        <ul>
+          {veiledning.lenker.map((lenke) => (
+            <li>
+              <Link href={lenke.url} target={lenke.ekstern ? '_blank' : undefined}>
+                {lenke.tekst}
+                {lenke.ekstern && <span class="external-icon" aria-label="Ekstern lenke"> ↗</span>}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <nav class="article-nav">
+      <Link href="/veiledning" class="back-link">
+        Tilbake til veiledning
+      </Link>
+    </nav>
+  </article>
+</Layout>
+
+<style>
+  .page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: var(--ds-size-8) var(--ds-size-4);
+  }
+
+  .breadcrumb {
+    display: flex;
+    gap: var(--ds-size-2);
+    margin-bottom: var(--ds-size-6);
+    font-size: var(--ds-font-size-0);
+    color: var(--ds-color-neutral-text-subtle);
+  }
+
+  .breadcrumb :global(a) {
+    color: var(--ds-color-accent-text-default);
+    text-decoration: none;
+  }
+
+  .breadcrumb :global(a:hover) {
+    text-decoration: underline;
+  }
+
+  .article-header {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .category-label {
+    display: inline-block;
+    padding: var(--ds-size-1) var(--ds-size-3);
+    background-color: var(--ds-color-accent-surface-default);
+    color: var(--ds-color-accent-text-default);
+    font-size: var(--ds-font-size-0);
+    font-weight: var(--ds-font-weight-medium);
+    border-radius: var(--ds-border-radius-sm);
+    margin-bottom: var(--ds-size-3);
+  }
+
+  .article-header :global(h1) {
+    margin: 0;
+  }
+
+  .article-content {
+    margin-bottom: var(--ds-size-8);
+  }
+
+  .related-links {
+    margin-bottom: var(--ds-size-8);
+    padding: var(--ds-size-5);
+    background-color: var(--ds-color-neutral-surface-default);
+    border-radius: var(--ds-border-radius-md);
+  }
+
+  .related-links :global(h2) {
+    margin: 0 0 var(--ds-size-4);
+  }
+
+  .related-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--ds-size-2);
+  }
+
+  .related-links li {
+    font-size: var(--ds-font-size-1);
+  }
+
+  .external-icon {
+    font-size: var(--ds-font-size-0);
+  }
+
+  .article-nav {
+    padding-top: var(--ds-size-6);
+    border-top: 1px solid var(--ds-color-neutral-border-subtle);
+  }
+
+  .back-link {
+    font-size: var(--ds-font-size-1);
+  }
+</style>

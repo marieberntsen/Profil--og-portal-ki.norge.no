@@ -13,54 +13,30 @@ interface Props {
 }
 
 const { articles = [] } = Astro.props;
-
-// Placeholder articles for when Strapi is not connected
-const placeholderArticles = [
-  {
-    title: 'Lansering av regulatorisk sandkasse for KI',
-    excerpt: 'Nkom, Datatilsynet og Digdir lanserer den forste regulatoriske sandkassen for kunstig intelligens i Norge.',
-    slug: 'lansering-sandkasse',
-    publishedAt: '2024-01-15',
-    category: 'Nyhet',
-  },
-  {
-    title: 'Nye retningslinjer for KI i offentlig sektor',
-    excerpt: 'Oppdaterte retningslinjer for ansvarlig bruk av kunstig intelligens i offentlige virksomheter.',
-    slug: 'nye-retningslinjer',
-    publishedAt: '2024-01-10',
-    category: 'Veiledning',
-  },
-  {
-    title: 'Suksesshistorie: KI i helsetjenesten',
-    excerpt: 'Les om hvordan en norsk kommune har implementert KI for a forbedre helsetjenestene.',
-    slug: 'ki-helsetjenesten',
-    publishedAt: '2024-01-05',
-    category: 'Eksempel',
-  },
-];
-
-const displayArticles = articles.length > 0 ? articles : placeholderArticles;
+const hasArticles = articles.length > 0;
 ---
 
-<section class="news">
-  <div class="news-container">
-    <div class="news-header">
-      <Heading level={2} size="large" className="news-heading">Siste nytt</Heading>
-      <Link href="/artikler" className="news-link">Se alle artikler</Link>
+{hasArticles && (
+  <section class="news">
+    <div class="news-container">
+      <div class="news-header">
+        <Heading level={2} size="large" className="news-heading">Siste nytt</Heading>
+        <Link href="/artikler" className="news-link">Se alle artikler</Link>
+      </div>
+      <div class="news-grid">
+        {articles.slice(0, 3).map((article) => (
+          <ArticleCard
+            title={article.title}
+            excerpt={article.excerpt}
+            slug={article.slug}
+            publishedAt={article.publishedAt}
+            category={article.category}
+          />
+        ))}
+      </div>
     </div>
-    <div class="news-grid">
-      {displayArticles.slice(0, 3).map((article) => (
-        <ArticleCard
-          title={article.title}
-          excerpt={article.excerpt}
-          slug={article.slug}
-          publishedAt={article.publishedAt}
-          category={article.category}
-        />
-      ))}
-    </div>
-  </div>
-</section>
+  </section>
+)}
 
 <style>
   .news {

@@ -1,0 +1,46 @@
+---
+import { Link } from '@digdir/designsystemet-react';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+---
+
+<div class="preview-banner">
+  <span class="preview-text">
+    Du ser på en forhåndsvisning av upublisert innhold
+  </span>
+  <Link href={`/api/exit-preview?redirect=${encodeURIComponent(currentPath)}`} class="exit-link">
+    Avslutt forhåndsvisning
+  </Link>
+</div>
+
+<style>
+  .preview-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: var(--ds-color-warning-surface-default);
+    border-top: 2px solid var(--ds-color-warning-border-default);
+    padding: var(--ds-size-3) var(--ds-size-4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--ds-size-4);
+    z-index: 1000;
+  }
+
+  .preview-text {
+    font-size: var(--ds-font-size-1);
+    font-weight: var(--ds-font-weight-medium);
+    color: var(--ds-color-warning-text-default);
+  }
+
+  .exit-link :global(a) {
+    font-size: var(--ds-font-size-1);
+    font-weight: var(--ds-font-weight-medium);
+  }
+</style>
