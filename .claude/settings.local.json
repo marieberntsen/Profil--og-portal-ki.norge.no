@@ -82,7 +82,14 @@
       "Bash(export STRAPI_URL=\"http://localhost:1337\":*)",
       "Bash(npm run build:*)",
       "Bash(npm run dev:*)",
-      "Bash(/usr/bin/git:*)"
+      "Bash(/usr/bin/git:*)",
+      "Bash(npm install:*)",
+      "Bash(pnpm add:*)",
+      "Bash(export PATH=\"$HOME/.nvm/versions/node/v20.20.0/bin:$PATH\")",
+      "Bash(npm run develop:*)",
+      "Bash(/usr/bin/which:*)",
+      "Bash(/usr/local/bin/git:*)",
+      "Bash(/opt/homebrew/bin/git --version)"
     ]
   }
 }
