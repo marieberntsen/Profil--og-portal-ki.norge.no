@@ -19,14 +19,16 @@ Portal for kunstig intelligens i norsk offentlig sektor.
 - **Public permissions** - Configured via bootstrap script (no auth needed for reads)
 
 ### Frontend
+- **Deno 2** - Runtime (replaces Node.js for frontend)
 - **Astro v5** - Static site generator
 - **React 19** - Component library (via Astro integration)
 - **Designsystemet v1.11** - Digdir's design system (`@digdir/designsystemet-react`)
-- **TypeScript** - Type safety
+- **TypeScript** - Type safety (native in Deno)
 
 ### Monorepo / Tooling
-- **pnpm** - Package manager with workspaces
-- **pnpm-workspace.yaml** - Monorepo configuration
+- **pnpm** - Package manager for CMS only
+- **Deno** - Runtime + package manager for frontend
+- **pnpm-workspace.yaml** - CMS workspace configuration
 
 ### Hosting
 - **Self-hosted** - No vendor lock-in
@@ -58,12 +60,22 @@ ki.norge.no/
 ## Development
 
 ### Prerequisites
-- Node.js v20+
-- pnpm
+- Node.js v20+ (for CMS only)
+- pnpm (for CMS only)
+- Deno 2+ (for frontend)
 
 ### Setup
+
+**CMS:**
 ```bash
+cd apps/cms
 pnpm install
+```
+
+**Frontend:**
+```bash
+cd apps/frontend
+deno install --allow-scripts
 ```
 
 ### Start Development Servers
@@ -75,10 +87,10 @@ pnpm develop
 ```
 Admin panel: http://localhost:1337/admin
 
-**Terminal 2 - Frontend (Astro):**
+**Terminal 2 - Frontend (Astro/Deno):**
 ```bash
 cd apps/frontend
-npm run dev
+deno task dev
 ```
 Frontend: http://localhost:4321
 
@@ -92,7 +104,7 @@ The frontend is a **static site generator**. Pages are pre-rendered with content
 - Or trigger a page reload by saving a frontend file
 
 **In production:**
-- Run `npm run build` in `apps/frontend` to rebuild with latest CMS content
+- Run `deno task build` in `apps/frontend` to rebuild with latest CMS content
 - Consider webhook-triggered rebuilds when CMS content changes
 
 ## Content Types

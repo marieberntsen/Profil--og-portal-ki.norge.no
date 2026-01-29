@@ -2,7 +2,9 @@
   "tasks": {
     "dev": "deno -A npm:astro dev",
     "build": "deno -A npm:astro build",
-    "preview": "deno -A npm:astro preview"
+    "preview": "deno -A npm:astro preview",
+    "test:e2e": "deno -A npm:playwright test",
+    "test:e2e:ui": "deno -A npm:playwright test --ui"
   },
   "nodeModulesDir": "auto",
   "compilerOptions": {
